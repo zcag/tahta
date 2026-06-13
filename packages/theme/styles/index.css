@@ -26,10 +26,30 @@
 .slidev-layout a  { color: var(--accent); text-underline-offset: 3px; }
 .slidev-layout strong { color: var(--fg); font-weight: var(--w-strong); }
 .accent2 { color: var(--accent); }
+.dim { color: var(--fg-dim); }
+
+/* ===== type + measure utilities (token-driven; use these, never raw text-Nxl) ===== */
+.fs-kicker { font-size: var(--fs-kicker); }
+.fs-lead { font-size: var(--fs-lead); }
+.fs-body { font-size: var(--fs-body); }
+.fs-h2 { font-size: var(--fs-h2); }
+.fs-cover { font-size: var(--fs-cover); }
+.fs-section { font-size: var(--fs-section); }
+.fs-quote { font-size: var(--fs-quote); }
+.fs-stat-xl { font-size: var(--fs-stat-xl); }
+.fs-stat-lg { font-size: var(--fs-stat-lg); }
+.fs-stat-md { font-size: var(--fs-stat-md); }
+.fs-stat-sm { font-size: var(--fs-stat-sm); }
+.fs-bleed-stat { font-size: var(--fs-bleed-stat); }
+.mw-cover { max-width: var(--mw-cover); }
+.mw-title { max-width: var(--mw-title); }
+.mw-prose { max-width: var(--mw-prose); }
+.mw-lead { max-width: var(--mw-lead); }
+.mw-quote { max-width: var(--mw-quote); }
 
 /* ===== kicker (deco shape varies by variant) ===== */
 .kicker {
-  font: 600 0.72rem/1 var(--font-mono);
+  font: 600 var(--fs-kicker)/1 var(--font-mono);
   letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
   display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: var(--sp-4);
 }
@@ -69,7 +89,7 @@
 /* ===== steps ===== */
 .steps { display: flex; align-items: stretch; gap: var(--sp-3); text-align: center; }
 .steps .arrow { display: flex; align-items: center; color: var(--accent); font-size: 1.3rem; font-weight: 700; }
-.step-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.25rem; margin-bottom: var(--sp-2); }
+.step-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: var(--fs-step-title); margin-bottom: var(--sp-2); }
 .step-desc { font-size: 0.92rem; color: var(--fg-dim); }
 
 /* ===== footer ===== */

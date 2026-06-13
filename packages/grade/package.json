@@ -2,14 +2,30 @@
   "name": "tahta",
   "version": "0.1.0",
   "description": "Visual-grading CLI for Slidev decks — export every slide to PNG, auto-flag blank/broken slides, and open a side-by-side review report. Local-dev companion to slidev-theme-tahta.",
-  "keywords": ["slidev", "presentation", "screenshot", "visual-testing", "tahta"],
+  "keywords": [
+    "slidev",
+    "presentation",
+    "screenshot",
+    "visual-testing",
+    "tahta"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/zcag/tahta",
-  "repository": { "type": "git", "url": "https://github.com/zcag/tahta", "directory": "packages/grade" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zcag/tahta",
+    "directory": "packages/grade"
+  },
   "type": "module",
-  "bin": { "tahta": "./cli.mjs" },
-  "files": ["cli.mjs", "lib"],
+  "bin": {
+    "tahta": "./cli.mjs"
+  },
+  "files": [
+    "cli.mjs",
+    "lib"
+  ],
   "dependencies": {
+    "pixelmatch": "^6.0.0",
     "pngjs": "^7.0.0",
     "sirv": "^3.0.0"
   },

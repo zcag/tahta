@@ -1,16 +1,17 @@
 <script setup>
+const SIZES = { sm: 'fs-stat-sm', md: 'fs-stat-md', lg: 'fs-stat-lg', xl: 'fs-stat-xl' }
 defineProps({
   value: { type: [String, Number], required: true },
   unit: { type: String, default: '' },
   label: { type: String, default: '' },
-  size: { type: String, default: 'text-5xl' },
+  size: { type: String, default: 'md' },     // sm | md | lg | xl
   accent: { type: Boolean, default: false },
 })
 </script>
 
 <template>
   <div class="card stat">
-    <div :class="['stat-num', size, accent && 'accent-num']">{{ value }}<span class="stat-unit" v-if="unit">{{ unit }}</span></div>
-    <div class="stat-label text-sm" v-if="label">{{ label }}</div>
+    <div :class="['stat-num', SIZES[size] || SIZES.md, accent && 'accent-num']">{{ value }}<span v-if="unit" class="stat-unit">{{ unit }}</span></div>
+    <div v-if="label" class="stat-label">{{ label }}</div>
   </div>
 </template>

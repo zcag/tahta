@@ -51,12 +51,22 @@ Full schema + examples: `packages/theme/AGENTS.md`.
 
 ## 5. Grading
 
-`packages/grade` (`tahta` CLI) exports every slide to PNG, auto-flags blank/broken slides (near-uniform canvas, zero-dimension, too-few-colors), and builds a side-by-side HTML report with a tab per variant.
+`packages/grade` (`tahta` CLI) is the inner loop. It exports every slide to PNG and runs three layers of check, then builds a side-by-side HTML report with a tab per variant:
+
+1. **Blank / broken** (always) — near-uniform canvas, zero-dimension, too-few-colors.
+2. **Visual regression** (`--baseline`) — pixel-diff vs an accepted baseline; flags drift and writes a diff image. `--update-baseline` to accept.
+3. **Overflow + contrast** (`--checks`) — playwright measures clipped overflow (invisible in a PNG) and large-text contrast; decorative elements are excluded from the overflow measure.
 
 ```bash
 tahta slides.md --variants editorial,brutalist,soft,minimal --serve 4180
-tahta slides.md --watch          # re-grade on save
-tahta slides.md                  # CI: exits non-zero if any slide is flagged
+tahta slides.md --watch                 # re-grade on save
+tahta slides.md --update-baseline       # accept current render
+tahta slides.md --checks                # + overflow/contrast
+tahta slides.md                         # CI: non-zero exit if anything is flagged
 ```
 
-This is the inner loop: change a token → `tahta --watch` → see every slide in every variant update, with broken ones flagged.
+Change a token → `tahta --watch` → see every slide in every variant update, with broken / regressed / overflowing slides flagged. Full reference: `packages/grade/README.md`.
+
+## Architecture rule
+
+Components and layouts read **only semantic tokens** — never a raw hex, font name, radius, or `text-Nxl` size. Type sizes are `--fs-*` tokens (via `.fs-*` classes), measures are `--mw-*`. This is what makes a variant able to re-scale type, and what made the one hardcoded value that slipped through (a chart bar color) a bug worth fixing into `--chart-muted`. The shared chrome (kicker · title · glow · ghost · footer) lives in one `SlideFrame` component, so a layout is ~3 lines and global changes happen once.

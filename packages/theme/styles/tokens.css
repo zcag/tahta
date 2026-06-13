@@ -38,6 +38,28 @@
   --glow: radial-gradient(46% 58% at 78% 14%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%);
   --kicker-deco: line;        /* line | bracket | dot | none */
   --card-tick: 1;             /* show the accent tick on cards */
+
+  /* TYPE SCALE (semantic, per-role; variants may override) */
+  --fs-kicker: 0.72rem;
+  --fs-lead: 1.5rem;          /* subtitles, lead paragraphs */
+  --fs-body: 1.125rem;
+  --fs-h2: 2.25rem;           /* topic / content titles */
+  --fs-cover: 4.5rem;         /* cover title */
+  --fs-section: 4.5rem;       /* section title */
+  --fs-quote: 3.75rem;
+  --fs-stat-xl: 6rem;         /* hero stat (stats layout) */
+  --fs-stat-lg: 4rem;
+  --fs-stat-md: 3rem;         /* stat card */
+  --fs-stat-sm: 1.875rem;
+  --fs-bleed-stat: 11rem;
+  --fs-step-title: 1.25rem;
+
+  /* MEASURE (max line length) */
+  --mw-cover: 17ch;
+  --mw-title: 22ch;
+  --mw-prose: 46ch;
+  --mw-lead: 44ch;
+  --mw-quote: 20ch;
 }
 
 /* ---------- VARIANT BUNDLES ---------- */
@@ -60,6 +82,8 @@
   --bg-texture: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   --bg-texture-size: 40px 40px, 40px 40px; --bg-texture-op: 1;
   --kicker-deco: bracket; --card-tick: 1;
+  /* Space Mono is wide → pull the display scale down so it fits */
+  --fs-cover: 3.6rem; --fs-section: 3.6rem; --fs-h2: 2rem; --fs-quote: 3rem;
 }
 
 /* SOFT — humanist sans, big radius, soft shadows, warm paper (light). */
@@ -97,4 +121,6 @@
   --bg-texture: none; --bg-texture-op: 0;
   --glow: none;
   --kicker-deco: none; --card-tick: 0;
+  /* Swiss → larger, more confident display */
+  --fs-cover: 5.5rem; --fs-section: 5.5rem; --fs-h2: 3rem; --fs-stat-xl: 7rem;
 }

@@ -3,7 +3,7 @@ import { join } from 'node:path'
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
 
-/** results: [{ variant, dir, slides: [{ index, rel, a, flags }] }]  → writes outDir/index.html */
+/** results: [{ variant, slides: [{ index, rel, a, diff, ck, flags }] }] → writes outDir/index.html */
 export function writeReport (outDir, results, meta = {}) {
   const totalFlags = results.reduce((s, r) => s + r.slides.filter(x => x.flags.length).length, 0)
   const tabs = results.map((r, i) => {
@@ -14,16 +14,27 @@ export function writeReport (outDir, results, meta = {}) {
   const panels = results.map((r, i) => {
     const cards = r.slides.map(s => {
       const bad = s.flags.length > 0
+      const metrics = []
+      metrics.push(`${s.a.distinctColors}c·σ${s.a.luminanceStd}`)
+      if (s.diff && s.diff.pct > 0) metrics.push(`Δ${s.diff.pct}%`)
+      if (s.ck && s.ck.contrast != null) metrics.push(`${s.ck.contrast}:1`)
+      const cap = bad
+        ? `<span class="warn">${s.flags.map(esc).join(' · ')}</span>`
+        : `<span class="ok">${esc(metrics.join('  '))}</span>`
+      const diffLink = s.diff && s.diff.rel ? `<a class="difflink" href="${esc(s.diff.rel)}" target="_blank" title="visual diff">Δ ${s.diff.pct}%</a>` : ''
       return `<figure class="card${bad ? ' bad' : ''}">
-        <a href="${esc(s.rel)}" target="_blank"><img loading="lazy" src="${esc(s.rel)}" alt="slide ${s.index}"></a>
-        <figcaption><span class="n">${s.index}</span>${bad ? `<span class="warn">${s.flags.map(esc).join(' · ')}</span>` : `<span class="ok">${s.a.distinctColors} colors · σ${s.a.luminanceStd}</span>`}</figcaption>
+        <a href="${esc(s.rel)}" target="_blank"><img loading="lazy" src="${esc(s.rel)}" alt="slide ${s.index}">${diffLink}</a>
+        <figcaption><span class="n">${s.index}</span>${cap}</figcaption>
       </figure>`
     }).join('')
     return `<section class="panel${i === 0 ? ' on' : ''}" data-i="${i}"><div class="grid">${cards}</div></section>`
   }).join('')
 
+  const notes = [meta.baseline ? 'baseline diff' : 'no baseline', meta.checks ? 'overflow+contrast' : 'structural only'].join(' · ')
+
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%236aa0f0'/%3E%3C/svg%3E">
 <title>tahta · grade — ${esc(meta.title || 'deck')}</title>
 <style>
 :root{--bg:#0b0d12;--surface:#141821;--line:#252b38;--fg:#e9ecf2;--dim:#8b94a7;--accent:#6aa0f0;--bad:#ff5c5c}
@@ -41,14 +52,16 @@ header{position:sticky;top:0;z-index:5;background:rgba(11,13,18,.86);backdrop-fi
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
 .card{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .card.bad{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset}
+.card a{position:relative;display:block}
 .card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.difflink{position:absolute;right:8px;top:8px;background:rgba(255,60,120,.92);color:#fff;font:700 11px/1 ui-monospace,monospace;padding:4px 7px;border-radius:6px;text-decoration:none}
 figcaption{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;font:12px/1.3 ui-monospace,monospace}
 .n{color:var(--dim)}.ok{color:var(--dim)}.warn{color:var(--bad);text-align:right}
 </style></head>
 <body>
 <header>
   <span class="brand"><b>tahta</b> · grade</span>
-  <span class="meta">${esc(meta.title || '')}</span>
+  <span class="meta">${esc(meta.title || '')} · ${esc(notes)}</span>
   <span class="summary">${totalFlags ? `<span class="flagged">${totalFlags} flagged</span>` : `<span class="clean">all clean</span>`} · ${esc(meta.stamp || '')}</span>
 </header>
 <div class="tabs">${tabs}</div>
