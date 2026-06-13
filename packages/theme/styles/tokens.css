@@ -1,0 +1,100 @@
+/* slidev-theme-deck — TOKENS (3-tier: primitives → semantic → variant bundles)
+ * Switch the whole STYLE (type, shape, texture, density, palette) with one line:
+ *   themeConfig: { variant: editorial | brutalist | soft | minimal }
+ * Override just the accent with:  themeConfig: { accent: '#hex' }
+ * Components/layouts read ONLY the semantic vars below, so a variant restyles everything. */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Hanken+Grotesk:wght@400..800&family=Plus+Jakarta+Sans:wght@400..800&family=Archivo:wght@400..800&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+/* ---------- PRIMITIVES ---------- */
+:root {
+  --u: 4px;                                   /* baseline unit (4pt) */
+  --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-6: 24px;
+  --sp-8: 32px; --sp-12: 48px; --sp-16: 64px; --sp-20: 80px;
+  --ratio: 1.28;                              /* modular scale */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- SEMANTIC DEFAULTS (= editorial) ---------- */
+:root {
+  --ink: #0c0d10; --ink-2: #15171c; --line: #262a33;
+  --fg: #ece9e3; --fg-dim: #9a9b94; --warn: #ff6b6b;
+  --accent: #7aa2ff; --accent-2: #7aa2ff; --on-accent: #0c0d10;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --w-display: 600; --tr-display: -0.02em; --w-strong: 650;
+
+  --radius: 12px; --radius-sm: 8px; --rule-w: 1px;
+  --pad-x: 3.6rem; --pad-y: 3.1rem; --gap: 1.6rem;
+  --surface-bg: var(--ink-2);
+  --surface-border: var(--rule-w) solid var(--line);
+  --surface-shadow: 0 18px 42px -28px rgba(0,0,0,0.85);
+  --code-bg: #0d1017; --chart-muted: #4b5566;
+
+  --bg-texture: var(--grain); --bg-texture-size: 160px 160px; --bg-texture-op: 0.045;
+  --glow: radial-gradient(46% 58% at 78% 14%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%);
+  --kicker-deco: line;        /* line | bracket | dot | none */
+  --card-tick: 1;             /* show the accent tick on cards */
+}
+
+/* ---------- VARIANT BUNDLES ---------- */
+
+/* EDITORIAL — refined serif headlines, hairline rules, faint grain (dark). Default. */
+:root[data-variant='editorial'] { /* same as defaults */ }
+
+/* BRUTALIST — mono, hard edges, heavy rules, blueprint grid (dark). */
+:root[data-variant='brutalist'] {
+  --ink: #000; --ink-2: #0c0c0c; --line: #2c2c2c;
+  --fg: #f2f2ee; --fg-dim: #8d8d86; --warn: #ff5a3c;
+  --accent: #c8f135; --accent-2: #c8f135; --on-accent: #000;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Space Mono', monospace;
+  --w-display: 700; --tr-display: -0.01em; --w-strong: 700;
+  --radius: 0; --radius-sm: 0; --rule-w: 2px;
+  --pad-x: 3.4rem; --pad-y: 3rem; --gap: 1.1rem;
+  --surface-shadow: none; --code-bg: #0a0a0a; --chart-muted: #3d3d3d;
+  --bg-texture: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  --bg-texture-size: 40px 40px, 40px 40px; --bg-texture-op: 1;
+  --kicker-deco: bracket; --card-tick: 1;
+}
+
+/* SOFT — humanist sans, big radius, soft shadows, warm paper (light). */
+:root[data-variant='soft'] {
+  --ink: #f4f1ea; --ink-2: #ffffff; --line: #e7e1d6;
+  --fg: #221f1a; --fg-dim: #7c766c; --warn: #d9472b;
+  --accent: #ee5a36; --accent-2: #ee5a36; --on-accent: #fff;
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.025em; --w-strong: 700;
+  --radius: 22px; --radius-sm: 14px; --rule-w: 1px;
+  --pad-x: 3.8rem; --pad-y: 3.4rem; --gap: 1.8rem;
+  --surface-bg: #ffffff; --surface-border: 1px solid #efeae0;
+  --surface-shadow: 0 22px 50px -30px rgba(60,45,30,0.30);
+  --code-bg: #f7f4ee; --chart-muted: #ddd6ca;
+  --bg-texture: none; --bg-texture-op: 0;
+  --glow: radial-gradient(50% 60% at 82% 8%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%);
+  --kicker-deco: dot; --card-tick: 0;
+}
+
+/* MINIMAL — Swiss, huge type, max whitespace, hairline only, pure white (light). */
+:root[data-variant='minimal'] {
+  --ink: #ffffff; --ink-2: #fafafa; --line: #e3e3e3;
+  --fg: #0a0a0a; --fg-dim: #6f6f6f; --warn: #e5341c;
+  --accent: #e5341c; --accent-2: #e5341c; --on-accent: #fff;
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.035em; --w-strong: 700;
+  --radius: 0; --radius-sm: 0; --rule-w: 1px;
+  --pad-x: 4.2rem; --pad-y: 3.8rem; --gap: 2rem;
+  --surface-bg: transparent; --surface-border: 1px solid var(--line);
+  --surface-shadow: none; --code-bg: #f5f5f5; --chart-muted: #d6d6d6;
+  --bg-texture: none; --bg-texture-op: 0;
+  --glow: none;
+  --kicker-deco: none; --card-tick: 0;
+}

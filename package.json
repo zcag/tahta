@@ -1,0 +1,12 @@
+{
+  "name": "tahta-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tahta — a pristine, themeable Slidev design system + a visual-grading CLI.",
+  "license": "MIT",
+  "workspaces": ["packages/*", "examples/*"],
+  "scripts": {
+    "dev": "npm run dev -w @tahta/example-edge",
+    "grade": "npm run grade -w @tahta/example-edge"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+.tahta/
+dist/
+.slidev/
+*.log
+.DS_Store
