@@ -4,9 +4,16 @@
   "private": true,
   "description": "Tahta — a pristine, themeable Slidev design system + a visual-grading CLI.",
   "license": "MIT",
-  "workspaces": ["packages/*", "examples/*"],
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
     "dev": "npm run dev -w @tahta/example-edge",
-    "grade": "npm run grade -w @tahta/example-edge"
+    "grade": "npm run grade -w @tahta/example-edge",
+    "assets": "node scripts/gen-assets.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.0"
   }
 }

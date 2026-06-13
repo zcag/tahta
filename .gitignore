@@ -4,3 +4,5 @@ dist/
 .slidev/
 *.log
 .DS_Store
+
+.cache/
