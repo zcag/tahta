@@ -8,14 +8,16 @@ const cols = computed(() => $frontmatter.columns || Math.min(features.value.leng
 
 <template>
   <SlideFrame mode="topic">
-    <div class="feature" :style="{ gridTemplateColumns: `repeat(${cols}, minmax(0,1fr))` }">
-      <Reveal v-for="(f, i) in features" :key="i" :delay="i * 100">
-        <div class="feature-cell card">
-          <Icon v-if="f.icon" :name="f.icon" class="feature-icon" />
-          <div class="feature-title">{{ f.title }}</div>
-          <div class="feature-desc">{{ f.desc }}</div>
-        </div>
-      </Reveal>
-    </div>
+    <Fit>
+      <div class="feature" :style="{ gridTemplateColumns: `repeat(${cols}, minmax(0,1fr))` }">
+        <Reveal v-for="(f, i) in features" :key="i" :delay="i * 100">
+          <div class="feature-cell card">
+            <Icon v-if="f.icon" :name="f.icon" class="feature-icon" />
+            <div class="feature-title">{{ f.title }}</div>
+            <div class="feature-desc">{{ f.desc }}</div>
+          </div>
+        </Reveal>
+      </div>
+    </Fit>
   </SlideFrame>
 </template>

@@ -36,15 +36,22 @@ subtitle: How we cut <span class="accent2">p95 latency 80%</span> by moving to t
 | `stats` | 2–4 hero numbers | `kicker, title, stats[], columns?` |
 | `fact` | one giant figure | `kicker, value, unit?, label?` |
 | `compare` | before/after table | `kicker, title, rows[], columns?` |
-| `chart` | data as bars (ECharts) | `kicker, title, chart{}, note?` |
+| `chart` | data viz (ECharts) | `kicker, title, chart{}, note?` |
 | `steps` | a process / pipeline | `kicker, title, steps[]` |
 | `feature` | icon + title + blurb cells | `kicker, title, features[], columns?` |
+| `timeline` | a horizontal sequence | `kicker, title, events[]` |
+| `logos` | a trust / logo wall | `kicker, title, logos[], columns?` |
+| `code` | code, optionally Magic Move | `kicker, title` + a ` ```md magic-move ` body |
 | `two-cols` | generic split | `kicker, title` + markdown body + `::right::` |
 | `image` | text + side image | `kicker, title, image, side` + markdown body |
+| `showcase` | asymmetric image hero (fixed 43/57) | `kicker, title, subtitle, image, side` |
 | `bleed` | full-bleed image hero | `image, kicker, stat?, title, subtitle, duotone?` |
+| `embed` | video / iframe | `kicker, title, video` or `iframe` |
 | `end` | closing | `title, subtitle, contact` |
 
 `ghost:` (optional, on default/section/stats/steps/fact) prints a huge faint background glyph — pass a number or short symbol like `"03"` or `"%"`.
+
+**Charts** — `chart.type` is `bar` (default) · `line` · `area` · `donut`. `bar/line/area` take `categories` + `series[]`; `donut` takes `categories` + one `series` of values. Multi-series colors come from the one-hue palette automatically. Long bodies auto-fit to the frame.
 
 **Icons** — `stats[]`, `steps[]`, and `feature[]` items take an optional `icon:` ([Lucide](https://lucide.dev) name, e.g. `"lucide:zap"`), bundled offline. In a `default`/`statement` body use `<Icon name="lucide:rocket" />` directly.
 

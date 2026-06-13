@@ -114,6 +114,43 @@
 /* ===== two columns ===== */
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); align-items: start; }
 
+/* ===== code layout ===== */
+.code-wrap { max-width: 64rem; width: 100%; margin: 0 auto; }
+.code-wrap .slidev-code, .code-wrap pre { font-size: 1.05rem; }
+
+/* ===== embed (video / iframe) ===== */
+.embed { width: 100%; height: 100%; border-radius: var(--radius); overflow: hidden; border: var(--surface-border); background: #000; }
+.embed iframe, .embed video { width: 100%; height: 100%; border: 0; display: block; object-fit: cover; }
+
+/* ===== timeline (horizontal) ===== */
+.timeline { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--sp-6); position: relative; padding-top: 1.6rem; }
+.timeline::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 2px; background: var(--line); }
+.tl-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--accent); position: absolute; top: 0; box-shadow: 0 0 0 4px var(--ink); }
+.tl-date { font: 600 0.74rem/1 var(--font-mono); letter-spacing: 0.08em; color: var(--accent); margin: 1.1rem 0 0.5rem; }
+.tl-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.2rem; margin-bottom: 0.3rem; }
+.tl-desc { color: var(--fg-dim); font-size: 0.95rem; max-width: 22ch; }
+
+/* ===== logo wall ===== */
+.logos { display: grid; gap: var(--sp-8); align-items: center; justify-items: center; }
+.logo-cell { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--fg-dim); }
+.logo-cell .tahta-icon { font-size: 2.4rem; color: var(--fg); }
+.logo-cell .logo-text { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.4rem; color: var(--fg); letter-spacing: -0.01em; }
+
+/* ===== showcase (deliberate asymmetric hero — fixed ratio, won't reflow with content) ===== */
+.showcase { display: grid; grid-template-columns: 43% 57%; height: 100%; }
+.showcase.flip { grid-template-columns: 57% 43%; }
+.showcase-media { position: relative; background-size: cover; background-position: center; }
+.showcase-media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 160px rgba(0,0,0,0.45); }
+.showcase-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
+
+/* ===== callout ===== */
+.callout { display: flex; gap: var(--sp-4); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius); background: var(--surface-bg); border: var(--surface-border); border-left: 3px solid var(--accent); align-items: flex-start; }
+.callout .tahta-icon { color: var(--accent); font-size: 1.4rem; margin-top: 0.1rem; flex: none; }
+
+/* ===== fit-to-frame ===== */
+.fit { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.fit-inner { transform-origin: top center; }
+
 /* ===== steps ===== */
 .steps { display: flex; align-items: stretch; gap: var(--sp-3); text-align: center; }
 .steps .arrow { display: flex; align-items: center; color: var(--accent); font-size: 1.3rem; font-weight: 700; }
@@ -168,3 +205,5 @@
 .l-center { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); z-index: 1; }
 .l-center.middle { align-items: center; text-align: center; }
 .slidev-layout.l-bleed, .slidev-layout.l-split { padding: 0; }
+
+.tl-item { position: relative; }

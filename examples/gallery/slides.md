@@ -147,6 +147,52 @@ title: Bleed — full-bleed image with overlaid text
 ---
 
 ---
+layout: code
+kicker: layout · code
+title: Code — with Magic Move
+---
+
+````md magic-move
+```js
+const x = await get(url)
+```
+```js
+const x = await cache.match(url) ?? await get(url)
+```
+````
+
+---
+layout: timeline
+kicker: layout · timeline
+title: Timeline — a horizontal sequence
+events:
+  - { date: "Q1", title: Discover, desc: research & scope }
+  - { date: "Q2", title: Build, desc: core system }
+  - { date: "Q3", title: Ship, desc: public launch }
+  - { date: "Q4", title: Scale, desc: multi-cloud }
+---
+
+---
+layout: logos
+kicker: layout · logos
+title: Logos — a trust wall
+logos:
+  - { icon: "lucide:cloud", text: Northwind }
+  - { icon: "lucide:zap", text: Voltcommerce }
+  - { icon: "lucide:box", text: Crately }
+  - { icon: "lucide:orbit", text: Lumen }
+---
+
+---
+layout: showcase
+side: right
+image: /cover.jpg
+kicker: layout · showcase
+title: Showcase — a deliberate <span class="accent2">asymmetric</span> hero
+subtitle: Fixed 43/57 split with a full-bleed image — dramatic, but it won't reflow with content.
+---
+
+---
 layout: section
 index: "B"
 kicker: Components

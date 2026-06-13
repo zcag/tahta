@@ -56,7 +56,7 @@ async function main () {
   process.stdout.write('  export gallery:editorial … ')
   await withVariant(gallery, 'editorial', () => exportDeck(gallery, join(cache, 'gallery')))
   console.log('done')
-  const pick = [['1', 'cover'], ['4', 'stats'], ['9', 'feature'], ['6', 'chart'], ['7', 'steps'], ['8', 'fact'], ['10', 'two-cols'], ['14', 'bleed']]
+  const pick = [['1', 'cover'], ['4', 'stats'], ['9', 'feature'], ['6', 'chart'], ['16', 'timeline'], ['18', 'showcase'], ['8', 'fact'], ['15', 'code']]
   await grid(pick.map(([n, l]) => ({ path: join(cache, 'gallery', `${n}.png`), label: l })),
     { cols: 2, file: join(out, 'layouts.png') })
 

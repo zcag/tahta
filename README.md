@@ -15,7 +15,8 @@ Default Slidev looks generic. **Tahta** is a token-driven design system that get
 
 - **Style variants, not just colors.** `themeConfig.variant: editorial | brutalist | soft | minimal` swaps typeface, shape language, texture, density, and palette (2 dark, 2 light). Built on a 3-tier token system, so a new variant is one block.
 - **Declarative layouts.** Pick a layout, fill fields. Auto footers, auto page numbers.
-- **Token-driven components.** `Stat`, `StatCard`, `BarChart` (ECharts), `Icon` (Lucide, bundled offline), `Reveal` — they follow the active variant automatically.
+- **Token-driven components.** `Stat`, `StatCard`, `Plot`/`BarChart` (ECharts), `Icon` (Lucide, bundled offline), `Callout`, `Reveal`, `Fit` (auto fit-to-frame) — all follow the active variant automatically.
+- **One accent → a whole palette.** Set one color; chart series, tints and shades derive from it via OKLCH (relative color).
 - **Motion with a personality per variant.** Entrance choreography (`--motion-*` tokens) differs by style — editorial fades, brutalist snaps, soft springs — and is off in print + under reduced-motion.
 
 ## Variants
@@ -68,7 +69,9 @@ stats:
 
 ### Layouts
 
-`cover` · `section` · `default` · `statement` · `quote` · `stats` · `fact` · `compare` · `chart` · `steps` · `feature` · `two-cols` · `image` · `bleed` · `end`
+`cover` · `section` · `default` · `statement` · `quote` · `stats` · `fact` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
+
+Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your one accent. `code` supports Magic Move. Long bodies auto-fit to the frame.
 
 <p align="center"><img src="docs/assets/layouts.png" alt="Layout catalog" width="860"></p>
 

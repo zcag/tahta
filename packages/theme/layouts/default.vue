@@ -1,3 +1,3 @@
 <template>
-  <SlideFrame mode="topic"><slot /></SlideFrame>
+  <SlideFrame mode="topic"><Fit><slot /></Fit></SlideFrame>
 </template>

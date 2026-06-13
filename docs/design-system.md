@@ -38,8 +38,11 @@ Copy a `:root[data-variant='x']` block in `tokens.css`, change the semantic vars
 
 - `Stat`, `StatCard` — big number + label (`value`, `unit`, `label`, `accent`, `icon`, `size`)
 - `BarChart` — ECharts wrapper (`categories`, `series`, `unit`); reads `--accent`, `--fg`, `--chart-muted`
+- `Plot` (alias `BarChart`) — ECharts wrapper; `bar | line | area | donut`, categorical palette from `--cat-*`
 - `Icon` — Lucide icon, bundled offline (`<Icon name="lucide:zap" />`)
+- `Callout` — themed aside (`<Callout icon="lucide:info">…`)
 - `Reveal` — themeable entrance; animation comes from `--motion-*` tokens, off in print + reduced-motion
+- `Fit` — auto fit-to-frame; scales overflowing body content down (never up)
 - `Ghost` — oversized background glyph
 - `Foot` — auto footer (deck title + auto page number); rendered by layouts
 - `SlideFrame` — the shared chrome primitive (kicker · title · glow · ghost · footer) the common layouts delegate to

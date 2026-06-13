@@ -21,6 +21,17 @@
   --fg: #ece9e3; --fg-dim: #9a9b94; --warn: #ff6b6b;
   --accent: #7aa2ff; --accent-2: #7aa2ff; --on-accent: #0c0d10;
 
+  /* ONE-HUE RAMP — everything below is derived from --accent via relative-color OKLCH,
+   * so setting one accent (variant default or themeConfig.accent) reskins the whole palette,
+   * including the categorical chart colors. No per-variant duplication. */
+  --accent-deep: oklch(from var(--accent) calc(l - 0.13) c h);
+  --accent-soft: oklch(from var(--accent) l calc(c * 0.42) h);
+  --cat-1: var(--accent);
+  --cat-2: oklch(from var(--accent) calc(l + 0.02) c calc(h + 42));
+  --cat-3: oklch(from var(--accent) calc(l - 0.05) c calc(h - 52));
+  --cat-4: oklch(from var(--accent) calc(l + 0.10) calc(c * 0.92) calc(h + 18));
+  --cat-5: oklch(from var(--accent) calc(l - 0.10) c calc(h + 80));
+
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
