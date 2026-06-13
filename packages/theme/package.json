@@ -2,17 +2,37 @@
   "name": "slidev-theme-tahta",
   "version": "0.1.0",
   "description": "Tahta — a pristine, themeable Slidev design system. Token-driven style variants, declarative frontmatter layouts, charts.",
-  "keywords": ["slidev-theme", "slidev", "presentation", "design-system", "tahta"],
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "presentation",
+    "design-system",
+    "tahta"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/zcag/tahta",
-  "repository": { "type": "git", "url": "https://github.com/zcag/tahta", "directory": "packages/theme" },
-  "engines": { "slidev": ">=0.48.0" },
-  "files": ["layouts", "components", "styles", "global-bottom.vue", "AGENTS.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zcag/tahta",
+    "directory": "packages/theme"
+  },
+  "engines": {
+    "slidev": ">=0.48.0"
+  },
+  "files": [
+    "layouts",
+    "components",
+    "styles",
+    "global-bottom.vue",
+    "AGENTS.md"
+  ],
   "peerDependencies": {
     "echarts": "^5 || ^6"
   },
   "peerDependenciesMeta": {
-    "echarts": { "optional": true }
+    "echarts": {
+      "optional": true
+    }
   },
   "slidev": {
     "colorSchema": "dark",
@@ -22,5 +42,9 @@
       "serif": "Fraunces",
       "mono": "JetBrains Mono"
     }
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.0",
+    "@iconify/vue": "^5.0.0"
   }
 }

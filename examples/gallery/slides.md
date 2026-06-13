@@ -36,9 +36,9 @@ layout: stats
 kicker: layout · stats
 title: Stats — 2–4 hero numbers
 stats:
-  - { value: 80, unit: "%", label: lower p95 latency }
-  - { value: 33, unit: "%", label: cost reduction }
-  - { value: 0, label: seconds of downtime }
+  - { value: 80, unit: "%", label: lower p95 latency, icon: "lucide:trending-down" }
+  - { value: 33, unit: "%", label: cost reduction, icon: "lucide:badge-dollar-sign" }
+  - { value: 0, label: seconds of downtime, icon: "lucide:shield-check" }
 ---
 
 ---
@@ -68,11 +68,48 @@ layout: steps
 kicker: layout · steps
 title: Steps — a process / pipeline
 steps:
-  - { title: Extract, desc: pull handlers out }
-  - { title: Deploy,  desc: ship to the edge }
-  - { title: Shift,   desc: route gradually }
-  - { title: Retire,  desc: drop the origin }
+  - { title: Extract, desc: pull handlers out, icon: "lucide:scissors" }
+  - { title: Deploy,  desc: ship to the edge, icon: "lucide:rocket" }
+  - { title: Shift,   desc: route gradually, icon: "lucide:route" }
+  - { title: Retire,  desc: drop the origin, icon: "lucide:archive" }
 ---
+
+---
+layout: fact
+kicker: layout · fact
+value: "80"
+unit: "%"
+label: A single figure with maximum prominence — the <span class="accent2">fact</span> layout.
+ghost: "%"
+---
+
+---
+layout: feature
+kicker: layout · feature
+title: Feature — icon + title + blurb cells
+features:
+  - { icon: "lucide:zap", title: Fast, desc: Edge compute in 300+ locations }
+  - { icon: "lucide:shield-check", title: Safe, desc: Zero-downtime migration path }
+  - { icon: "lucide:globe", title: Global, desc: Low p95 everywhere, not just us-east }
+---
+
+---
+layout: two-cols
+kicker: layout · two-cols
+title: Two-cols — a generic split
+---
+
+**Left column.** Plain markdown — bullets, prose, code.
+
+- Authored with the default slot
+- Good for compare-and-contrast
+
+::right::
+
+**Right column.** Filled with `::right::`.
+
+- Independent content
+- Equal-width by default
 
 ---
 layout: quote

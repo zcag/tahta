@@ -7,7 +7,7 @@ A small, opinionated system: **tokens → components → layouts**, with **style
 `packages/theme/styles/tokens.css`
 
 - **Primitives** — raw scales: spacing (4/8pt), modular ratio, the grain texture.
-- **Semantic** — what components actually read: `--ink`, `--fg`, `--accent`, `--font-display`, `--radius`, `--pad-x`, `--surface-bg`, `--chart-muted`, …
+- **Semantic** — what components actually read: `--ink`, `--fg`, `--accent`, `--font-display`, `--radius`, `--pad-x`, `--surface-bg`, `--chart-muted`, the type scale (`--fs-*`) and measures (`--mw-*`), motion (`--motion-dur` / `--motion-ease` / `--reveal-from`), and optical size (`--opsz-*`) — so a variant can re-skin type, *and motion personality*, not just color.
 - **Variant bundles** — `:root[data-variant='…']` blocks that override the semantic layer.
 
 Components/layouts must only reference semantic tokens — never hardcode a hex, radius, or font. (The one bug that slipped through, a hardcoded chart bar color, is exactly what this rule prevents — it became `--chart-muted`.)
@@ -36,10 +36,13 @@ Copy a `:root[data-variant='x']` block in `tokens.css`, change the semantic vars
 
 `packages/theme/components/` — auto-registered, token-driven, usable in any `default`/`statement` body.
 
-- `Stat`, `StatCard` — big number + label (`value`, `unit`, `label`, `accent`)
+- `Stat`, `StatCard` — big number + label (`value`, `unit`, `label`, `accent`, `icon`, `size`)
 - `BarChart` — ECharts wrapper (`categories`, `series`, `unit`); reads `--accent`, `--fg`, `--chart-muted`
+- `Icon` — Lucide icon, bundled offline (`<Icon name="lucide:zap" />`)
+- `Reveal` — themeable entrance; animation comes from `--motion-*` tokens, off in print + reduced-motion
 - `Ghost` — oversized background glyph
 - `Foot` — auto footer (deck title + auto page number); rendered by layouts
+- `SlideFrame` — the shared chrome primitive (kicker · title · glow · ghost · footer) the common layouts delegate to
 
 ## 4. Layouts (declarative)
 

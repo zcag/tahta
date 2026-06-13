@@ -15,7 +15,8 @@ Default Slidev looks generic. **Tahta** is a token-driven design system that get
 
 - **Style variants, not just colors.** `themeConfig.variant: editorial | brutalist | soft | minimal` swaps typeface, shape language, texture, density, and palette (2 dark, 2 light). Built on a 3-tier token system, so a new variant is one block.
 - **Declarative layouts.** Pick a layout, fill fields. Auto footers, auto page numbers.
-- **Token-driven components.** `Stat`, `StatCard`, `BarChart` (ECharts), `Ghost` — they follow the active variant automatically.
+- **Token-driven components.** `Stat`, `StatCard`, `BarChart` (ECharts), `Icon` (Lucide, bundled offline), `Reveal` — they follow the active variant automatically.
+- **Motion with a personality per variant.** Entrance choreography (`--motion-*` tokens) differs by style — editorial fades, brutalist snaps, soft springs — and is off in print + under reduced-motion.
 
 ## Variants
 
@@ -67,7 +68,7 @@ stats:
 
 ### Layouts
 
-`cover` · `section` · `default` · `statement` · `quote` · `stats` · `compare` · `chart` · `steps` · `image` · `bleed` · `end`
+`cover` · `section` · `default` · `statement` · `quote` · `stats` · `fact` · `compare` · `chart` · `steps` · `feature` · `two-cols` · `image` · `bleed` · `end`
 
 <p align="center"><img src="docs/assets/layouts.png" alt="Layout catalog" width="860"></p>
 

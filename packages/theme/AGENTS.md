@@ -1,4 +1,4 @@
-# slidev-theme-deck — authoring contract for agents
+# tahta — authoring contract for agents
 
 You are generating a Slidev deck with this theme. **Do not write CSS, `<style>`, grids, or layout HTML.** Pick a `layout` per slide and fill its frontmatter fields. The theme renders the kicker, title, footer (with auto page numbers), background, type, color, and spacing. Output a single `slides.md`.
 
@@ -14,7 +14,7 @@ You are generating a Slidev deck with this theme. **Do not write CSS, `<style>`,
 ## Deck header (first slide only)
 ```yaml
 ---
-theme: slidev-theme-deck        # or a relative path to the theme
+theme: slidev-theme-tahta        # or a relative path to the theme
 title: Shipping Faster at the Edge
 # accent: rebrand by editing --accent in styles/index.css (azure by default)
 transition: slide-left          # fade | slide-left | view-transition
@@ -34,14 +34,21 @@ subtitle: How we cut <span class="accent2">p95 latency 80%</span> by moving to t
 | `statement` | one big takeaway | `kicker, title` + markdown body |
 | `quote` | testimonial / pull quote | `quote, author` |
 | `stats` | 2–4 hero numbers | `kicker, title, stats[], columns?` |
+| `fact` | one giant figure | `kicker, value, unit?, label?` |
 | `compare` | before/after table | `kicker, title, rows[], columns?` |
 | `chart` | data as bars (ECharts) | `kicker, title, chart{}, note?` |
 | `steps` | a process / pipeline | `kicker, title, steps[]` |
+| `feature` | icon + title + blurb cells | `kicker, title, features[], columns?` |
+| `two-cols` | generic split | `kicker, title` + markdown body + `::right::` |
 | `image` | text + side image | `kicker, title, image, side` + markdown body |
 | `bleed` | full-bleed image hero | `image, kicker, stat?, title, subtitle, duotone?` |
 | `end` | closing | `title, subtitle, contact` |
 
-`ghost:` (optional, on default/section/stats/steps) prints a huge faint background glyph — pass a number or short symbol like `"03"` or `"%"`.
+`ghost:` (optional, on default/section/stats/steps/fact) prints a huge faint background glyph — pass a number or short symbol like `"03"` or `"%"`.
+
+**Icons** — `stats[]`, `steps[]`, and `feature[]` items take an optional `icon:` ([Lucide](https://lucide.dev) name, e.g. `"lucide:zap"`), bundled offline. In a `default`/`statement` body use `<Icon name="lucide:rocket" />` directly.
+
+**Motion** — entrance animation is automatic and themeable (each variant has its own duration/easing/transform); stats/steps/feature stagger in. It's off in print/export and under `prefers-reduced-motion`. Wrap any body element in `<Reveal :delay="120">…</Reveal>` to opt extra content in.
 
 ## Copy-paste examples
 
@@ -150,3 +157,44 @@ Wrap body items in `<v-clicks> … </v-clicks>` to reveal them on click. Use `tr
 
 ## Minimal good deck = ~10 slides
 cover → (problem: default or stats) → (chart or compare) → steps → quote → stats → (bleed hero) → end.
+
+## New layouts — examples
+
+**fact** — one giant figure:
+```yaml
+---
+layout: fact
+kicker: The headline number
+value: "80"
+unit: "%"
+label: lower p95 latency, worldwide
+---
+```
+
+**feature** — icon cells (icons are Lucide names):
+```yaml
+---
+layout: feature
+kicker: Why it works
+title: Three reasons
+features:
+  - { icon: "lucide:zap", title: Fast, desc: Edge compute in 300+ locations }
+  - { icon: "lucide:shield-check", title: Safe, desc: Zero-downtime migration }
+  - { icon: "lucide:globe", title: Global, desc: Low p95 everywhere }
+---
+```
+
+**two-cols** — split body via `::right::`:
+```markdown
+---
+layout: two-cols
+kicker: Trade-offs
+title: Before vs after
+---
+
+**Before** — one region, slow tail.
+
+::right::
+
+**After** — 18 regions, flat p95.
+```

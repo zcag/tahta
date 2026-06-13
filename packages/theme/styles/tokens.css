@@ -52,6 +52,7 @@
   --fs-stat-md: 3rem;         /* stat card */
   --fs-stat-sm: 1.875rem;
   --fs-bleed-stat: 11rem;
+  --fs-fact: 12rem;
   --fs-step-title: 1.25rem;
 
   /* MEASURE (max line length) */
@@ -60,6 +61,16 @@
   --mw-prose: 46ch;
   --mw-lead: 44ch;
   --mw-quote: 20ch;
+
+  /* MOTION — themeable entrance personality (consumed by <Reveal>) */
+  --motion-dur: 0.55s;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --reveal-from: translateY(14px);
+  --stagger: 90ms;
+
+  /* OPTICAL SIZE — for variable fonts exposing an opsz axis (Fraunces); ignored by others */
+  --opsz-display: 116;
+  --opsz-body: 18;
 }
 
 /* ---------- VARIANT BUNDLES ---------- */
@@ -83,7 +94,9 @@
   --bg-texture-size: 40px 40px, 40px 40px; --bg-texture-op: 1;
   --kicker-deco: bracket; --card-tick: 1;
   /* Space Mono is wide → pull the display scale down so it fits */
-  --fs-cover: 3.6rem; --fs-section: 3.6rem; --fs-h2: 2rem; --fs-quote: 3rem;
+  --fs-cover: 3.6rem; --fs-section: 3.6rem; --fs-h2: 2rem; --fs-quote: 3rem; --fs-fact: 8.5rem;
+  /* hard, mechanical motion */
+  --motion-dur: 0.16s; --motion-ease: steps(2, end); --reveal-from: translateX(-10px); --stagger: 70ms;
 }
 
 /* SOFT — humanist sans, big radius, soft shadows, warm paper (light). */
@@ -100,6 +113,8 @@
   --surface-bg: #ffffff; --surface-border: 1px solid #efeae0;
   --surface-shadow: 0 22px 50px -30px rgba(60,45,30,0.30);
   --code-bg: #f7f4ee; --chart-muted: #ddd6ca;
+  /* springy, friendly motion */
+  --motion-dur: 0.6s; --motion-ease: cubic-bezier(0.34, 1.56, 0.64, 1); --reveal-from: translateY(18px) scale(0.97); --stagger: 100ms;
   --bg-texture: none; --bg-texture-op: 0;
   --glow: radial-gradient(50% 60% at 82% 8%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 60%);
   --kicker-deco: dot; --card-tick: 0;
@@ -123,4 +138,6 @@
   --kicker-deco: none; --card-tick: 0;
   /* Swiss → larger, more confident display */
   --fs-cover: 5.5rem; --fs-section: 5.5rem; --fs-h2: 3rem; --fs-stat-xl: 7rem;
+  /* crisp, precise motion */
+  --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.16, 1, 0.3, 1); --reveal-from: translateX(-20px); --stagger: 80ms;
 }

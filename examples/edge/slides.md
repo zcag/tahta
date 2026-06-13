@@ -18,9 +18,9 @@ title: Slow for anyone far from <span class="accent2">us-east-1</span>
 ghost: "01"
 columns: 3
 stats:
-  - { value: 220, unit: ms, label: average round trip }
-  - { value: 480, unit: ms, label: p95 latency }
-  - { value: 900, unit: ms, label: cold start }
+  - { value: 220, unit: ms, label: average round trip, icon: "lucide:timer" }
+  - { value: 480, unit: ms, label: p95 latency, icon: "lucide:gauge" }
+  - { value: 900, unit: ms, label: cold start, icon: "lucide:snowflake" }
 ---
 
 ---
@@ -54,10 +54,10 @@ kicker: The migration
 title: Incremental over six weeks — zero downtime
 ghost: "→"
 steps:
-  - { title: Extract, desc: pull handlers out of the monolith }
-  - { title: Deploy,  desc: ship them to the edge runtime }
-  - { title: Shift,   desc: route traffic gradually, watch p95 }
-  - { title: Retire,  desc: decommission the origin path }
+  - { title: Extract, desc: pull handlers out of the monolith, icon: "lucide:scissors" }
+  - { title: Deploy,  desc: ship them to the edge runtime, icon: "lucide:rocket" }
+  - { title: Shift,   desc: route traffic gradually, watch p95, icon: "lucide:route" }
+  - { title: Retire,  desc: decommission the origin path, icon: "lucide:archive" }
 ---
 
 ---
@@ -73,9 +73,9 @@ title: What actually changed
 ghost: "%"
 columns: 3
 stats:
-  - { value: 80, unit: "%", label: lower p95 latency }
-  - { value: 33, unit: "%", label: cost reduction }
-  - { value: 0, label: seconds of downtime }
+  - { value: 80, unit: "%", label: lower p95 latency, icon: "lucide:trending-down" }
+  - { value: 33, unit: "%", label: cost reduction, icon: "lucide:badge-dollar-sign" }
+  - { value: 0, label: seconds of downtime, icon: "lucide:shield-check" }
 ---
 
 ---

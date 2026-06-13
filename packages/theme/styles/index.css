@@ -47,6 +47,16 @@
 .mw-lead { max-width: var(--mw-lead); }
 .mw-quote { max-width: var(--mw-quote); }
 
+/* ===== optical sizing (variable fonts with an opsz axis, e.g. Fraunces) ===== */
+.slidev-layout { font-variation-settings: "opsz" var(--opsz-body); }
+.slidev-layout h1, .slidev-layout h2, .stat-num, .quote-mark, .ghost { font-variation-settings: "opsz" var(--opsz-display); }
+
+/* ===== motion — <Reveal> entrance, personality from variant tokens ===== */
+@keyframes tahta-reveal { from { opacity: 0; transform: var(--reveal-from, none); } to { opacity: 1; transform: none; } }
+.reveal { animation: tahta-reveal var(--motion-dur) var(--motion-ease) both; will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+.print .reveal, .slidev-print .reveal, [data-print] .reveal { animation: none; }
+
 /* ===== kicker (deco shape varies by variant) ===== */
 .kicker {
   font: 600 var(--fs-kicker)/1 var(--font-mono);
@@ -85,6 +95,24 @@
 /* ===== quote ===== */
 .quote-mark { font-family: var(--font-serif); font-weight: 600; font-size: 7rem; line-height: 0.5; color: var(--accent); }
 .quote-body { font-family: var(--font-serif); font-weight: 500; letter-spacing: -0.01em; line-height: 1.12; }
+
+/* ===== icons ===== */
+.tahta-icon { display: inline-block; vertical-align: -0.125em; }
+.stat-icon { font-size: 1.7rem; color: var(--accent); margin-bottom: var(--sp-3); }
+.step-icon { font-size: 1.5rem; color: var(--accent); margin-bottom: var(--sp-3); display: block; }
+.feature-icon { font-size: 1.9rem; color: var(--accent); margin-bottom: var(--sp-4); }
+
+/* ===== feature grid ===== */
+.feature { display: grid; gap: var(--gap); }
+.feature-cell { display: flex; flex-direction: column; }
+.feature-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.4rem; margin-bottom: var(--sp-2); }
+.feature-desc { color: var(--fg-dim); }
+
+/* ===== fact (single giant figure) ===== */
+.fact-num { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; line-height: 0.86; color: var(--accent); font-size: var(--fs-fact); font-variation-settings: "opsz" var(--opsz-display); }
+
+/* ===== two columns ===== */
+.two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); align-items: start; }
 
 /* ===== steps ===== */
 .steps { display: flex; align-items: stretch; gap: var(--sp-3); text-align: center; }

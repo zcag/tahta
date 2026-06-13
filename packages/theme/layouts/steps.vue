@@ -9,10 +9,13 @@ const steps = computed(() => $frontmatter.steps || [])
   <SlideFrame mode="topic">
     <div class="steps">
       <template v-for="(s, i) in steps" :key="i">
-        <div class="card" style="flex:1">
-          <div class="step-title">{{ s.title }}</div>
-          <div class="step-desc">{{ s.desc }}</div>
-        </div>
+        <Reveal :delay="i * 120" style="flex:1; display:flex">
+          <div class="card" style="flex:1">
+            <Icon v-if="s.icon" :name="s.icon" class="step-icon" />
+            <div class="step-title">{{ s.title }}</div>
+            <div class="step-desc">{{ s.desc }}</div>
+          </div>
+        </Reveal>
         <div v-if="i < steps.length - 1" class="arrow">→</div>
       </template>
     </div>
