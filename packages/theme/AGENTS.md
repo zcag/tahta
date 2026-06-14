@@ -45,6 +45,11 @@ Pick the one whose **best for** fits the talk — this is a required, deliberate
 | `atelier` | dark | Design-forward, launches, premium brand talks — polished and expressive. | Cool refined dark with gradient display titles, periwinkle accent. |
 | `notebook` | light | Teaching, workshops, casual internal updates — informal and hand-made. | White ruled paper, navy bold sans, dashed section rules, highlighter callouts. |
 | `lagoon` | dark | Modern company decks, product, creative — moody, premium, data-rich. | Dark teal depths with soft pastel role-colors (pink, sky, cream-yellow, sage), cream text, and rounded cards. Charts graduate through the pastels. |
+| `press` | light | Essays, journalism, op-eds, design annuals — taste-forward and literary. | Stark black-and-white editorial magazine: high-contrast Fraunces serif, hairline rules, sharp corners, one editorial-red spot. |
+| `boardroom` | dark | Sales, finance, board reviews, enterprise — trustworthy and data-forward. | Deep navy with one warm-orange accent and a clean sans. Conservative, credible; charts in a themed corporate palette. |
+| `signal` | dark | Launches, demo-day, product reveals — high-energy and modern. | True black with one electric cyan accent and a strong glow; heavy tight sans. The one-saturated-accent recipe. |
+| `muse` | light | Research, lectures, long-form, retrospectives — intellectual and unhurried. | A muted stone ground with cream cards and heavy Fraunces serif; earthy olive accent, faint grain. Restraint as luxury. |
+| `poster` | light | Campaigns, sports, events, bold announcements — loud and confident. | Cream with oversized Anton condensed headlines, thick hard rules, and one hot red-orange. Athletic poster energy. |
 
 Override the brand color with `themeConfig.accent`; set `themeConfig.lang` (e.g. `tr`) for correct locale casing.
 

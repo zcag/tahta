@@ -4,7 +4,7 @@
  * Override just the accent with:  themeConfig: { accent: '#hex' }
  * Components/layouts read ONLY the semantic vars below, so a variant restyles everything. */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Hanken+Grotesk:wght@400..800&family=Plus+Jakarta+Sans:wght@400..800&family=Archivo:wght@400..800&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Hanken+Grotesk:wght@400..800&family=Plus+Jakarta+Sans:wght@400..800&family=Archivo:wght@400..800&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600;700&family=Anton&display=swap');
 
 /* ---------- PRIMITIVES ---------- */
 :root {
@@ -256,4 +256,119 @@
   --glow: radial-gradient(72% 80% at 50% -6%, color-mix(in oklab, var(--accent) 17%, transparent), transparent 64%);
   --kicker-deco: line; --card-tick: 1;
   --motion-dur: 0.55s; --motion-ease: cubic-bezier(0.2,0.7,0.2,1); --reveal-from: translateY(16px); --stagger: 90ms;
+}
+
+/* PRESS — stark B&W editorial magazine (after Pitch's Editorial). High-contrast Fraunces
+   serif, hairline rules, sharp corners, flat ink-on-paper, one editorial-red spot. */
+:root[data-variant='press'] {
+  --ink: #fcfbf8; --ink-2: #f1efe9; --line: #1a1813;
+  --fg: #14110b; --fg-dim: #5c584f;
+  --good: #2f6f4f; --warn: #8a5e16; --bad: #b0241c; --info: #2b4d8a;
+  --accent: #b0241c; --accent-2: #14110b; --on-accent: #fff;
+  --cat-1: #14110b; --cat-2: #b0241c; --cat-3: #4c483f; --cat-4: #2b4d8a; --cat-5: #8a5e16; /* ink, red spot, deep-gray, slate, ochre */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 600; --tr-display: -0.025em; --w-strong: 700;
+  --radius: 0px; --radius-sm: 0px; --rule-w: 1.5px;
+  --pad-x: 4.2rem; --pad-y: 3.6rem; --gap: 1.7rem;
+  --surface-bg: #ffffff; --surface-border: 1.5px solid var(--line);
+  --surface-shadow: none;
+  --code-bg: #f3f1ea; --chart-muted: #cfcabd;
+  --bg-texture: none; --bg-texture-size: auto; --bg-texture-op: 1;
+  --glow: none;
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.4s; --motion-ease: cubic-bezier(0.2,0.7,0.2,1); --reveal-from: translateY(10px); --stagger: 70ms;
+}
+
+/* BOARDROOM — deep navy + one warm-orange accent (after PowerPoint's Hexagon). Corporate,
+   trustworthy, data-friendly; clean sans, conservative radius, a faint orange glow. */
+:root[data-variant='boardroom'] {
+  --ink: #0e1b2e; --ink-2: #15273f; --line: #2a3f5c;
+  --fg: #eef3fa; --fg-dim: #9fb2cb;
+  --good: #46c97e; --warn: #f0a93b; --bad: #ff6b6b; --info: #5b9bd5;
+  --accent: #f08a3c; --accent-2: #f08a3c; --on-accent: #0e1b2e;
+  --cat-1: #f08a3c; --cat-2: #5b9bd5; --cat-3: #46c0b0; --cat-4: #e8c861; --cat-5: #8a9bc4; /* orange, steel-blue, teal, gold, slate */
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 700; --tr-display: -0.02em; --w-strong: 700;
+  --radius: 7px; --radius-sm: 5px; --rule-w: 1px;
+  --pad-x: 3.8rem; --pad-y: 3.4rem; --gap: 1.6rem;
+  --surface-bg: var(--ink-2); --surface-border: 1px solid var(--line);
+  --surface-shadow: 0 16px 40px -28px rgba(0,0,0,0.8);
+  --code-bg: #102036; --chart-muted: #34496a;
+  --bg-texture: none; --bg-texture-size: auto; --bg-texture-op: 1;
+  --glow: radial-gradient(46% 58% at 88% 10%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 60%);
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.45s; --motion-ease: cubic-bezier(0.3,0.7,0.2,1); --reveal-from: translateY(12px); --stagger: 70ms;
+}
+
+/* SIGNAL — true black + one electric accent + glow (after Keynote's Standard Minimalist).
+   Launch energy: heavy tight sans, saturated cyan that does all the work, strong glow. */
+:root[data-variant='signal'] {
+  --ink: #050506; --ink-2: #101216; --line: #23262e;
+  --fg: #f4f5f7; --fg-dim: #898d96;
+  --good: #34e5b0; --warn: #ffcf4a; --bad: #ff5d6c; --info: #38d6e0;
+  --accent: #1fe3d2; --accent-2: #1fe3d2; --on-accent: #04100f;
+  --cat-1: #1fe3d2; --cat-2: #ff5d8a; --cat-3: #9b7bff; --cat-4: #ffd23f; --cat-5: #4ad0ff; /* electric set on black */
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.04em; --w-strong: 700;
+  --radius: 12px; --radius-sm: 9px; --rule-w: 1px;
+  --pad-x: 3.6rem; --pad-y: 3.2rem; --gap: 1.6rem;
+  --surface-bg: var(--ink-2); --surface-border: 1px solid var(--line);
+  --surface-shadow: 0 18px 44px -28px rgba(0,0,0,0.95);
+  --code-bg: #0b0d10; --chart-muted: #2c313b;
+  --bg-texture: none; --bg-texture-size: auto; --bg-texture-op: 1;
+  --glow: radial-gradient(62% 72% at 82% 2%, color-mix(in oklab, var(--accent) 34%, transparent), transparent 62%);
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.2,0.8,0.2,1); --reveal-from: translateY(18px); --stagger: 80ms;
+}
+
+/* MUSE — muted stone/tan ground + heavy serif (after Keynote's Scientific Muted). Restraint
+   as luxury: a desaturated warm ground, cream cards, earthy olive accent, faint grain. */
+:root[data-variant='muse'] {
+  --ink: #d9cdb5; --ink-2: #e6dcc6; --line: #b3a585;
+  --fg: #20190f; --fg-dim: #585030;
+  --good: #4f6b3a; --warn: #8a5a16; --bad: #9c3a2c; --info: #3a5670;
+  --accent: #46592f; --accent-2: #46592f; --on-accent: #f2ecdb;
+  --cat-1: #46592f; --cat-2: #9c5a2c; --cat-3: #6f6a3a; --cat-4: #7a5236; --cat-5: #45607a; /* olive, rust, ochre, clay, slate-blue */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 700; --tr-display: -0.02em; --w-strong: 700;
+  --radius: 4px; --radius-sm: 3px; --rule-w: 1px;
+  --pad-x: 4rem; --pad-y: 3.6rem; --gap: 1.7rem;
+  --surface-bg: #f6f0dd; --surface-border: 1px solid var(--line);
+  --surface-shadow: 0 14px 34px -26px rgba(60,48,24,0.55);
+  --code-bg: #e6dcc4; --chart-muted: #c2b596;
+  --bg-texture: var(--grain); --bg-texture-size: 150px 150px; --bg-texture-op: 0.05;
+  --glow: none;
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.16,1,0.3,1); --reveal-from: translateY(12px); --stagger: 80ms;
+}
+
+/* POSTER — cream + oversized condensed display + hot accent (after Pitch's Sports). Athletic
+   poster energy: Anton condensed headlines, thick hard rules, one hot red-orange. */
+:root[data-variant='poster'] {
+  --ink: #f6f1e7; --ink-2: #ede6d6; --line: #1c1814;
+  --fg: #181410; --fg-dim: #6b6256;
+  --good: #2f7d4f; --warn: #c47a14; --bad: #d23a1f; --info: #2b5a9a;
+  --accent: #e23c1e; --accent-2: #e23c1e; --on-accent: #fff;
+  --cat-1: #e23c1e; --cat-2: #14304f; --cat-3: #1f8a7a; --cat-4: #e0a519; --cat-5: #7a3b6e; /* red, navy, teal, gold, plum */
+  --font-display: 'Anton', 'Archivo', sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 400; --tr-display: 0.005em; --w-strong: 700;
+  --radius: 2px; --radius-sm: 2px; --rule-w: 2px;
+  --pad-x: 3.8rem; --pad-y: 3.4rem; --gap: 1.6rem;
+  --surface-bg: #fffdf8; --surface-border: 2px solid var(--line);
+  --surface-shadow: none;
+  --code-bg: #efe8d8; --chart-muted: #ccc2ad;
+  --bg-texture: none; --bg-texture-size: auto; --bg-texture-op: 1;
+  --glow: none;
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.4s; --motion-ease: cubic-bezier(0.2,0.8,0.2,1); --reveal-from: translateY(14px); --stagger: 65ms;
 }
