@@ -15,6 +15,9 @@
     "themeable"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/zcag/tahta",
   "repository": {
     "type": "git",

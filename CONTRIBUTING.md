@@ -44,4 +44,12 @@ npm run grade    # render every layout across all variants + report
 
 ## Boundary
 
-`packages/grade` (the `tahta` CLI) is a dev-only tool, never a runtime dependency of the theme.
+`packages/grade` (the `tahta` CLI) is a dev-only tool, never a runtime dependency of the theme — it's marked `"private": true` and is **not** on npm. The theme is the opposite: `slidev-theme-tahta` **is published to npm** and that's how consumers (e.g. [tela](https://tela.cagdas.io), which pins it) pick up changes. Don't conflate the two.
+
+## Releasing the theme
+
+`npm run deploy` only rebuilds the **site** (tahta.cagdas.io) — it does *not* ship the theme. To release `slidev-theme-tahta`:
+
+1. Bump `version` in `packages/theme/package.json` and add a `CHANGELOG.md` entry.
+2. `npm test` (the sync/contrast/lint gates), then commit as `release(theme): <version> — <summary>`.
+3. `cd packages/theme && npm publish` (public; you must be logged in as a maintainer). Consumers then `npm update slidev-theme-tahta`.
