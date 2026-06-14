@@ -233,6 +233,22 @@ title: Callout · Badge · Icon
 <Callout tone="warn" icon="lucide:triangle-alert" class="mt-6">Tones: <code>good · warn · bad · info · accent</code> — shared by Callout, Badge, and per-stat <code>tone</code>.</Callout>
 
 ---
+layout: default
+kicker: components
+title: Figure · Meter · Person · Tags
+---
+
+<div class="grid grid-cols-2 gap-12 items-start">
+  <Figure src="/cover.jpg" caption="Figure — image with a caption" credit="photo" />
+  <div style="display:flex; flex-direction:column; gap:1.3rem">
+    <Meter value="72" label="Migration" />
+    <Meter value="3" max="5" display="3 / 5" tone="warn" label="Hardening" />
+    <Person name="Ada Lovelace" role="Founder & CEO" />
+    <Tags :items="['TypeScript', 'Vue', 'Vite', 'OKLCH', 'ECharts']" />
+  </div>
+</div>
+
+---
 layout: section
 index: "C"
 bg: aurora
@@ -255,12 +271,12 @@ title: Bigtype — one phrase, <em>edge to edge</em>.
 ---
 
 ---
-layout: figure
-kicker: layout · figure
+layout: metric
+kicker: layout · metric
 value: "63"
 unit: "%"
 ghost: "%"
-label: Figure — a giant number with <em>context</em> beside it.
+label: Metric — a giant number with <em>context</em> beside it.
 ---
 
 ---

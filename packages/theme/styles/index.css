@@ -274,12 +274,12 @@
 .bigtype-body { position: relative; z-index: 1; }
 .l-bigtype h1 { font-size: var(--fs-bigtype); line-height: 0.94; letter-spacing: -0.03em; max-width: 17ch; }
 
-/* ===== figure — asymmetric giant number + context aside (vs centered `fact`) ===== */
-.slidev-layout.l-figure { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; height: 100%; gap: var(--sp-12); }
-.figure-num { display: flex; align-items: flex-start; line-height: 0.8; }
-.figure-num .stat-num { font-size: var(--fs-fact); line-height: 0.8; }
-.figure-aside { position: relative; z-index: 1; max-width: 30ch; }
-.figure-aside .figure-label { font-size: var(--fs-lead-xl); margin-top: var(--sp-4); line-height: 1.2; }
+/* ===== metric — asymmetric giant number + context aside (vs centered `fact`) ===== */
+.slidev-layout.l-metric { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; height: 100%; gap: var(--sp-12); }
+.metric-num { display: flex; align-items: flex-start; line-height: 0.8; }
+.metric-num .stat-num { font-size: var(--fs-fact); line-height: 0.8; }
+.metric-aside { position: relative; z-index: 1; max-width: 30ch; }
+.metric-aside .metric-label { font-size: var(--fs-lead-xl); margin-top: var(--sp-4); line-height: 1.2; }
 
 /* ===== drop cap (opt-in via `class: dropcap` on a default slide) ===== */
 .dropcap .l-body p:first-of-type::first-letter {
@@ -375,6 +375,33 @@
 .filetree .ft-name { color: var(--fg); }
 .filetree .ft-dir { color: var(--accent); }
 .filetree .ft-guide { color: color-mix(in oklab, var(--fg-dim) 55%, transparent); }
+
+/* ----- Figure (image / diagram + caption + credit) ----- */
+.tahta-figure { margin: 0; }
+.tahta-figure img { display: block; width: 100%; border-radius: var(--radius-sm); border: var(--surface-border); }
+.tahta-figure figcaption { margin-top: var(--sp-3); font-size: 0.92rem; color: var(--fg-dim); display: flex; justify-content: space-between; gap: var(--sp-4); align-items: baseline; }
+.tahta-figure .tf-credit { font: 500 0.76rem/1.4 var(--font-mono); opacity: 0.8; white-space: nowrap; }
+
+/* ----- Meter (labeled progress bar) ----- */
+.meter { display: grid; gap: 0.45rem; }
+.meter-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4); }
+.meter-label { color: var(--fg); }
+.meter-val { font: 700 0.85rem/1 var(--font-mono); color: var(--tone, var(--accent)); }
+.meter-track { height: 0.55rem; border-radius: 999px; background: color-mix(in oklab, var(--fg) 10%, transparent); overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 999px; background: var(--tone, var(--accent)); }
+
+/* ----- Person (avatar + name + role) ----- */
+.person { display: flex; align-items: center; gap: var(--sp-4); }
+.person-avatar { width: 3.4rem; height: 3.4rem; flex: none; border-radius: 50%; background-size: cover; background-position: center;
+  display: grid; place-items: center; border: 2px solid var(--accent); color: var(--accent);
+  font: var(--w-display) 1.05rem/1 var(--font-display); background-color: color-mix(in oklab, var(--accent) 12%, transparent); }
+.person-name { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.1rem; letter-spacing: var(--tr-display); }
+.person-role { color: var(--fg-dim); font-size: 0.95rem; }
+
+/* ----- Tags (keyword chips) ----- */
+.tags { display: inline-flex; flex-wrap: wrap; gap: 0.45rem; }
+.tags .tag { font: 600 0.8rem/1.5 var(--font-mono); padding: 0.16em 0.7em; border-radius: 999px;
+  color: var(--fg-dim); border: 1px solid var(--line); background: color-mix(in oklab, var(--fg) 4%, transparent); }
 
 /* ===== variant signature motifs ===== */
 /* atelier — gradient display titles (h1 = cover/section/end heroes) */

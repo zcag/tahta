@@ -7,7 +7,7 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 1. Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.
 2. One idea per slide.
 3. Titles/subtitles may contain <span class="accent2">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.
-4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use figure/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
+4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
 5. class: dropcap on a default slide sets a drop cap on the first paragraph.
 6. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
 7. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
@@ -71,7 +71,7 @@ Per-slide frontmatter available on every layout.
 | `end` | Closing slide. | title, subtitle, contact |
 | `lead` | Asymmetric opener — title anchored low-left, big negative space. A dramatic alternative to cover. | kicker, title*, subtitle, index |
 | `bigtype` | Full-bleed type — one phrase fills the slide. A punctuation/transition moment; auto-fits to the frame. | kicker, title*, subtitle |
-| `figure` | Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`). | value*, unit, kicker, label, ghost |
+| `metric` | Asymmetric single metric — giant number on one side, context on the other (vs the centered `fact`). | value*, unit, kicker, label, ghost |
 | `agenda` | Numbered module overview / table of contents. | kicker, title, items* |
 | `define` | Term + definition ("What is X?"). | kicker, term*, definition, points |
 | `columns` | 2–3 headed columns side by side (compare / parallel lists). | kicker, title, columns* |
@@ -482,8 +482,8 @@ title: Optimize the number your <em>worst</em> customer feels.
 ---
 ```
 
-### `figure`
-Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`).
+### `metric`
+Asymmetric single metric — giant number on one side, context on the other (vs the centered `fact`).
 
   - `value` (string, **required**) — Keep the number bare; put the symbol in unit.
   - `unit` (string, optional)
@@ -493,7 +493,7 @@ Asymmetric single figure — giant number on one side, context on the other (vs 
 
 ```yaml
 ---
-layout: figure
+layout: metric
 kicker: The arithmetic of scale
 value: "63"
 unit: "%"
@@ -653,3 +653,11 @@ For use inside `default` / `statement` bodies.
   `<Terminal title="zsh" :lines="[{cmd:'claude --version'},{out:'2.0.1'}]" />`
 - **`<FileTree>`** — Project / config tree with guides. props: `items`
   `<FileTree :items="[{name:'src', children:[{name:'main.ts'}]}, {name:'README.md'}]" />`
+- **`<Figure>`** — Image (or slotted diagram) with caption + optional credit. props: `src`, `alt`, `caption`, `credit`
+  `<Figure src="/dashboard.png" caption="The tail, finally visible" credit="v2 UI" />`
+- **`<Meter>`** — Labeled progress / percentage bar. props: `value`, `max` (default 100), `label`, `display`, `tone`
+  `<Meter value="72" label="Migration" /> · <Meter value="3" max="5" display="3 / 5" tone="warn" label="Hardening" />`
+- **`<Person>`** — Avatar + name + role (bios, team, attribution). Falls back to initials with no photo. props: `name`, `role`, `photo`
+  `<Person name="Ada Lovelace" role="Founder & CEO" photo="/ada.jpg" />`
+- **`<Tags>`** — Row of keyword chips (tech stack, topics, skills). props: `items`
+  `<Tags :items="['TypeScript', 'Vue', 'Vite', 'OKLCH']" />`

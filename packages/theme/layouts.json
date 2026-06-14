@@ -21,7 +21,7 @@
     "Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.",
     "One idea per slide.",
     "Titles/subtitles may contain <span class=\"accent2\">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.",
-    "For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use figure/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.",
+    "For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.",
     "class: dropcap on a default slide sets a drop cap on the first paragraph.",
     "Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.",
     "Keep numeric values bare; put the symbol in unit (value: 80, unit: \"%\").",
@@ -155,13 +155,13 @@
       { "name": "title", "type": "string", "required": true, "description": "HTML allowed (em / accent2)." },
       { "name": "subtitle", "type": "string", "required": false } ],
       "example": "layout: bigtype\nkicker: The takeaway\ntitle: Optimize the number your <em>worst</em> customer feels." },
-    { "id": "figure", "useFor": "Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`).", "fields": [
+    { "id": "metric", "useFor": "Asymmetric single metric — giant number on one side, context on the other (vs the centered `fact`).", "fields": [
       { "name": "value", "type": "string", "required": true, "description": "Keep the number bare; put the symbol in unit." },
       { "name": "unit", "type": "string", "required": false },
       { "name": "kicker", "type": "string", "required": false },
       { "name": "label", "type": "string", "required": false, "description": "Context line; HTML allowed." },
       { "name": "ghost", "type": "string", "required": false } ],
-      "example": "layout: figure\nkicker: The arithmetic of scale\nvalue: \"63\"\nunit: \"%\"\nlabel: of renders hit at least <em>one</em> p99 call." },
+      "example": "layout: metric\nkicker: The arithmetic of scale\nvalue: \"63\"\nunit: \"%\"\nlabel: of renders hit at least <em>one</em> p99 call." },
     { "id": "agenda", "useFor": "Numbered module overview / table of contents.", "fields": [
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false },
@@ -237,6 +237,21 @@
       "example": "<Terminal title=\"zsh\" :lines=\"[{cmd:'claude --version'},{out:'2.0.1'}]\" />" },
     { "name": "FileTree", "useFor": "Project / config tree with guides.", "props": [
       { "name": "items", "type": "array (nested [{name, dir?, children?}])", "required": true } ],
-      "example": "<FileTree :items=\"[{name:'src', children:[{name:'main.ts'}]}, {name:'README.md'}]\" />" }
+      "example": "<FileTree :items=\"[{name:'src', children:[{name:'main.ts'}]}, {name:'README.md'}]\" />" },
+    { "name": "Figure", "useFor": "Image (or slotted diagram) with caption + optional credit.", "props": [
+      { "name": "src", "type": "string (path in public/)" }, { "name": "alt", "type": "string" },
+      { "name": "caption", "type": "string" }, { "name": "credit", "type": "string" } ],
+      "example": "<Figure src=\"/dashboard.png\" caption=\"The tail, finally visible\" credit=\"v2 UI\" />" },
+    { "name": "Meter", "useFor": "Labeled progress / percentage bar.", "props": [
+      { "name": "value", "type": "number|string", "required": true }, { "name": "max", "type": "number|string", "default": "100" },
+      { "name": "label", "type": "string" }, { "name": "display", "type": "string (overrides the % readout)" },
+      { "name": "tone", "type": "enum good|warn|bad|info|accent" } ],
+      "example": "<Meter value=\"72\" label=\"Migration\" /> · <Meter value=\"3\" max=\"5\" display=\"3 / 5\" tone=\"warn\" label=\"Hardening\" />" },
+    { "name": "Person", "useFor": "Avatar + name + role (bios, team, attribution). Falls back to initials with no photo.", "props": [
+      { "name": "name", "type": "string", "required": true }, { "name": "role", "type": "string" }, { "name": "photo", "type": "string (path in public/)" } ],
+      "example": "<Person name=\"Ada Lovelace\" role=\"Founder & CEO\" photo=\"/ada.jpg\" />" },
+    { "name": "Tags", "useFor": "Row of keyword chips (tech stack, topics, skills).", "props": [
+      { "name": "items", "type": "array", "required": true } ],
+      "example": "<Tags :items=\"['TypeScript', 'Vue', 'Vite', 'OKLCH']\" />" }
   ]
 }

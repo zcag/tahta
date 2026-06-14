@@ -2,6 +2,11 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.8.0
+- **New components** — `<Figure>` (image/diagram + caption + credit — the basic figure primitive), `<Meter>` (labeled progress bar, tone-aware), `<Person>` (avatar + name + role; initials fallback), `<Tags>` (keyword chips). All tokenized + showcased in the gallery.
+- **Breaking (pre-1.0):** the asymmetric hero-number layout `figure` is renamed **`metric`** (so `<Figure>` can mean image+caption, the publishing sense). Update `layout: figure` → `layout: metric`.
+- The gallery catalog now showcases every author-facing component (Callout/Badge/Icon + Figure/Meter/Person/Tags), and the sync gate enforces component coverage — not just layouts.
+
 ## 0.7.0
 Two big additions: **editorial composition** (so decks have rhythm, not sameness) and a **teaching/technical pack** (so tahta serves talks & docs, not just pitches).
 

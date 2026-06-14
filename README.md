@@ -78,7 +78,7 @@ stats:
 
 ### Layouts
 
-**Keynote / pitch** — `cover` · `lead` · `section` · `default` · `statement` · `bigtype` · `quote` · `stats` · `fact` · `figure` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
+**Keynote / pitch** — `cover` · `lead` · `section` · `default` · `statement` · `bigtype` · `quote` · `stats` · `fact` · `metric` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
 
 **Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain` (+ `<Kbd>` / `<Terminal>` / `<FileTree>`)
 

@@ -55,7 +55,7 @@
   /* TYPE SCALE (semantic, per-role; variants may override) */
   --fs-kicker: 0.72rem;
   --fs-lead: 1.5rem;          /* subtitles, lead paragraphs */
-  --fs-lead-xl: 1.9rem;       /* oversized lead (lead/figure layouts) */
+  --fs-lead-xl: 1.9rem;       /* oversized lead (lead/metric layouts) */
   --fs-body: 1.125rem;
   --fs-h2: 2.25rem;           /* topic / content titles */
   --fs-cover: 5rem;           /* cover title */

@@ -91,7 +91,7 @@ export async function lint (input, opts = {}) {
     }
     if (id === 'chart' && fm.chart?.type && !['bar', 'line', 'area', 'donut'].includes(fm.chart.type)) add(i, 'error', `chart.type "${fm.chart.type}" not one of bar|line|area|donut`, 'chart.type')
     const bare = (val, where) => { if (typeof val === 'string' && NOT_BARE.test(val)) add(i, 'warn', `${where}: keep the number bare, put the symbol in \`unit\` (got "${val}")`) }
-    if (id === 'fact' || id === 'figure') bare(fm.value, `${id}.value`)
+    if (id === 'fact' || id === 'metric') bare(fm.value, `${id}.value`)
     if (Array.isArray(fm.stats)) fm.stats.forEach((s, si) => bare(s?.value, `stats[${si}].value`))
     if (typeof fm.bg === 'string' && fm.bg && !BG_NAMED.has(fm.bg) && !BG_IMAGEY.test(fm.bg)) add(i, 'warn', `bg "${fm.bg}" is neither an image path nor one of ${[...BG_NAMED].join('|')}`, 'bg')
     const variant = fm.themeConfig?.variant

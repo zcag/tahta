@@ -117,7 +117,7 @@ author: Dean & Barroso · "The Tail at Scale"
 ---
 
 ---
-layout: figure
+layout: metric
 kicker: The takeaway
 value: "p99"
 ghost: "%"
