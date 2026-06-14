@@ -8,8 +8,10 @@
 //   2. claude -p (stream-json) authors slides.md — full event stream saved
 //   3. inspect the stream (did it find the contract? what tools, in what order?)
 //      + the deck (which layouts/components, how many slides, any CSS / blank slide)
-//   4. assert the regression gates (varied layouts, ≥1 component, lint-clean, no CSS)
-//   5. (opt-in) --export renders PNGs via the grade CLI; --vision critiques them
+//   4. assert the regression gates (varied layouts, components, lint-clean, no CSS) — a FLOOR
+//   5. ALWAYS render a contact sheet of every deck and DEMAND a visual critique. The gates
+//      are necessary, not sufficient — the point of the harness is to LOOK. (--serve to also
+//      check motion live; --vision for an adversarial LLM critique.)
 //
 //   node qa/run.mjs                      # all briefs, cheap stream+adherence path
 //   node qa/run.mjs --brief architecture # one brief
@@ -21,6 +23,7 @@ import { resolve, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { tmpdir, hostname } from 'node:os'
 import { spawn } from 'node:child_process'
+import sharp from 'sharp'
 import { parseStream, analyzeDeck, assess } from './lib/analyze.mjs'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -78,15 +81,22 @@ async function runBrief (b) {
   const deck = await analyzeDeck(join(dir, 'slides.md'), { layoutIds, componentNames })
   const verdict = assess(deck, o)
 
-  let render = null
-  if (o.export && deck.exists) { process.stdout.write(C.dim('· rendering ')); render = await exportDeck(dir) }
+  // ALWAYS render + build a contact sheet. The gates are a floor; the harness exists so a
+  // human/agent LOOKS at the output and critiques it. Rendering is NOT optional — seeing is the point.
+  let render = null, contact = null
+  if (deck.exists) {
+    process.stdout.write(C.dim('· rendering '))
+    render = await exportDeck(dir)
+    if (render?.pngDir) contact = await contactSheet(render.pngDir, join(dir, 'contact.png'))
+  }
   let critique = null
   if (o.vision && render?.pngDir) { process.stdout.write(C.dim('· critiquing ')); critique = await visionCritique(render.pngDir, b) }
   process.stdout.write('\n')
 
   report(b, dir, s, deck, verdict, render, critique)
-  if (!o.keep) { try { rmSync(join(dir, 'node_modules')) } catch {} } // artifacts (run.jsonl, slides.md) always kept; --keep also keeps the node_modules symlink
-  return { name: b.name, pass: verdict.pass, dir, exists: deck.exists }
+  if (contact) console.log(C.acc('  ▶ REVIEW:') + ` ${contact}`)
+  if (!o.keep) { try { rmSync(join(dir, 'node_modules')) } catch {} } // artifacts (run.jsonl, slides.md, contact.png) always kept
+  return { name: b.name, pass: verdict.pass, dir, exists: deck.exists, contact }
 }
 
 // Serve each authored deck with slidev (--remote so it's reachable over the network),
@@ -107,6 +117,22 @@ async function serveDecks (runs) {
   const stop = () => { for (const s of servers) s.kill('SIGTERM'); process.exit(0) }
   process.on('SIGINT', stop); process.on('SIGTERM', stop)
   await new Promise(() => {}) // block until interrupted
+}
+
+// Tile a deck's rendered slides into ONE contact sheet — the artifact you must actually look at.
+async function contactSheet (pngDir, out) {
+  try {
+    const files = readdirSync(pngDir).filter(f => /^\d+\.png$/.test(f)).sort((a, b) => parseInt(a) - parseInt(b)).map(f => join(pngDir, f))
+    if (!files.length) return null
+    const COLS = 4, TILE = 500, gap = 6
+    const tiles = await Promise.all(files.map(f => sharp(f).resize(TILE).toBuffer()))
+    const th = (await sharp(tiles[0]).metadata()).height
+    const rows = Math.ceil(tiles.length / COLS)
+    const W = COLS * TILE + (COLS + 1) * gap, H = rows * th + (rows + 1) * gap
+    const comp = tiles.map((t, i) => ({ input: t, left: gap + (i % COLS) * (TILE + gap), top: gap + Math.floor(i / COLS) * (th + gap) }))
+    await sharp({ create: { width: W, height: H, channels: 3, background: '#111' } }).composite(comp).png().toFile(out)
+    return out
+  } catch { return null }
 }
 
 // ── claude -p (stream-json in/out) ──────────────────────────────────────────────
@@ -186,7 +212,7 @@ function help () {
   node qa/run.mjs [options]
 
   --brief <name>        run one brief (default: all). --list to see them
-  --export              also render the deck to PNG via the grade CLI
+  (decks always render to a contact sheet — reviewing it is mandatory, not optional)
   --vision              + adversarial LLM critique of the rendered slides (implies --export)
   --keep                keep the agent workdir + node_modules symlink for inspection
   --serve [port]        after running, serve each deck with slidev (--remote) and print a link (implies --keep; default port 3030)
@@ -208,5 +234,14 @@ const results = []
 for (const b of list) { try { results.push(await runBrief(b)) } catch (e) { console.error(C.red(`  ${b.name}: ${e.message}`)); results.push({ name: b.name, pass: false }) } }
 const failed = results.filter(r => !r.pass)
 console.log(failed.length ? C.red(`\n${failed.length}/${results.length} failed: ${failed.map(r => r.name).join(', ')}`) : C.grn(`\nall ${results.length} passed`))
+
+// The gates are necessary, not sufficient. The whole point of the harness is to LOOK.
+console.log(C.ylw('\n  ⚠  GATES ARE A FLOOR, NOT VALIDATION — the QA is NOT done until you have looked.'))
+console.log('  Open every contact sheet below and critique each deck: content · layout-to-content fit ·')
+console.log('  visual variety · polish · weak slides. Then spot-check MOTION live (`--serve`) — static')
+console.log('  renders and gates miss animation/interaction bugs (e.g. choppy easings, chart sizing).')
+for (const r of results) if (r.contact) console.log(C.acc('    ▶ ') + r.name + ' → ' + r.contact)
+console.log(C.dim('  Do not report a deck as validated from gate results alone.'))
+
 if (o.serve) await serveDecks(results) // blocks until Ctrl-C
 process.exit(failed.length ? 1 : 0)

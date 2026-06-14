@@ -117,7 +117,7 @@
   --fs-cover: 3.6rem; --fs-section: 3.6rem; --fs-h2: 2rem; --fs-quote: 3rem; --fs-fact: 8.5rem;
   --fs-lead-title: 4.2rem; --fs-bigtype: 4.6rem;
   /* hard, mechanical motion */
-  --motion-dur: 0.16s; --motion-ease: steps(2, end); --reveal-from: translateX(-10px); --stagger: 70ms;
+  --motion-dur: 0.2s; --motion-ease: cubic-bezier(0.2, 0, 0, 1); --reveal-from: translateX(-10px); --stagger: 55ms;
 }
 
 /* SOFT — humanist sans, big radius, soft shadows, warm paper (light). */

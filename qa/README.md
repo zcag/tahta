@@ -12,6 +12,16 @@ theme, and then grades the *decisions* (the tool stream) and the *result* (the
 deck) against regression gates. The agent is the user; watching it is how you learn
 what the guide lands, versus what you think you wrote.
 
+> [!IMPORTANT]
+> **The gates are a floor, NOT validation.** A green run only means "not obviously
+> broken." Every run renders a **contact sheet** per deck and prints a `▶ REVIEW`
+> path — you are **not done until you have opened each sheet and critiqued the deck**
+> (content · layout-to-content fit · visual variety · polish · weak slides), and
+> **spot-checked motion live** (`--serve`). Static renders and gates miss animation
+> and interaction bugs (a choppy easing, a 0×0 chart). Never report a deck as
+> "validated" from gate results alone, and never hand the visual judgment to the
+> user — looking is the job.
+
 ## Run
 
 ```bash
