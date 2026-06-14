@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>tahta — a design system for Slidev</title>
-<meta name="description" content="tahta is a design system for Slidev: design tokens, components and patterns with 7 themeable variants. Build keynote-grade slide decks from declarative frontmatter — no CSS. WCAG-AA, MIT, on npm.">
+<meta name="description" content="tahta is a design system for Slidev: design tokens, components and patterns with 13 themeable variants. Build keynote-grade slide decks from declarative frontmatter — no CSS. WCAG-AA, MIT, on npm.">
 <meta name="keywords" content="slidev theme, slidev themes, slidev design system, slidev template, presentation theme, keynote theme, slide deck theme, markdown slides, slidev dark theme">
 <link rel="canonical" href="https://tahta.cagdas.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tahta.cagdas.io/">
 <meta property="og:title" content="tahta — a design system for Slidev">
-<meta property="og:description" content="Tokens, components and patterns for Slidev. 7 themeable variants, keynote-grade decks from frontmatter. MIT, on npm.">
+<meta property="og:description" content="Tokens, components and patterns for Slidev. 13 themeable variants, keynote-grade decks from frontmatter. MIT, on npm.">
 <meta property="og:image" content="https://tahta.cagdas.io/variants.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="tahta — a design system for Slidev">
-<meta name="twitter:description" content="Tokens, components and patterns for Slidev. 7 themeable variants, keynote-grade decks from frontmatter.">
+<meta name="twitter:description" content="Tokens, components and patterns for Slidev. 13 themeable variants, keynote-grade decks from frontmatter.">
 <meta name="twitter:image" content="https://tahta.cagdas.io/variants.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%237aa2ff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Hanken+Grotesk:wght@400..800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"tahta","description":"A design system for Slidev — tokens, components and patterns with 7 themeable variants.","codeRepository":"https://github.com/zcag/tahta","programmingLanguage":"CSS, Vue","license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"Cagdas Salur"}}
+{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"tahta","description":"A design system for Slidev — tokens, components and patterns with 13 themeable variants.","codeRepository":"https://github.com/zcag/tahta","programmingLanguage":"CSS, Vue","license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"Cagdas Salur"}}
 </script>
 <style>
 :root{--ink:#0c0d10;--ink2:#15171c;--line:#262a33;--fg:#ece9e3;--dim:#9a9b94;--accent:#7aa2ff;
@@ -84,13 +84,13 @@ footer a{margin-right:4px}
 <header style="padding-top:36px">
   <span class="kick">Design system · for Slidev</span>
   <h1>A design system for Slidev.</h1>
-  <p class="lead">Tokens, components and patterns — so a deck is something you <em>assemble</em>, not style. Seven themeable variants, keynote-grade output, written in plain frontmatter.</p>
+  <p class="lead">Tokens, components and patterns — so a deck is something you <em>assemble</em>, not style. Thirteen themeable variants, keynote-grade output, written in plain frontmatter.</p>
   <div class="cmd">npm i <b>slidev-theme-tahta</b></div>
   <div class="btns">
     <a class="btn primary" href="#explore">Explore the variants →</a>
     <a class="btn ghost" href="https://github.com/zcag/tahta">GitHub</a>
   </div>
-  <img class="hero-img" src="variants.png" alt="One Slidev deck rendered in all seven tahta variants: editorial, brutalist, soft, minimal, paper, atelier, notebook">
+  <img class="hero-img" src="variants.png" alt="One Slidev deck rendered in all thirteen tahta variants">
 </header>
 
 <section>
@@ -99,7 +99,7 @@ footer a{margin-right:4px}
   <p class="sub">Most Slidev themes are some CSS and a few layouts. tahta has the parts of an actual design system — and a test that enforces its own rules.</p>
   <div class="grid">
     <div class="card"><h3>Tokens as a contract</h3><p>A 3-tier token layer (primitives → semantic → variants), shipped as <code>tokens.json</code>. One accent derives the whole palette via OKLCH.</p></div>
-    <div class="card"><h3>Components & 20 patterns</h3><p>Stat, Plot (charts), Callout, Badge, Icon, Reveal, Fit — and 20 layouts, all variant-aware, all documented in <code>layouts.json</code>.</p></div>
+    <div class="card"><h3>16 components, 30 layouts</h3><p>Stat, Plot (charts), Callout, Badge, Icon, Reveal, Fit — and 30 layouts, all variant-aware, all documented in <code>layouts.json</code>.</p></div>
     <div class="card"><h3>Quality enforced</h3><p>CI gates a token-contract <em>and</em> WCAG-AA contrast for every variant. Accessible by construction, not by hope.</p></div>
     <div class="card"><h3>Author from frontmatter</h3><p>Pick a layout, fill fields. No CSS, no grids, no layout HTML. Auto footers, page numbers, motion.</p></div>
   </div>
@@ -108,7 +108,7 @@ footer a{margin-right:4px}
 <section id="explore">
   <span class="kick">Live explorer</span>
   <h2>Every layout, in any variant</h2>
-  <p class="sub">The same deck — every layout and component — switched live across all seven variants. Click the frame and use arrow keys.</p>
+  <p class="sub">The same deck — every layout and component — switched live across all thirteen variants. Click the frame and use arrow keys.</p>
   <div class="tabs" id="tabs"></div>
   <div class="frame"><iframe id="ex" src="gallery/?variant=editorial" title="tahta gallery"></iframe></div>
   <p class="hint">variant: <span id="cur">editorial</span> · shareable as gallery/?variant=…</p>
@@ -137,7 +137,7 @@ footer a{margin-right:4px}
 ---
 theme: slidev-theme-tahta
 title: My Talk
-themeConfig: { variant: atelier }   # or editorial · brutalist · soft · minimal · paper · notebook
+themeConfig: { variant: atelier }   # any of 13: brutalist, soft, minimal, paper, notebook, lagoon, press, boardroom, signal, muse, poster
 layout: cover
 kicker: Team · 2026
 ---</pre>
@@ -153,7 +153,7 @@ kicker: Team · 2026
 
 </div>
 <script>
-const VARIANTS = ['editorial','brutalist','soft','minimal','paper','atelier','notebook']
+const VARIANTS = ['editorial','brutalist','soft','minimal','paper','atelier','notebook','lagoon','press','boardroom','signal','muse','poster']
 const tabs = document.getElementById('tabs'), frame = document.getElementById('ex'), cur = document.getElementById('cur')
 VARIANTS.forEach((v,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' on':'');b.textContent=v;b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');
