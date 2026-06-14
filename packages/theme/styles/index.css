@@ -215,7 +215,7 @@
   border: 1px solid color-mix(in oklab, var(--tone, var(--accent)) 34%, transparent); }
 
 /* ===== fit-to-frame ===== */
-.fit { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.fit { height: 100%; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
 .fit-inner { transform-origin: top center; }
 
 /* ===== steps ===== */
@@ -268,7 +268,7 @@
 /* ===== layout scaffolding ===== */
 .slidev-layout.l-topic, .slidev-layout.l-cover, .slidev-layout.l-statement, .slidev-layout.l-end { display: flex; flex-direction: column; height: 100%; }
 .l-head { position: relative; z-index: 1; }
-.l-body { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.l-body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
 .l-center { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); z-index: 1; }
 .l-center.middle { align-items: center; text-align: center; }
 .slidev-layout.l-bleed, .slidev-layout.l-split { padding: 0; }

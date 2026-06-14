@@ -15,7 +15,9 @@ onBeforeUnmount(() => ro?.disconnect())
 </script>
 
 <template>
-  <div ref="outer" class="fit">
+  <!-- When scaling, top-align: transform-origin is top so the shrunk content must
+       grow from the top edge, not center on its unscaled (taller) box and bleed upward. -->
+  <div ref="outer" class="fit" :style="{ justifyContent: scale < 1 ? 'flex-start' : null }">
     <div ref="inner" class="fit-inner" :style="{ transform: `scale(${scale})` }"><slot /></div>
   </div>
 </template>
