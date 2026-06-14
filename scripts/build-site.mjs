@@ -9,9 +9,13 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
 const SITE = 'https://tahta.cagdas.io'
 
-const build = (entry, base, out) => {
-  console.log(`▶ ${base}`)
-  const r = spawnSync('npx', ['slidev', 'build', join(root, entry), '--base', base, '--out', join(dist, out)],
+// Build with a RELATIVE base (`./`), not the absolute mount path. With routerMode: hash,
+// an absolute --base makes Slidev prepend it to hash routes (nav corrupts to
+// #/decks/<deck>/N → 404 on reload). Relative base keeps assets resolving at the
+// subpath AND hash routes clean (#/N). `mount` is only the log label.
+const build = (entry, mount, out) => {
+  console.log(`▶ ${mount}`)
+  const r = spawnSync('npx', ['slidev', 'build', join(root, entry), '--base', './', '--out', join(dist, out)],
     { stdio: ['ignore', 'ignore', 'inherit'] })
   if (r.status !== 0) { console.error(`build failed: ${entry}`); process.exit(1) }
 }
