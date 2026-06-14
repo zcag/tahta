@@ -1,12 +1,19 @@
-# tahta — visual grading for Slidev
+# tahta-grade — visual grading for the tahta theme
 
-The local-dev companion to `slidev-theme-tahta` (works with any Slidev deck). It exports every slide to PNG, runs automated checks, and builds a side-by-side HTML report with a tab per variant.
+The repo-internal dev loop for building `slidev-theme-tahta`. It exports every slide to
+PNG (optionally across variants), runs automated checks, and builds a side-by-side HTML
+report with a tab per variant. Not published — it ships in this repo and runs from it.
 
 ```bash
-npx @zcag/tahta-grade slides.md                  # grade as authored
-npx @zcag/tahta-grade slides.md --serve 4180     # + serve the report (0.0.0.0)
-npx @zcag/tahta-grade slides.md --watch          # re-grade on save (inner loop)
+npm run grade                                   # grade the example deck across variants
+node packages/grade/cli.mjs slides.md           # grade any deck as authored
+node packages/grade/cli.mjs slides.md --serve   # + serve the report (0.0.0.0)
+node packages/grade/cli.mjs slides.md --watch   # re-grade on save (inner loop)
 ```
+
+The blank/broken, regression, and overflow/contrast checks work on any Slidev deck; the
+`--variants` cycling and the structural lint are tahta-specific (the reason it lives here,
+not on npm).
 
 ## What it checks
 
@@ -29,5 +36,5 @@ npx @zcag/tahta-grade slides.md --watch          # re-grade on save (inner loop)
 Exits non-zero when any slide is flagged — drop it in CI:
 
 ```yaml
-- run: npx @zcag/tahta-grade slides.md --variants editorial,brutalist,soft,minimal --checks
+- run: node packages/grade/cli.mjs slides.md --variants editorial,brutalist,soft,minimal --checks
 ```

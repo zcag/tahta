@@ -38,7 +38,5 @@
       "optional": true
     }
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

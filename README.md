@@ -125,7 +125,7 @@ npm run grade      # export + grade the example across all four variants, serve 
 npm run assets     # regenerate the README images from source
 ```
 
-Editing the system, the loop is: change a token → `npx @zcag/tahta-grade examples/gallery/slides.md --variants editorial,brutalist,soft,minimal --watch` → see every slide in every variant update, with regressions flagged. Details in [`packages/grade/README.md`](packages/grade/README.md).
+Editing the system, the loop is: change a token → `node packages/grade/cli.mjs examples/gallery/slides.md --variants editorial,brutalist,soft,minimal --watch` → see every slide in every variant update, with regressions flagged. Details in [`packages/grade/README.md`](packages/grade/README.md).
 
 ## License
 
