@@ -2,6 +2,14 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.0
+A best-of-the-best variant revamp — decomposed the strongest themes from Gamma, Keynote, PowerPoint, and Pitch, added two system upgrades that make *every* variant render richer, then built six new variants faithful to specific references (two QA render rounds each).
+
+- **System — themed data palettes.** Each variant now defines a deliberate 5-swatch chart ramp (`--cat-*`) instead of tints of one accent — the biggest "looks designed" multiplier (the move PowerPoint and Gamma both lead with). Charts, donuts, and role-colored cards all draw from it. The derived-from-accent ramp stays as the fallback for custom accents.
+- **System — role-color cards.** `panels` / `feature` / `columns` cards cycle a distinct hue from the ramp across border, top-tick, icon, and heading (the Gamma "every card its own color" signature), via CSS `nth-child` on the grid child.
+- **Six new variants (7 → 13):** `lagoon` (dark teal + pastel role-cards — Gamma Lagoon), `press` (B&W editorial magazine, Fraunces serif + red spot — Pitch Editorial), `boardroom` (navy + warm-orange corporate — PowerPoint Hexagon), `signal` (true black + electric cyan + glow — Keynote Standard Minimalist), `muse` (muted stone ground + heavy serif — Keynote Scientific Muted), `poster` (cream + Anton condensed + hot accent — Pitch Sports). Adds the `Anton` font.
+- **Gate fixes.** `check-contrast` and `gen-assets` now derive the variant list from `variants.json` (were hardcoded to 7), so every new variant is AA-gated and montaged automatically. `lint` also gained empty-slide + duplicate-frontmatter-key checks and a `tahta-lint` CLI (see 0.9.0).
+
 ## 0.9.0
 Authoring is now a deliberate, self-validating flow — the agent makes (and surfaces) design decisions instead of coasting on defaults, and `lint` blocks decks that look fine but won't ship.
 

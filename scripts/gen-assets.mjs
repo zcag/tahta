@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Regenerate the README images from source. Run: npm run assets
-import { rmSync, mkdirSync } from 'node:fs'
+import { rmSync, mkdirSync, readFileSync } from 'node:fs'
 import { join, dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -9,7 +9,7 @@ import { exportDeck, withVariant } from '../packages/grade/lib/export.mjs'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const cache = join(root, 'docs/assets/.cache')
 const out = join(root, 'docs/assets')
-const VARIANTS = ['editorial', 'brutalist', 'soft', 'minimal', 'paper', 'atelier', 'notebook']
+const VARIANTS = JSON.parse(readFileSync(join(root, 'packages/theme/variants.json'), 'utf8')).variants.map(v => v.id)
 const BG = '#0a0a0a'
 
 const label = (text, w) => Buffer.from(

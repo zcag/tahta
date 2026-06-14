@@ -42,6 +42,12 @@ subtitle: A one-line promise
 | `paper` | light | Fraunces serif | warm editorial |
 | `atelier` | dark | Hanken, gradient titles | studio / premium |
 | `notebook` | light | Hanken, bold | playful-clean |
+| `lagoon` | dark | Hanken, heavy | moody teal + pastel role-cards |
+| `press` | light | Fraunces serif | B&W editorial magazine |
+| `boardroom` | dark | Hanken | navy + orange, corporate / trust |
+| `signal` | dark | Hanken, heavy | true black + electric, launch |
+| `muse` | light | Fraunces serif | muted stone, intellectual |
+| `poster` | light | Anton condensed | cream, loud / athletic |
 
 ```yaml
 themeConfig:

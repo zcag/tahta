@@ -7,9 +7,9 @@ Tokens, components, and patterns — so a deck is something you <i>assemble</i>,
 
 <p align="center"><a href="https://tahta.cagdas.io">tahta.cagdas.io</a> — live explorer (every layout × every variant) · used in production by <a href="https://tela.cagdas.io">tela</a> as its deck theme.</p>
 
-<p align="center"><img src="docs/assets/variants.png" alt="One deck rendered in all seven tahta variants" width="860"></p>
+<p align="center"><img src="docs/assets/variants.png" alt="One deck rendered in all thirteen tahta variants" width="860"></p>
 
-<p align="center"><em>One deck, seven variants — one line changed. Not a recolor: different typefaces, shapes, textures, density, and motion.</em></p>
+<p align="center"><em>One deck, thirteen variants — one line changed. Not a recolor: different typefaces, shapes, textures, density, and motion.</em></p>
 
 ---
 
@@ -21,7 +21,7 @@ What makes it a system, not a theme:
 - **A published contract.** [`layouts.json`](packages/theme/layouts.json) (every layout + field) and [`variants.json`](packages/theme/variants.json) ship in the package; [`AGENTS.md`](packages/theme/AGENTS.md) is *generated* from them.
 - **Components & patterns.** `Stat`, `Plot` (ECharts), `Callout`, `Badge`, `Icon` (Lucide, bundled), `Reveal`, `Fit` + 20 layouts — all variant-aware. Semantic `good/warn/bad/info` roles; `themeConfig.lang` for locale casing (Turkish `i→İ`).
 - **Quality is enforced, not hoped for.** `npm test` gates a **token-contract** (no hardcoded values) and **WCAG-AA contrast** for every variant; CI renders every layout across every variant.
-- **Variants are the proof.** `themeConfig.variant` — 7 complete styles (4 dark / 3 light) swapping type, shape, texture, density, motion, and palette. *That's* the one-liner — a consequence of the token system, not the pitch.
+- **Variants are the proof.** `themeConfig.variant` — 13 complete styles (6 dark / 7 light) swapping type, shape, texture, density, motion, and palette. *That's* the one-liner — a consequence of the token system, not the pitch.
 
 ## Variants
 
@@ -34,6 +34,12 @@ What makes it a system, not a theme:
 | **paper** | light | Fraunces serif | warm cream, grain | warm editorial |
 | **atelier** | dark | Hanken, gradient titles | cool, refined | studio / premium |
 | **notebook** | light | Hanken, bold | ruled paper, dashed rules | playful-clean |
+| **lagoon** | dark | Hanken, heavy | teal + pastel role-cards, rounded | moody / premium |
+| **press** | light | Fraunces serif | B&W, hairline, sharp | editorial magazine |
+| **boardroom** | dark | Hanken | navy + orange, conservative | corporate / trust |
+| **signal** | dark | Hanken, heavy | true black + electric, glow | launch / bold |
+| **muse** | light | Fraunces serif | muted stone, cream cards, grain | intellectual / restraint |
+| **poster** | light | Anton condensed | cream, thick rules, hot accent | loud / athletic |
 
 Machine-readable contracts ship in the package: [`variants.json`](packages/theme/variants.json) (the table above as data) and [`layouts.json`](packages/theme/layouts.json) (every layout + field + component) — `AGENTS.md` is generated from them.
 
