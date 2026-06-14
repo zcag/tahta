@@ -213,3 +213,15 @@
 .slidev-layout.l-bleed, .slidev-layout.l-split { padding: 0; }
 
 .tl-item { position: relative; }
+
+/* ===== variant signature motifs ===== */
+/* atelier — gradient display titles (h1 = cover/section/end heroes) */
+:root[data-variant='atelier'] h1 {
+  background: linear-gradient(100deg, #ffffff 0%, var(--accent) 58%, oklch(from var(--accent) calc(l + 0.08) c calc(h - 26)) 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+}
+/* notebook — dashed section rules, ruled paper, highlighter callout */
+:root[data-variant='notebook'] h2 { border-bottom: 2px dashed color-mix(in oklab, var(--accent) 45%, transparent); padding-bottom: 0.16em; }
+:root[data-variant='notebook'] .callout { background: #fdf6cf; border-color: #efe4a3; border-left-color: var(--tone, #c79b1f); }
+:root[data-variant='notebook'] .callout .tahta-icon { color: var(--tone, #a97c00); }
+:root[data-variant='notebook'] .slidev-layout pre { border-style: dashed; }

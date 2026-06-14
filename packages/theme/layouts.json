@@ -1,0 +1,155 @@
+{
+  "$comment": "Machine-readable layout + component contract for slidev-theme-tahta. Source of truth — AGENTS.md is generated from this (npm run docs). Consumed via slidev-theme-tahta/layouts.json.",
+  "themeConfig": {
+    "description": "Deck-level config set in the first slide's headmatter under themeConfig.",
+    "fields": [
+      { "name": "variant", "type": "enum", "required": false, "enum": ["editorial", "brutalist", "soft", "minimal", "paper", "atelier", "notebook"], "description": "Visual style; see variants.json. Defaults to editorial." },
+      { "name": "accent", "type": "string", "required": false, "description": "Override the brand accent (any CSS color). The whole palette (tints, shades, chart series) derives from it." },
+      { "name": "lang", "type": "string", "required": false, "description": "BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ)." }
+    ]
+  },
+  "rules": [
+    "Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.",
+    "One idea per slide.",
+    "Titles/subtitles may contain <span class=\"accent2\">highlight</span>. Nothing else needs HTML.",
+    "Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.",
+    "Keep numeric values bare; put the symbol in unit (value: 80, unit: \"%\").",
+    "For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.",
+    "Inside { ... } flow rows, quote any value containing a comma or colon (before: \"$4,200\").",
+    "ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.",
+    "Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion."
+  ],
+  "layouts": [
+    { "id": "cover", "useFor": "Title / opening slide.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": true, "description": "HTML allowed (accent2 span)." },
+      { "name": "subtitle", "type": "string", "required": false } ],
+      "example": "layout: cover\nkicker: Team · 2026\ntitle: Shipping Faster\nsubtitle: How we cut <span class=\"accent2\">p95 80%</span>" },
+    { "id": "section", "useFor": "Part / chapter divider.", "fields": [
+      { "name": "index", "type": "string", "required": false, "description": "Big faint background glyph + small accent label." },
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": true },
+      { "name": "subtitle", "type": "string", "required": false } ],
+      "example": "layout: section\nindex: \"02\"\nkicker: Part two\ntitle: The migration" },
+    { "id": "default", "useFor": "General content; body is markdown (bullets, prose). Auto fit-to-frame.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "ghost", "type": "string", "required": false } ],
+      "example": "layout: default\nkicker: The problem\ntitle: Slow far from <span class=\"accent2\">us-east-1</span>\n---\n\n- Average round trip was 220ms\n- p95 hit 480ms" },
+    { "id": "statement", "useFor": "One big centered takeaway.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": true } ],
+      "example": "layout: statement\nkicker: The setup\ntitle: Your dashboard says 42ms. Your angriest user waited 1.9s." },
+    { "id": "quote", "useFor": "Testimonial / pull quote.", "fields": [
+      { "name": "quote", "type": "string", "required": true },
+      { "name": "author", "type": "string", "required": false } ],
+      "example": "layout: quote\nquote: It just feels instant now.\nauthor: A beta user" },
+    { "id": "stats", "useFor": "2–4 hero numbers.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "ghost", "type": "string", "required": false },
+      { "name": "columns", "type": "number", "required": false },
+      { "name": "stats", "type": "array", "required": true, "items": { "value": "string|number", "unit": "string?", "label": "string?", "icon": "string? (lucide:*)", "tone": "enum? good|warn|bad|info" } } ],
+      "example": "layout: stats\nkicker: The numbers\ntitle: What changed\nstats:\n  - { value: 80, unit: \"%\", label: lower p95, icon: \"lucide:trending-down\", tone: good }\n  - { value: 0, label: downtime, tone: good }" },
+    { "id": "fact", "useFor": "One giant figure.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "value", "type": "string|number", "required": true },
+      { "name": "unit", "type": "string", "required": false },
+      { "name": "label", "type": "string", "required": false } ],
+      "example": "layout: fact\nkicker: The takeaway\nvalue: \"80\"\nunit: \"%\"\nlabel: lower p95 worldwide" },
+    { "id": "compare", "useFor": "Before/after table.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "columns", "type": "array", "required": false, "description": "Header labels; default [Metric, Before, After, Δ]." },
+      { "name": "rows", "type": "array", "required": true, "items": { "metric": "string", "before": "string", "after": "string", "delta": "string?" } } ],
+      "example": "layout: compare\nkicker: Before vs after\ntitle: Every metric moved\nrows:\n  - { metric: p95, before: 480ms, after: 95ms, delta: −80% }" },
+    { "id": "chart", "useFor": "Data visualization (ECharts).", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "note", "type": "string", "required": false },
+      { "name": "chart", "type": "object", "required": true, "props": { "type": "enum bar|line|area|donut (default bar)", "unit": "string?", "categories": "array", "series": "array of { name?, data[] }", "horizontal": "boolean? (bar)", "height": "string?" } } ],
+      "example": "layout: chart\nkicker: Before vs after\ntitle: Latency, drawn\nchart:\n  type: area\n  unit: ms\n  categories: [p50, p95, cold start]\n  series:\n    - { name: Before, data: [120, 480, 900] }\n    - { name: After, data: [38, 95, 12] }" },
+    { "id": "steps", "useFor": "A process / pipeline.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "ghost", "type": "string", "required": false },
+      { "name": "steps", "type": "array", "required": true, "items": { "title": "string", "desc": "string?", "icon": "string? (lucide:*)" } } ],
+      "example": "layout: steps\nkicker: The migration\ntitle: Incremental, zero downtime\nsteps:\n  - { title: Extract, desc: pull handlers out, icon: \"lucide:scissors\" }" },
+    { "id": "feature", "useFor": "Icon + title + blurb cells.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "columns", "type": "number", "required": false },
+      { "name": "features", "type": "array", "required": true, "items": { "icon": "string? (lucide:*)", "title": "string", "desc": "string?" } } ],
+      "example": "layout: feature\nkicker: Why it works\ntitle: Three reasons\nfeatures:\n  - { icon: \"lucide:zap\", title: Fast, desc: Edge in 300+ locations }" },
+    { "id": "timeline", "useFor": "A horizontal dated sequence.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "events", "type": "array", "required": true, "items": { "date": "string", "title": "string", "desc": "string?" } } ],
+      "example": "layout: timeline\nkicker: Roadmap\ntitle: Next quarters\nevents:\n  - { date: Q3, title: Alerts, desc: anomaly detection }" },
+    { "id": "logos", "useFor": "A trust / logo wall.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "columns", "type": "number", "required": false },
+      { "name": "logos", "type": "array", "required": true, "items": { "icon": "string? (lucide:*)", "text": "string" } } ],
+      "example": "layout: logos\nkicker: Trusted by\ntitle: Teams on the edge\nlogos:\n  - { icon: \"lucide:cloud\", text: Northwind }" },
+    { "id": "code", "useFor": "Code, optionally Magic Move. Body is a fenced code block.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false } ],
+      "example": "layout: code\nkicker: How it works\ntitle: Cache, then render\n---\n\n````md magic-move\n```js\nconst x = await get(url)\n```\n```js\nconst x = await cache.match(url) ?? get(url)\n```\n````" },
+    { "id": "two-cols", "useFor": "Generic split; left = body, right = after ::right::.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false } ],
+      "example": "layout: two-cols\ntitle: Before vs after\n---\n\n**Before** — one region.\n\n::right::\n\n**After** — 18 regions." },
+    { "id": "image", "useFor": "Text + a side image (markdown body is the text column).", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "image", "type": "string", "required": true, "description": "Path in the deck's public/ folder, e.g. /shot.png." },
+      { "name": "side", "type": "enum", "required": false, "enum": ["left", "right"] } ],
+      "example": "layout: image\nside: right\nimage: /shot.png\ntitle: The product\n---\n\n- A media column plus a text column" },
+    { "id": "showcase", "useFor": "Asymmetric image hero (fixed 43/57; deterministic).", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "subtitle", "type": "string", "required": false },
+      { "name": "image", "type": "string", "required": true },
+      { "name": "side", "type": "enum", "required": false, "enum": ["left", "right"] } ],
+      "example": "layout: showcase\nside: right\nimage: /shot.png\nkicker: The product\ntitle: Finally <span class=\"accent2\">visible</span>\nsubtitle: One line of config." },
+    { "id": "bleed", "useFor": "Full-bleed image hero with overlaid text.", "fields": [
+      { "name": "image", "type": "string", "required": true },
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "stat", "type": "string", "required": false, "description": "A giant overlaid figure." },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "subtitle", "type": "string", "required": false },
+      { "name": "duotone", "type": "boolean", "required": false, "description": "Grayscale + accent duotone the image (default true)." } ],
+      "example": "layout: bleed\nimage: /cover.jpg\nduotone: true\nkicker: Results\nstat: \"−80%\"\ntitle: p95 latency, worldwide" },
+    { "id": "embed", "useFor": "Video or iframe.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "video", "type": "string", "required": false, "description": "mp4 URL/path." },
+      { "name": "iframe", "type": "string", "required": false, "description": "Embed URL (https)." } ],
+      "example": "layout: embed\ntitle: Demo\nvideo: /demo.mp4" },
+    { "id": "end", "useFor": "Closing slide.", "fields": [
+      { "name": "title", "type": "string", "required": false },
+      { "name": "subtitle", "type": "string", "required": false },
+      { "name": "contact", "type": "string", "required": false } ],
+      "example": "layout: end\ntitle: Thanks\nsubtitle: Questions welcome\ncontact: team@example.com" }
+  ],
+  "components": [
+    { "name": "Stat", "useFor": "Big number + label (in default/statement bodies).", "props": [
+      { "name": "value", "type": "string|number", "required": true },
+      { "name": "unit", "type": "string" }, { "name": "label", "type": "string" },
+      { "name": "size", "type": "enum sm|md|lg|xl", "default": "xl" },
+      { "name": "icon", "type": "string (lucide:*)" }, { "name": "tone", "type": "enum good|warn|bad|info" },
+      { "name": "accent", "type": "boolean", "default": "true" } ] },
+    { "name": "StatCard", "useFor": "Stat in a card.", "props": [ { "name": "(same as Stat)", "type": "—", "default": "size=md, accent=false" } ] },
+    { "name": "Plot", "useFor": "ECharts chart (alias: BarChart). Used by the chart layout.", "props": [
+      { "name": "type", "type": "enum bar|line|area|donut", "default": "bar" },
+      { "name": "categories", "type": "array" }, { "name": "series", "type": "array" },
+      { "name": "unit", "type": "string" }, { "name": "height", "type": "string" }, { "name": "horizontal", "type": "boolean", "default": "true" } ] },
+    { "name": "Icon", "useFor": "Lucide icon, bundled offline.", "props": [ { "name": "name", "type": "string (lucide:*)", "required": true }, { "name": "size", "type": "string", "default": "1em" } ] },
+    { "name": "Callout", "useFor": "Tinted aside.", "props": [ { "name": "icon", "type": "string (lucide:*)", "default": "lucide:info" }, { "name": "tone", "type": "enum good|warn|bad|info|accent", "default": "accent" } ] },
+    { "name": "Badge", "useFor": "Inline status pill.", "props": [ { "name": "tone", "type": "enum good|warn|bad|info|accent", "default": "accent" } ] },
+    { "name": "Reveal", "useFor": "Themeable entrance wrapper for extra body content.", "props": [ { "name": "delay", "type": "number (ms)", "default": "0" } ] },
+    { "name": "Fit", "useFor": "Auto fit-to-frame: scales overflowing content down.", "props": [] },
+    { "name": "Ghost", "useFor": "Giant faint background glyph.", "props": [ { "name": "text", "type": "string|number", "required": true } ] }
+  ]
+}

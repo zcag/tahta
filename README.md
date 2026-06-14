@@ -28,6 +28,11 @@ Default Slidev looks generic. **Tahta** is a token-driven design system that get
 | **brutalist** | dark | Space Mono | hard edges, grid | technical / raw |
 | **soft** | light | Plus Jakarta | rounded, soft shadow | friendly / product |
 | **minimal** | light | Archivo, heavy | Swiss whitespace | high-contrast editorial |
+| **paper** | light | Fraunces serif | warm cream, grain | warm editorial |
+| **atelier** | dark | Hanken, gradient titles | cool, refined | studio / premium |
+| **notebook** | light | Hanken, bold | ruled paper, dashed rules | playful-clean |
+
+Machine-readable contracts ship in the package: [`variants.json`](packages/theme/variants.json) (the table above as data) and [`layouts.json`](packages/theme/layouts.json) (every layout + field + component) — `AGENTS.md` is generated from them.
 
 ```yaml
 themeConfig:

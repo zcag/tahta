@@ -154,3 +154,68 @@
   /* crisp, precise motion */
   --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.16, 1, 0.3, 1); --reveal-from: translateX(-20px); --stagger: 80ms;
 }
+
+/* PAPER — warm editorial light, rust serif (inspired by mira editorial / mira-paper). */
+:root[data-variant='paper'] {
+  --ink: #f6f1e7; --ink-2: #fffdf8; --line: #e6dcc8;
+  --fg: #2c2620; --fg-dim: #8a7c66;
+  --good: #1f7a4d; --warn: #b45309; --bad: #b3261e; --info: #2563eb;
+  --accent: #b5502e; --accent-2: #b5502e; --on-accent: #fff;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Fraunces', Georgia, serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 600; --tr-display: -0.02em; --w-strong: 650;
+  --radius: 8px; --radius-sm: 6px; --rule-w: 1px;
+  --pad-x: 3.8rem; --pad-y: 3.3rem; --gap: 1.7rem;
+  --surface-bg: #fffdf8; --surface-border: 1px solid #ece3d0;
+  --surface-shadow: 0 18px 40px -30px rgba(80,60,30,0.22);
+  --code-bg: #f1ead9; --chart-muted: #d8ccb2;
+  --bg-texture: var(--grain); --bg-texture-size: 160px 160px; --bg-texture-op: 0.035;
+  --glow: radial-gradient(50% 60% at 82% 8%, color-mix(in oklab, var(--accent) 9%, transparent), transparent 60%);
+  --kicker-deco: line; --card-tick: 1;
+  --opsz-body: 24;
+  --motion-dur: 0.55s; --motion-ease: cubic-bezier(0.2,0.7,0.2,1); --reveal-from: translateY(12px); --stagger: 90ms;
+}
+
+/* ATELIER — cool refined dark, gradient display titles (inspired by mira atelier). */
+:root[data-variant='atelier'] {
+  --ink: #0b0d14; --ink-2: #141824; --line: #262c3b;
+  --fg: #e9ecf5; --fg-dim: #969eb4;
+  --good: #46c97e; --warn: #e0a93b; --bad: #ff6b6b; --info: #7c8cff;
+  --accent: #8590ff; --accent-2: #8590ff; --on-accent: #0b0d14;
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.03em; --w-strong: 700;
+  --radius: 10px; --radius-sm: 8px; --rule-w: 1px;
+  --pad-x: 3.6rem; --pad-y: 3.2rem; --gap: 1.6rem;
+  --surface-bg: var(--ink-2); --surface-border: 1px solid var(--line);
+  --surface-shadow: 0 18px 42px -28px rgba(0,0,0,0.9);
+  --code-bg: #0e1119; --chart-muted: #3a4055;
+  --bg-texture: var(--grain); --bg-texture-size: 160px 160px; --bg-texture-op: 0.04;
+  --glow: radial-gradient(48% 60% at 80% 12%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 62%);
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.2,0.7,0.2,1); --reveal-from: translateY(16px); --stagger: 85ms;
+}
+
+/* NOTEBOOK — white + navy, ruled paper, dashed rules, highlighter callout (inspired by mira notebook). */
+:root[data-variant='notebook'] {
+  --ink: #ffffff; --ink-2: #fbfaf7; --line: #e4e2da;
+  --fg: #1b2440; --fg-dim: #6b7280;
+  --good: #1f7a4d; --warn: #b45309; --bad: #c0392b; --info: #2546c7;
+  --accent: #2546c7; --accent-2: #2546c7; --on-accent: #fff;
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.02em; --w-strong: 700;
+  --radius: 6px; --radius-sm: 5px; --rule-w: 1px;
+  --pad-x: 3.8rem; --pad-y: 3.4rem; --gap: 1.7rem;
+  --surface-bg: #ffffff; --surface-border: 1px solid #e6e4dc;
+  --surface-shadow: 0 16px 38px -30px rgba(20,30,60,0.25);
+  --code-bg: #f6f5f1; --chart-muted: #cdd2e0;
+  --bg-texture: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, rgba(37,70,199,0.07) 39px, rgba(37,70,199,0.07) 40px);
+  --bg-texture-size: auto; --bg-texture-op: 1;
+  --glow: none;
+  --kicker-deco: line; --card-tick: 0;
+  --motion-dur: 0.45s; --motion-ease: cubic-bezier(0.16,1,0.3,1); --reveal-from: translateY(12px); --stagger: 80ms;
+}

@@ -9,7 +9,7 @@ import { exportDeck, withVariant } from '../packages/grade/lib/export.mjs'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const cache = join(root, 'docs/assets/.cache')
 const out = join(root, 'docs/assets')
-const VARIANTS = ['editorial', 'brutalist', 'soft', 'minimal']
+const VARIANTS = ['editorial', 'brutalist', 'soft', 'minimal', 'paper', 'atelier', 'notebook']
 const BG = '#0a0a0a'
 
 const label = (text, w) => Buffer.from(

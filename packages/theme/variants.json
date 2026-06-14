@@ -1,0 +1,12 @@
+{
+  "$comment": "Machine-readable variant catalog. Consumed via slidev-theme-tahta/variants.json. Set with themeConfig.variant.",
+  "variants": [
+    { "id": "editorial", "label": "Editorial", "scheme": "dark", "description": "Refined serif headlines (Fraunces), hairline rules, faint grain. The default." },
+    { "id": "brutalist", "label": "Brutalist", "scheme": "dark", "description": "Monospace (Space Mono), hard edges, blueprint grid, lime accent." },
+    { "id": "soft", "label": "Soft", "scheme": "light", "description": "Humanist sans (Plus Jakarta), big radius, soft shadows, coral accent." },
+    { "id": "minimal", "label": "Minimal", "scheme": "light", "description": "Swiss — Archivo heavy, maximum whitespace, hairline rules, red accent." },
+    { "id": "paper", "label": "Paper", "scheme": "light", "description": "Warm editorial — rust serif on cream paper, faint grain." },
+    { "id": "atelier", "label": "Atelier", "scheme": "dark", "description": "Cool refined dark with gradient display titles, periwinkle accent." },
+    { "id": "notebook", "label": "Notebook", "scheme": "light", "description": "White ruled paper, navy bold sans, dashed section rules, highlighter callouts." }
+  ]
+}
