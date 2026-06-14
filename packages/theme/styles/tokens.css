@@ -92,13 +92,17 @@
 /* ---------- VARIANT BUNDLES ---------- */
 
 /* EDITORIAL — refined serif headlines, hairline rules, faint grain (dark). Default. */
-:root[data-variant='editorial'] { /* same as defaults */ }
+:root[data-variant='editorial'] {
+  /* refined, slightly muted ramp — sophisticated on the dark editorial ground */
+  --cat-1: #7aa2ff; --cat-2: #6fd0c0; --cat-3: #e0b15a; --cat-4: #d98f9e; --cat-5: #b89cf0;
+}
 
 /* BRUTALIST — mono, hard edges, heavy rules, blueprint grid (dark). */
 :root[data-variant='brutalist'] {
   --ink: #000; --ink-2: #0c0c0c; --line: #2c2c2c;
   --fg: #f2f2ee; --fg-dim: #8d8d86; --bad: #ff5a3c;
   --accent: #c8f135; --accent-2: #c8f135; --on-accent: #000;
+  --cat-1: #c8f135; --cat-2: #35e0f1; --cat-3: #ff5ca8; --cat-4: #ffd23f; --cat-5: #9d7bff; /* neon on dark — distinct roles */
   --font-display: 'Space Mono', monospace;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
   --font-serif: 'Space Mono', monospace;
@@ -121,6 +125,7 @@
   --ink: #f4f1ea; --ink-2: #ffffff; --line: #e7e1d6;
   --fg: #221f1a; --fg-dim: #7c766c; --good: #1f9d57; --warn: #b45309; --bad: #c0392b; --info: #2563eb;
   --accent: #ee5a36; --accent-2: #ee5a36; --on-accent: #fff;
+  --cat-1: #ee5a36; --cat-2: #1ba39c; --cat-3: #f3a712; --cat-4: #7c83db; --cat-5: #5fa873; /* warm friendly pastels on light */
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -142,6 +147,7 @@
   --ink: #ffffff; --ink-2: #fafafa; --line: #e3e3e3;
   --fg: #0a0a0a; --fg-dim: #6f6f6f; --good: #137a43; --warn: #a85c00; --bad: #d92d20; --info: #1d4ed8;
   --accent: #e5341c; --accent-2: #e5341c; --on-accent: #fff;
+  --cat-1: #e5341c; --cat-2: #1f2937; --cat-3: #2f6fed; --cat-4: #c9a227; --cat-5: #8a8f98; /* Swiss restraint — red + neutrals + one blue */
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-body: 'Archivo', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -166,6 +172,7 @@
   --fg: #2c2620; --fg-dim: #8a7c66;
   --good: #1f7a4d; --warn: #b45309; --bad: #b3261e; --info: #2563eb;
   --accent: #b5502e; --accent-2: #b5502e; --on-accent: #fff;
+  --cat-1: #b5502e; --cat-2: #7d7a3a; --cat-3: #c98a3c; --cat-4: #5f7d63; --cat-5: #9c6b58; /* earthy editorial — rust, olive, ochre, sage, clay */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Fraunces', Georgia, serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -188,6 +195,7 @@
   --fg: #e9ecf5; --fg-dim: #969eb4;
   --good: #46c97e; --warn: #e0a93b; --bad: #ff6b6b; --info: #7c8cff;
   --accent: #8590ff; --accent-2: #8590ff; --on-accent: #0b0d14;
+  --cat-1: #8590ff; --cat-2: #5fd0e0; --cat-3: #c4a0ff; --cat-4: #7fdca8; --cat-5: #f3a0c0; /* Lagoon-cool pastels on dark */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -209,6 +217,7 @@
   --fg: #1b2440; --fg-dim: #6b7280;
   --good: #1f7a4d; --warn: #b45309; --bad: #c0392b; --info: #2546c7;
   --accent: #2546c7; --accent-2: #2546c7; --on-accent: #fff;
+  --cat-1: #2546c7; --cat-2: #e5484d; --cat-3: #f2b705; --cat-4: #2e9e6b; --cat-5: #8b5cf6; /* highlighter primaries on white paper */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
