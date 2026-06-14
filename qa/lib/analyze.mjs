@@ -45,6 +45,7 @@ export async function analyzeDeck (slidesPath, { layoutIds, componentNames }) {
   return {
     exists: true,
     slideCount: slides.length,
+    variant: slides[0]?.frontmatter?.themeConfig?.variant || null,
     layouts: { counts: layoutCounts, used: Object.keys(layoutCounts), distinct: Object.keys(layoutCounts).length },
     components: { counts: compCounts, used: Object.keys(compCounts), distinct: Object.keys(compCounts).length, total: Object.values(compCounts).reduce((a, b) => a + b, 0) },
     hasRawCss: /<style\b/i.test(raw),

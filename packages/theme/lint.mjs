@@ -110,6 +110,16 @@ export async function lint (input, opts = {}) {
     if (variant && !VARIANTS.has(variant)) add(i, 'error', `themeConfig.variant "${variant}" is not a tahta variant`, 'themeConfig.variant')
   })
 
+  // themeConfig.variant is required on a full deck — a deliberate visual choice, never a
+  // silent default. Only enforced for full markdown decks that declare this theme (skipped
+  // for frontmatter-array input, where there's no headmatter to check).
+  if (typeof input === 'string') {
+    const head = slides[0]?.fm || {}
+    if (/tahta/.test(head.theme || '') && !head.themeConfig?.variant) {
+      add(0, 'error', 'themeConfig.variant is required — choose a variant deliberately to fit the talk (see the Variants table); don’t omit it to coast on a default', 'themeConfig.variant')
+    }
+  }
+
   const errors = issues.filter(x => x.level === 'error').length
   return { ok: opts.strict ? issues.length === 0 : errors === 0, errors, warnings: issues.length - errors, issues }
 }

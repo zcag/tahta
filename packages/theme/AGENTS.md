@@ -8,37 +8,41 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 2. One idea per slide.
 3. Titles/subtitles may contain <span class="accent2">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.
 4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
-5. Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.
-6. Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.
-7. Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.
-8. class: dropcap on a default slide sets a drop cap on the first paragraph.
-9. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
-10. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
-11. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
-12. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
-13. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
-14. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+5. Choose a variant deliberately. themeConfig.variant is required — pick the one whose 'best for' fits the talk's tone, audience, and medium (see the Variants table); never omit it to coast on a default. When you hand back the deck, tell the user which variant you chose and why, and that they can switch it — the visual direction is a shared decision.
+6. Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.
+7. Use components liberally — they are the main source of richness and make each deck feel bespoke rather than templated. Aim to compose at least one component on most content slides (a <Stat>/<Meter> for a number, a <Callout> for an aside, <Tags> for a stack, a <Person> for attribution, <Badge> for status, a <Terminal>/<Plot> for the concrete artifact). A deck where nearly every slide carries a component reads custom; one that only fills layout fields reads generic.
+8. Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.
+9. Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.
+10. class: dropcap on a default slide sets a drop cap on the first paragraph.
+11. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
+12. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
+13. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
+14. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
+15. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
+16. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 
 ## Deck header (first slide)
 ```yaml
 theme: slidev-theme-tahta
 title: My Talk
 themeConfig:
-  # variant: editorial | brutalist | soft | minimal | paper | atelier | notebook  — Visual style; see variants.json. Defaults to editorial.
+  variant: editorial   # REQUIRED — one of: editorial | brutalist | soft | minimal | paper | atelier | notebook. Choose one deliberately to fit the talk's tone/audience (see the Variants table's 'best for'). Don't omit it to coast on a default.
   # accent: string  — Override the brand accent (any CSS color). The whole palette (tints, shades, chart series) derives from it.
   # lang: string  — BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ).
 ```
 
 ## Variants (themeConfig.variant)
-| id | scheme | description |
-|---|---|---|
-| `editorial` | dark | Refined serif headlines (Fraunces), hairline rules, faint grain. The default. |
-| `brutalist` | dark | Monospace (Space Mono), hard edges, blueprint grid, lime accent. |
-| `soft` | light | Humanist sans (Plus Jakarta), big radius, soft shadows, coral accent. |
-| `minimal` | light | Swiss — Archivo heavy, maximum whitespace, hairline rules, red accent. |
-| `paper` | light | Warm editorial — rust serif on cream paper, faint grain. |
-| `atelier` | dark | Cool refined dark with gradient display titles, periwinkle accent. |
-| `notebook` | light | White ruled paper, navy bold sans, dashed section rules, highlighter callouts. |
+Pick the one whose **best for** fits the talk — this is a required, deliberate choice.
+
+| id | scheme | best for | description |
+|---|---|---|---|
+| `editorial` | dark | Essays, keynotes, thought-leadership — refined and serious. The neutral fallback when unset. | Refined serif headlines (Fraunces), hairline rules, faint grain. The default. |
+| `brutalist` | dark | Engineering, dev-tools, infra, technical deep-dives — raw and confident. | Monospace (Space Mono), hard edges, blueprint grid, lime accent. |
+| `soft` | light | Product, consumer, onboarding, friendly pitches — warm and approachable. | Humanist sans (Plus Jakarta), big radius, soft shadows, coral accent. |
+| `minimal` | light | Data, strategy, corporate, finance — Swiss restraint that lets content lead. | Swiss — Archivo heavy, maximum whitespace, hairline rules, red accent. |
+| `paper` | light | Long-form, narrative, research, retrospectives — humane and unhurried. | Warm editorial — rust serif on cream paper, faint grain. |
+| `atelier` | dark | Design-forward, launches, premium brand talks — polished and expressive. | Cool refined dark with gradient display titles, periwinkle accent. |
+| `notebook` | light | Teaching, workshops, casual internal updates — informal and hand-made. | White ruled paper, navy bold sans, dashed section rules, highlighter callouts. |
 
 Override the brand color with `themeConfig.accent`; set `themeConfig.lang` (e.g. `tr`) for correct locale casing.
 

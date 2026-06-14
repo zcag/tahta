@@ -3,7 +3,7 @@
   "themeConfig": {
     "description": "Deck-level config set in the first slide's headmatter under themeConfig.",
     "fields": [
-      { "name": "variant", "type": "enum", "required": false, "enum": ["editorial", "brutalist", "soft", "minimal", "paper", "atelier", "notebook"], "description": "Visual style; see variants.json. Defaults to editorial." },
+      { "name": "variant", "type": "enum", "required": true, "enum": ["editorial", "brutalist", "soft", "minimal", "paper", "atelier", "notebook"], "description": "Choose one deliberately to fit the talk's tone/audience (see the Variants table's 'best for'). Don't omit it to coast on a default." },
       { "name": "accent", "type": "string", "required": false, "description": "Override the brand accent (any CSS color). The whole palette (tints, shades, chart series) derives from it." },
       { "name": "lang", "type": "string", "required": false, "description": "BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ)." }
     ]
@@ -22,7 +22,9 @@
     "One idea per slide.",
     "Titles/subtitles may contain <span class=\"accent2\">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.",
     "For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.",
+    "Choose a variant deliberately. themeConfig.variant is required — pick the one whose 'best for' fits the talk's tone, audience, and medium (see the Variants table); never omit it to coast on a default. When you hand back the deck, tell the user which variant you chose and why, and that they can switch it — the visual direction is a shared decision.",
     "Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.",
+    "Use components liberally — they are the main source of richness and make each deck feel bespoke rather than templated. Aim to compose at least one component on most content slides (a <Stat>/<Meter> for a number, a <Callout> for an aside, <Tags> for a stack, a <Person> for attribution, <Badge> for status, a <Terminal>/<Plot> for the concrete artifact). A deck where nearly every slide carries a component reads custom; one that only fills layout fields reads generic.",
     "Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.",
     "Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.",
     "class: dropcap on a default slide sets a drop cap on the first paragraph.",

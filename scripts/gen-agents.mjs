@@ -32,13 +32,17 @@ ${m.rules.map((r, i) => `${i + 1}. ${r}`).join('\n')}
 theme: slidev-theme-tahta
 title: My Talk
 themeConfig:
-${m.themeConfig.fields.map(f => `  # ${f.name}: ${f.enum ? f.enum.join(' | ') : f.type}${f.description ? '  — ' + f.description : ''}`).join('\n')}
+${m.themeConfig.fields.map(f => f.required
+  ? `  ${f.name}: ${f.enum ? f.enum[0] : f.type}   # REQUIRED${f.enum ? ` — one of: ${f.enum.join(' | ')}` : ''}. ${f.description || ''}`
+  : `  # ${f.name}: ${f.enum ? f.enum.join(' | ') : f.type}${f.description ? '  — ' + f.description : ''}`).join('\n')}
 \`\`\`
 
 ## Variants (themeConfig.variant)
-| id | scheme | description |
-|---|---|---|
-${v.variants.map(x => `| \`${x.id}\` | ${x.scheme} | ${x.description} |`).join('\n')}
+Pick the one whose **best for** fits the talk — this is a required, deliberate choice.
+
+| id | scheme | best for | description |
+|---|---|---|---|
+${v.variants.map(x => `| \`${x.id}\` | ${x.scheme} | ${x.fit || ''} | ${x.description} |`).join('\n')}
 
 Override the brand color with \`themeConfig.accent\`; set \`themeConfig.lang\` (e.g. \`tr\`) for correct locale casing.
 

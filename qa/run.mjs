@@ -30,7 +30,7 @@ const componentNames = manifest.components.map(c => c.name)
 
 // ── args ─────────────────────────────────────────────────────────────────────
 const argv = process.argv.slice(2)
-const o = { brief: null, export: false, vision: false, keep: false, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 1, minSlides: 6 }
+const o = { brief: null, export: false, vision: false, keep: false, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 3, minSlides: 6 }
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i]
   if (a === '--brief') o.brief = argv[++i]
@@ -143,6 +143,7 @@ function report (b, dir, s, deck, verdict, render, critique) {
   console.log(C.dim(`  found contract:`) + ` ${s.readContract ? C.grn('yes') : C.ylw('no — discovery gap?')}`)
   console.log(C.dim(`  tools:`) + ` ${s.toolOrder.join(' → ') || '(none)'}`)
   if (deck.exists) {
+    console.log(C.dim(`  variant:`) + ` ${deck.variant ? C.grn(deck.variant) : C.ylw('none — coasting on default')}`)
     console.log(C.dim(`  deck:`) + ` ${deck.slideCount} slides · ${deck.layouts.distinct} layouts {${deck.layouts.used.join(', ')}} · ${deck.components.total} components {${deck.components.used.join(', ') || '—'}}`)
   }
   for (const c of verdict.checks) console.log(`  ${tick(c.ok)} ${c.name}` + (c.detail ? C.dim(`  — ${c.detail}`) : ''))
