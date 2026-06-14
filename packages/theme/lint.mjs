@@ -23,16 +23,39 @@ const typeOf = (t = '') => /array/.test(t) ? 'array' : /object/.test(t) ? 'objec
 const enumOf = (f) => Array.isArray(f.enum) ? f.enum : (/enum\s+([a-z|]+)/.exec(f.type || '')?.[1]?.split('|') ?? null)
 const NOT_BARE = /[^\d.,\-−\s]/  // any char that isn't part of a plain number (− = U+2212)
 
-async function toSlides (input) {
-  if (Array.isArray(input)) return input.map((fm, i) => ({ fm: fm || {}, i }))
-  if (typeof input === 'string') {
-    let YAML
-    try { const m = await import('yaml'); YAML = m.default ?? m } catch { throw new Error('lint(markdown) needs the optional "yaml" dependency — or pass an array of parsed frontmatter objects') }
-    const slides = []; const re = /(^|\n)---\n([\s\S]*?)\n---(?=\n|$)/g; let m, i = 0
-    while ((m = re.exec(input))) { let fm = {}; try { fm = YAML.parse(m[2]) || {} } catch {} slides.push({ fm, i: i++ }) }
-    return slides
+// Every key that may legitimately appear in frontmatter — for the leaked-frontmatter check.
+const ALL_KEYS = new Set([...GLOBAL_KEYS, ...HEADMATTER_KEYS, 'themeConfig', 'accent', 'lang', 'variant', ...manifest.layouts.flatMap(l => l.fields.map(f => f.name))])
+const KEYLINE = /^\s*([A-Za-z][\w-]*):(\s|$)/
+// A slide body that *starts* with frontmatter-looking key lines almost always means the
+// previous slide's frontmatter wasn't closed with `---`, so Slidev renders it as prose.
+function leakedFrontmatter (body) {
+  if (!body) return null
+  const lead = []
+  for (const ln of body.split('\n')) {
+    if (!ln.trim()) { if (lead.length) break; else continue }   // skip leading blanks; stop at first gap after keys
+    const m = KEYLINE.exec(ln)
+    if (!m || !ALL_KEYS.has(m[1])) break
+    lead.push(m[1])
   }
-  throw new Error('lint(input): pass a markdown string or an array of parsed frontmatter objects')
+  return (lead[0] === 'layout' || lead.length >= 2) ? lead : null
+}
+
+async function toSlides (input) {
+  if (Array.isArray(input)) return input.map((fm, i) => ({ fm: fm || {}, body: null, i }))
+  if (typeof input !== 'string') throw new Error('lint(input): pass a markdown string or an array of parsed frontmatter objects')
+  // Prefer Slidev's own parser: we then see the exact slide boundaries & bodies the
+  // renderer does, which is what makes the leaked/unclosed-frontmatter check reliable.
+  try {
+    const { parseSync } = await import('@slidev/parser')
+    const { slides } = parseSync(input, '')
+    return slides.map((s, i) => ({ fm: s.frontmatter || {}, body: s.content || '', i }))
+  } catch {}
+  // Fallback (no Slidev around): light regex + optional yaml — field checks only, no body checks.
+  let YAML
+  try { const m = await import('yaml'); YAML = m.default ?? m } catch { throw new Error('lint(markdown) needs "@slidev/parser" or the optional "yaml" dependency — or pass an array of parsed frontmatter objects') }
+  const slides = []; const re = /(^|\n)---\n([\s\S]*?)\n---(?=\n|$)/g; let m, i = 0
+  while ((m = re.exec(input))) { let fm = {}; try { fm = YAML.parse(m[2]) || {} } catch {} slides.push({ fm, body: null, i: i++ }) }
+  return slides
 }
 
 export async function lint (input, opts = {}) {
@@ -40,7 +63,9 @@ export async function lint (input, opts = {}) {
   const issues = []
   const add = (slide, level, message, field) => issues.push({ slide, level, message, ...(field ? { field } : {}) })
 
-  slides.forEach(({ fm, i }) => {
+  slides.forEach(({ fm, body, i }) => {
+    const leak = leakedFrontmatter(body)
+    if (leak) add(i, 'error', `slide body starts with frontmatter keys (${leak.slice(0, 3).join(', ')}…) — a slide's frontmatter probably isn't closed with \`---\`, so it renders as text`)
     if (!fm || typeof fm !== 'object') return
     const id = fm.layout || 'default'
     const L = LAYOUTS[id]
