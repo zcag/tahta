@@ -12,10 +12,12 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <SlideBg />
     <div v-if="showGlow" class="glow" />
     <Reveal class="l-center">
-      <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
-      <h1 class="fs-cover mw-cover" v-html="fm.title" />
-      <div v-if="fm.subtitle" class="fs-lead mw-lead dim mt-5" v-html="fm.subtitle" />
-      <slot />
+      <Fit>
+        <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
+        <h1 class="fs-cover mw-cover" v-html="fm.title" />
+        <div v-if="fm.subtitle" class="fs-lead mw-lead dim mt-5" v-html="fm.subtitle" />
+        <slot />
+      </Fit>
     </Reveal>
     <Foot />
   </div>
@@ -26,11 +28,13 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.index ?? ''" />
     <Reveal class="l-body">
-      <div v-if="fm.index" class="stat-num accent-num fs-stat-sm mb-4">{{ fm.index }}</div>
-      <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
-      <h1 class="fs-section mw-title" v-html="fm.title" />
-      <div v-if="fm.subtitle" class="fs-lead mw-lead dim mt-5" v-html="fm.subtitle" />
-      <slot />
+      <Fit>
+        <div v-if="fm.index" class="stat-num accent-num fs-stat-sm mb-4">{{ fm.index }}</div>
+        <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
+        <h1 class="fs-section mw-title" v-html="fm.title" />
+        <div v-if="fm.subtitle" class="fs-lead mw-lead dim mt-5" v-html="fm.subtitle" />
+        <slot />
+      </Fit>
     </Reveal>
     <Foot />
   </div>
@@ -41,9 +45,11 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.ghost ?? ''" />
     <Reveal class="l-center">
-      <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
-      <h2 v-if="fm.title" class="fs-h2 mb-10" v-html="fm.title" />
-      <slot />
+      <Fit>
+        <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
+        <h2 v-if="fm.title" class="fs-h2 mb-10" v-html="fm.title" />
+        <slot />
+      </Fit>
     </Reveal>
     <Foot />
   </div>
@@ -53,11 +59,13 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <SlideBg />
     <div class="glow" />
     <Reveal class="l-center middle">
-      <div class="accent-bar mb-8" />
-      <h1 class="fs-cover" v-html="fm.title || 'Thanks'" />
-      <div v-if="fm.subtitle" class="fs-lead dim mt-4" v-html="fm.subtitle" />
-      <div v-if="fm.contact" class="kicker mt-8" style="justify-content:center">{{ fm.contact }}</div>
-      <slot />
+      <Fit>
+        <div class="accent-bar mb-8" />
+        <h1 class="fs-cover" v-html="fm.title || 'Thanks'" />
+        <div v-if="fm.subtitle" class="fs-lead dim mt-4" v-html="fm.subtitle" />
+        <div v-if="fm.contact" class="kicker mt-8" style="justify-content:center">{{ fm.contact }}</div>
+        <slot />
+      </Fit>
     </Reveal>
     <Foot />
   </div>

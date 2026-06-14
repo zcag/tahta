@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.3
+- **Fix: long cover/section titles could clip off the top of the slide.** The cover, section, statement and end layouts centered their title with `position:absolute; inset:0` and no overflow guard, so a title that wrapped past the frame height was simply cut off (worse on renderers with a larger base scale than Slidev's canvas, e.g. an embedded SPA). These layouts now wrap their title block in `<Fit>` — the same auto-shrink already used by every content layout — so an oversized title scales down to fit instead of clipping. Titles that already fit are untouched (scale stays 1).
+
 ## 0.10.2
 - **Fix: charts could render blank on a slide that wasn’t active at mount** (echarts `Can’t get DOM width or height` on a 0×0 container). `<Plot>` now lazily inits + paints via a `ResizeObserver` once the container has size, and re-fits on resize.
 
