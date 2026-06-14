@@ -45,7 +45,7 @@
       { "name": "title", "type": "string", "required": true },
       { "name": "subtitle", "type": "string", "required": false } ],
       "example": "layout: section\nindex: \"02\"\nkicker: Part two\ntitle: The migration" },
-    { "id": "default", "useFor": "General content; body is markdown (bullets, prose). Auto fit-to-frame.", "fields": [
+    { "id": "default", "useFor": "General content; body is markdown (bullets, prose). Auto fit-to-frame. A canvas — compose components in the body for richer slides.", "fields": [
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false },
       { "name": "ghost", "type": "string", "required": false } ],
@@ -110,7 +110,7 @@
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false } ],
       "example": "layout: code\nkicker: How it works\ntitle: Cache, then render\n---\n\n````md magic-move\n```js\nconst x = await get(url)\n```\n```js\nconst x = await cache.match(url) ?? get(url)\n```\n````" },
-    { "id": "two-cols", "useFor": "Generic split; left = body, right = after ::right::.", "fields": [
+    { "id": "two-cols", "useFor": "Generic split; left = body, right = after ::right::. Each column is a canvas — compose components in either.", "fields": [
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false } ],
       "example": "layout: two-cols\ntitle: Before vs after\n---\n\n**Before** — one region.\n\n::right::\n\n**After** — 18 regions." },

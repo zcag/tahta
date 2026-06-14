@@ -54,7 +54,7 @@ Per-slide frontmatter available on every layout.
 |---|---|---|
 | `cover` | Title / opening slide. | kicker, title*, subtitle |
 | `section` | Part / chapter divider. | index, kicker, title*, subtitle |
-| `default` | General content; body is markdown (bullets, prose). Auto fit-to-frame. | kicker, title, ghost |
+| `default` | General content; body is markdown (bullets, prose). Auto fit-to-frame. A canvas — compose components in the body for richer slides. | kicker, title, ghost |
 | `statement` | One big centered takeaway. | kicker, title* |
 | `quote` | Testimonial / pull quote. | quote*, author |
 | `stats` | 2–4 hero numbers. | kicker, title, ghost, columns, stats* |
@@ -66,7 +66,7 @@ Per-slide frontmatter available on every layout.
 | `timeline` | A horizontal dated sequence. | kicker, title, events* |
 | `logos` | A trust / logo wall. | kicker, title, columns, logos* |
 | `code` | Code, optionally Magic Move. Body is a fenced code block. | kicker, title |
-| `two-cols` | Generic split; left = body, right = after ::right::. | kicker, title |
+| `two-cols` | Generic split; left = body, right = after ::right::. Each column is a canvas — compose components in either. | kicker, title |
 | `image` | Text + a side image (markdown body is the text column). | kicker, title, image*, side |
 | `showcase` | Asymmetric image hero (fixed 43/57; deterministic). | kicker, title, subtitle, image*, side |
 | `bleed` | Full-bleed image hero with overlaid text. | image*, kicker, stat, title, subtitle, duotone |
@@ -120,7 +120,7 @@ title: The migration
 ```
 
 ### `default`
-General content; body is markdown (bullets, prose). Auto fit-to-frame.
+General content; body is markdown (bullets, prose). Auto fit-to-frame. A canvas — compose components in the body for richer slides.
 
   - `kicker` (string, optional)
   - `title` (string, optional)
@@ -341,7 +341,7 @@ const x = await cache.match(url) ?? get(url)
 ```
 
 ### `two-cols`
-Generic split; left = body, right = after ::right::.
+Generic split; left = body, right = after ::right::. Each column is a canvas — compose components in either.
 
   - `kicker` (string, optional)
   - `title` (string, optional)
