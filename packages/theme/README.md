@@ -74,7 +74,7 @@ stats:
 Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your accent. `code` supports Magic Move. Long bodies auto-fit to the frame. `<em>word</em>` in a title = italic accent emphasis; `class: dropcap` = drop cap.
 
 ### Components (for `default`/`statement` bodies)
-`<Stat>` · `<StatCard>` · `<Plot>` · `<Callout>` · `<Badge>` · `<Icon>` (Lucide, bundled) · `<Reveal>` · `<Fit>` · `<Kbd>` · `<Terminal>` · `<FileTree>`
+`<Stat>` · `<StatCard>` · `<Plot>` · `<Callout>` · `<Badge>` · `<Icon>` (Lucide, bundled) · `<Reveal>` · `<Fit>` · `<Ghost>` · `<Kbd>` · `<Terminal>` · `<FileTree>`
 
 ### Backgrounds (`bg:`)
 

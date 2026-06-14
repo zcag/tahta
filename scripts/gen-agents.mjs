@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 // Generate packages/theme/AGENTS.md from layouts.json + variants.json (single source of truth).
+// `buildAgents()` returns the rendered markdown so check-sync.mjs can verify AGENTS.md is fresh.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const theme = resolve(dirname(fileURLToPath(import.meta.url)), '../packages/theme')
+
+export function buildAgents () {
 const m = JSON.parse(readFileSync(`${theme}/layouts.json`, 'utf8'))
 const v = JSON.parse(readFileSync(`${theme}/variants.json`, 'utf8'))
 
@@ -58,6 +61,13 @@ For use inside \`default\` / \`statement\` bodies.
 
 ${m.components.map(c => `- **\`<${c.name}>\`** — ${c.useFor} props: ${c.props.length ? c.props.map(p => `\`${p.name}\`${p.default ? ` (default ${p.default})` : ''}`).join(', ') : '—'}${c.example ? `\n  \`${c.example}\`` : ''}`).join('\n')}
 `
+  return out
+}
 
-writeFileSync(`${theme}/AGENTS.md`, out)
-console.log(`✓ AGENTS.md generated — ${m.layouts.length} layouts, ${m.components.length} components, ${v.variants.length} variants`)
+// Run directly → write the file.
+if (process.argv[1] && process.argv[1].endsWith('gen-agents.mjs')) {
+  const m = JSON.parse(readFileSync(`${theme}/layouts.json`, 'utf8'))
+  const v = JSON.parse(readFileSync(`${theme}/variants.json`, 'utf8'))
+  writeFileSync(`${theme}/AGENTS.md`, buildAgents())
+  console.log(`✓ AGENTS.md generated — ${m.layouts.length} layouts, ${m.components.length} components, ${v.variants.length} variants`)
+}

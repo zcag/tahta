@@ -12,7 +12,7 @@
     "dev": "npm run dev -w @tahta/example-edge",
     "grade": "npm run grade -w @tahta/example-edge",
     "assets": "node scripts/gen-assets.mjs",
-    "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs",
+    "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs && node scripts/check-sync.mjs",
     "docs": "node scripts/gen-agents.mjs",
     "site": "node scripts/build-site.mjs",
     "deploy": "node scripts/build-site.mjs && rsync -az --delete dist/ hermes:web/tahta/"

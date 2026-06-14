@@ -22,8 +22,21 @@ npm run grade    # render every layout across all variants + report
 
 1. `packages/theme/layouts/<id>.vue` — delegate to `<SlideFrame>` for the shared chrome; read fields via `useSlideContext().$frontmatter`.
 2. Add it to `packages/theme/layouts.json` (id, useFor, fields, example).
-3. `npm run docs` — regenerates `AGENTS.md` from the manifest (don't edit `AGENTS.md` by hand; it's generated).
-4. Add a slide to `examples/gallery` and `npm run grade` to verify across variants.
+3. Add `<id>` to the layout lists in **both** READMEs (`README.md` and `packages/theme/README.md`).
+4. Add a slide to `examples/gallery/slides.md` — this feeds the live explorer on tahta.cagdas.io.
+5. `npm run docs` — regenerates `AGENTS.md` from the manifest (never edit `AGENTS.md` by hand).
+6. `npm test` — the sync gate fails until steps 2–5 are done; `npm run grade` to eyeball across variants.
+
+## Add a component
+
+1. `packages/theme/components/<Name>.vue`. Internal plumbing (not author-facing, e.g. `SlideFrame`) goes in the `INTERNAL` allowlist in `scripts/check-sync.mjs`; everything else is part of the contract.
+2. Add it to the `components` array in `packages/theme/layouts.json` (name, useFor, props, example).
+3. Add `<Name>` to the component list in `packages/theme/README.md`.
+4. `npm run docs`, then `npm test`.
+
+## Don't let it drift
+
+`npm test` runs `scripts/check-sync.mjs`, which **fails the build** if any layout / component / variant exists in code but is missing from `layouts.json`, the generated `AGENTS.md`, the READMEs, or the gallery showcase. And `npm run deploy` rebuilds tahta.cagdas.io from `examples/*` automatically (decks are auto-discovered). So an addition can't silently skip the docs, examples, or site — the gate is the reminder.
 
 ## Stability
 
