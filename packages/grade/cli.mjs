@@ -6,6 +6,7 @@ import { spawn } from 'node:child_process'
 import sirv from 'sirv'
 import { exportDeck, withVariant } from './lib/export.mjs'
 import { analyze, flagsFor } from './lib/lint.mjs'
+import { lintDeck } from './lib/deck-lint.mjs'
 import { diffAgainst } from './lib/diff.mjs'
 import { runChecks } from './lib/checks.mjs'
 import { writeReport } from './lib/report.mjs'
@@ -37,6 +38,9 @@ const pngs = (dir) => readdirSync(dir).filter(f => f.endsWith('.png') && !f.star
 async function grade () {
   const variants = o.variants || [null]
   const results = []
+  // Structural lint on the source markdown — variant-independent, runs once.
+  const structural = await lintDeck(o.entry)
+  for (const s of structural) console.log(C.red(`  ⚠ source #${s.slide}: ${s.msg}`))
   for (const v of variants) {
     const name = v || 'deck'
     const dir = join(o.out, name)
@@ -71,7 +75,7 @@ async function grade () {
   console.log(`  report → ${C.acc(join(o.out, 'index.html'))}`)
   if (o.updateBaseline) console.log(C.ylw(`  baseline updated → ${o.baseline}`))
   for (const r of results) for (const s of r.slides) if (s.flags.length) console.log(C.red(`    ⚠ ${r.variant || 'deck'} #${s.index}: ${s.flags.join(', ')}`))
-  return results.reduce((n, r) => n + r.slides.filter(s => s.flags.length).length, 0)
+  return structural.length + results.reduce((n, r) => n + r.slides.filter(s => s.flags.length).length, 0)
 }
 
 function help () {
