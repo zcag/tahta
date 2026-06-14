@@ -1,24 +1,25 @@
 <h1 align="center">tahta</h1>
 
-<p align="center"><b>A pristine, themeable design system for <a href="https://sli.dev">Slidev</a>.</b><br>
-Write slides by filling in fields. Switch the entire visual style — type, shape, texture, palette — with one line.</p>
+<p align="center"><b>A design system for <a href="https://sli.dev">Slidev</a>.</b><br>
+Tokens, components, and patterns — so a deck is something you <i>assemble</i>, not style.</p>
 
 <p align="center"><code>npm i slidev-theme-tahta</code></p>
 
-<p align="center"><img src="docs/assets/variants.png" alt="The same slide in four variants: editorial, brutalist, soft, minimal" width="860"></p>
+<p align="center"><img src="docs/assets/variants.png" alt="One deck rendered in all seven tahta variants" width="860"></p>
 
-<p align="center"><em>One deck, one line changed — four complete styles. Not a recolor: different typefaces, shapes, textures, and density.</em></p>
+<p align="center"><em>One deck, seven variants — one line changed. Not a recolor: different typefaces, shapes, textures, density, and motion.</em></p>
 
 ---
 
-Default Slidev looks generic. **Tahta** is a token-driven design system that gets a deck to keynote-grade from declarative frontmatter — no CSS, no grids, no layout HTML — and lets you reskin the whole thing by switching a variant.
+Most Slidev themes are a stylesheet and some layouts. **Tahta is a design system**: a token foundation, a component library with a published contract, a layout kit, generated docs, and a test that enforces the system's own rules. You author decks from **declarative frontmatter** — no CSS, no grids, no layout HTML — and reskin everything by switching a variant.
 
-- **Style variants, not just colors.** `themeConfig.variant: editorial | brutalist | soft | minimal` swaps typeface, shape language, texture, density, and palette (2 dark, 2 light). Built on a 3-tier token system, so a new variant is one block.
-- **Declarative layouts.** Pick a layout, fill fields. Auto footers, auto page numbers.
-- **Token-driven components.** `Stat`, `StatCard`, `Plot`/`BarChart` (ECharts), `Icon` (Lucide, bundled offline), `Callout`, `Reveal`, `Fit` (auto fit-to-frame) — all follow the active variant automatically.
-- **One accent → a whole palette.** Set one color; chart series, tints and shades derive from it via OKLCH (relative color).
-- **Semantic roles + i18n.** `good / warn / bad / info` tones (`Badge`, `Callout`, `Stat`), and `themeConfig.lang` for correct locale casing (e.g. Turkish `i → İ`).
-- **Motion with a personality per variant.** Entrance choreography (`--motion-*` tokens) differs by style — editorial fades, brutalist snaps, soft springs — and is off in print + under reduced-motion.
+What makes it a system, not a theme:
+
+- **Foundations as data.** A 3-tier token layer ([`tokens.json`](packages/theme/tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH.
+- **A published contract.** [`layouts.json`](packages/theme/layouts.json) (every layout + field) and [`variants.json`](packages/theme/variants.json) ship in the package; [`AGENTS.md`](packages/theme/AGENTS.md) is *generated* from them.
+- **Components & patterns.** `Stat`, `Plot` (ECharts), `Callout`, `Badge`, `Icon` (Lucide, bundled), `Reveal`, `Fit` + 20 layouts — all variant-aware. Semantic `good/warn/bad/info` roles; `themeConfig.lang` for locale casing (Turkish `i→İ`).
+- **Quality is enforced, not hoped for.** `npm test` gates a **token-contract** (no hardcoded values) and **WCAG-AA contrast** for every variant; CI renders every layout across every variant.
+- **Variants are the proof.** `themeConfig.variant` — 7 complete styles (4 dark / 3 light) swapping type, shape, texture, density, motion, and palette. *That's* the one-liner — a consequence of the token system, not the pitch.
 
 ## Variants
 

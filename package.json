@@ -12,7 +12,7 @@
     "dev": "npm run dev -w @tahta/example-edge",
     "grade": "npm run grade -w @tahta/example-edge",
     "assets": "node scripts/gen-assets.mjs",
-    "test": "node scripts/check-tokens.mjs",
+    "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs",
     "docs": "node scripts/gen-agents.mjs"
   },
   "devDependencies": {

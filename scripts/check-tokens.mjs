@@ -34,6 +34,14 @@ for (const f of vueFiles) {
   for (const m of src.matchAll(/font-size\s*:\s*[0-9.]+(px|rem)/g)) problems.push(`${f}: inline font-size "${m[0]}" — use a token/fs-* class`)
 }
 
+// 3. every token documented in tokens.json must exist in the stylesheet (contract ↔ impl)
+const tj = JSON.parse(read('tokens.json'))
+for (const g of Object.values(tj.groups)) {
+  for (const name of Object.keys(g.tokens)) {
+    if (!defined.has(name)) problems.push(`tokens.json documents ${name} but it is not defined in tokens.css`)
+  }
+}
+
 if (problems.length) {
   console.error(`✗ token-contract: ${problems.length} issue(s)\n` + problems.map(p => '  - ' + p).join('\n'))
   process.exit(1)

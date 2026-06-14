@@ -1,0 +1,19 @@
+# Changelog
+
+All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
+
+## 0.3.0
+- **`tokens.json`** — the semantic token layer is now a documented public contract (foundations for theming/overrides). Bound to `styles/tokens.css` by the token-contract test.
+- **AA-contrast gate** — `npm test` now statically verifies every variant's `--fg`/`--fg-dim`/`--accent` meet WCAG AA against its background. The build fails otherwise.
+- Governance: `CHANGELOG.md`, `CONTRIBUTING.md`.
+- README repositioned around the design system (variants are a proof point, not the pitch).
+
+## 0.2.0
+- **3 new variants** — `paper` (warm rust serif), `atelier` (gradient titles), `notebook` (ruled paper). 7 total.
+- **Semantic color roles** — `--good/--warn/--bad/--info`; `Callout` tone, `Badge`, per-stat `tone`.
+- **Turkish / i18n** — `themeConfig.lang` drives correct locale casing on kickers.
+- **Machine-readable contracts** — `layouts.json` + `variants.json`; `AGENTS.md` generated from them.
+- Capability: Magic-Move `code` layout; charts gain line/area/donut with a one-hue OKLCH palette; `timeline`/`logos`/`embed`/`showcase` layouts; `Fit` auto fit-to-frame.
+
+## 0.1.0
+- Initial release: token-driven theme, 4 variants (editorial/brutalist/soft/minimal), declarative frontmatter layouts, components, motion.
