@@ -63,9 +63,18 @@ function build () {
   }
 }
 
-function resize () { chart?.resize() }
-onMounted(() => { chart = echarts.init(el.value, null, { renderer: 'svg' }); chart.setOption(build()); window.addEventListener('resize', resize) })
-onBeforeUnmount(() => { window.removeEventListener('resize', resize); chart?.dispose(); probe?.remove() })
+let ro, ready = false
+// Render only once the container actually has a size. In Slidev a chart can mount on an
+// inactive / 0×0 slide — echarts then warns "Can't get DOM width or height" and paints blank.
+// A ResizeObserver inits + paints the moment the slide becomes visible/sized, and re-fits on resize.
+function paint () {
+  if (!el.value || el.value.clientWidth === 0) return
+  if (!chart) chart = echarts.init(el.value, null, { renderer: 'svg' })
+  if (!ready) { chart.setOption(build()); ready = true }
+  chart.resize()
+}
+onMounted(() => { ro = new ResizeObserver(paint); ro.observe(el.value); paint(); window.addEventListener('resize', paint) })
+onBeforeUnmount(() => { ro?.disconnect(); window.removeEventListener('resize', paint); chart?.dispose(); probe?.remove() })
 </script>
 
 <template>
