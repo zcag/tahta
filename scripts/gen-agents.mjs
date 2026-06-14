@@ -57,7 +57,7 @@ ${m.layouts.map(l => `| \`${l.id}\` | ${l.useFor} | ${l.fields.map(f => f.name +
 ${m.layouts.map(l => `### \`${l.id}\`\n${l.useFor}\n\n${l.fields.map(fieldLine).join('\n')}\n\n\`\`\`yaml\n---\n${l.example}\n---\n\`\`\``).join('\n\n')}
 
 ## Components
-For use inside \`default\` / \`statement\` bodies.
+Compose these inside \`default\` / \`statement\` / \`two-cols\` bodies to enrich any slide — not only when a layout lacks a field. A composed slide is how a deck earns its bespoke, high-richness moments; reach for them rather than filling another template.
 
 ${m.components.map(c => `- **\`<${c.name}>\`** — ${c.useFor} props: ${c.props.length ? c.props.map(p => `\`${p.name}\`${p.default ? ` (default ${p.default})` : ''}`).join(', ') : '—'}${c.example ? `\n  \`${c.example}\`` : ''}`).join('\n')}
 `

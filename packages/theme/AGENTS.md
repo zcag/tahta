@@ -8,13 +8,15 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 2. One idea per slide.
 3. Titles/subtitles may contain <span class="accent2">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.
 4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
-5. class: dropcap on a default slide sets a drop cap on the first paragraph.
-6. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
-7. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
-8. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
-9. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
-10. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
-11. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+5. Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.
+6. Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.
+7. class: dropcap on a default slide sets a drop cap on the first paragraph.
+8. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
+9. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
+10. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
+11. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
+12. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
+13. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 
 ## Deck header (first slide)
 ```yaml
@@ -627,7 +629,7 @@ notes:
 ```
 
 ## Components
-For use inside `default` / `statement` bodies.
+Compose these inside `default` / `statement` / `two-cols` bodies to enrich any slide — not only when a layout lacks a field. A composed slide is how a deck earns its bespoke, high-richness moments; reach for them rather than filling another template.
 
 - **`<Stat>`** — Big number + label (in default/statement bodies). props: `value`, `unit`, `label`, `size` (default xl), `icon`, `tone`, `accent` (default true)
   `<Stat value="80" unit="%" label="lower p95" tone="good" icon="lucide:trending-down" />`
