@@ -67,12 +67,14 @@ stats:
 ```
 
 ### Layouts
-`cover` · `section` · `default` · `statement` · `quote` · `stats` · `fact` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
+**Keynote / pitch** — `cover` · `lead` · `section` · `default` · `statement` · `bigtype` · `quote` · `stats` · `fact` · `figure` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
 
-Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your accent. `code` supports Magic Move. Long bodies auto-fit to the frame.
+**Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain`
+
+Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your accent. `code` supports Magic Move. Long bodies auto-fit to the frame. `<em>word</em>` in a title = italic accent emphasis; `class: dropcap` = drop cap.
 
 ### Components (for `default`/`statement` bodies)
-`<Stat>` · `<StatCard>` · `<Plot>` · `<Callout>` · `<Badge>` · `<Icon>` (Lucide, bundled) · `<Reveal>` · `<Fit>`
+`<Stat>` · `<StatCard>` · `<Plot>` · `<Callout>` · `<Badge>` · `<Icon>` (Lucide, bundled) · `<Reveal>` · `<Fit>` · `<Kbd>` · `<Terminal>` · `<FileTree>`
 
 ### Backgrounds (`bg:`)
 

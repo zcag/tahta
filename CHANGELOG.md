@@ -2,6 +2,15 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.7.0
+Two big additions: **editorial composition** (so decks have rhythm, not sameness) and a **teaching/technical pack** (so tahta serves talks & docs, not just pitches).
+
+- **New editorial layouts** — `lead` (asymmetric opener, title low-left + ghost numeral), `bigtype` (full-bleed type, auto-fits), `figure` (giant number + context, vs the centered `fact`).
+- **`<em>` emphasis** — `<em>word</em>` in a title sets a true italic in the accent color (gorgeous in Fraunces) — the designed-headline lever beyond a flat `accent2` color span. Plus **drop caps** via `class: dropcap` and a wider type scale.
+- **Teaching/technical pack** — layouts `agenda`, `define`, `columns`, `panels`, `reference` (cheatsheet), `vs`, `code-explain`; components `<Kbd>`, `<Terminal>`, `<FileTree>`. All tokenized → restyled by every variant, AA-gated.
+- **New example deck** `teach` (Claude Code 101) showing the whole technical pack; `talk` rebuilt to demonstrate composition rhythm.
+- 30 layouts + 12 components, all documented in `layouts.json` / `AGENTS.md`; `lint` validates the new layouts and `figure.value`.
+
 ## 0.6.1
 - **`lint` catches leaked / unclosed frontmatter** — a slide whose body starts with frontmatter keys (the classic "forgot the closing `---`", which Slidev then renders as prose) is now flagged. `lint` uses Slidev's own parser when available, so it sees the exact slide bodies the renderer does (falls back to the lighter regex path otherwise).
 - **Footer no longer prints raw HTML** — a deck `title` (or per-slide `foot:`) containing accent markup like `<span class="accent2">…</span>` now renders as clean text in the footer instead of literal tags.

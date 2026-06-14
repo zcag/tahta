@@ -55,9 +55,12 @@
   /* TYPE SCALE (semantic, per-role; variants may override) */
   --fs-kicker: 0.72rem;
   --fs-lead: 1.5rem;          /* subtitles, lead paragraphs */
+  --fs-lead-xl: 1.9rem;       /* oversized lead (lead/figure layouts) */
   --fs-body: 1.125rem;
   --fs-h2: 2.25rem;           /* topic / content titles */
-  --fs-cover: 4.5rem;         /* cover title */
+  --fs-cover: 5rem;           /* cover title */
+  --fs-lead-title: 6rem;      /* asymmetric opener (lead layout) */
+  --fs-bigtype: 6.5rem;       /* full-bleed type (bigtype layout) */
   --fs-section: 4.5rem;       /* section title */
   --fs-quote: 3.75rem;
   --fs-stat-xl: 6rem;         /* hero stat (stats layout) */
@@ -108,6 +111,7 @@
   --kicker-deco: bracket; --card-tick: 1;
   /* Space Mono is wide → pull the display scale down so it fits */
   --fs-cover: 3.6rem; --fs-section: 3.6rem; --fs-h2: 2rem; --fs-quote: 3rem; --fs-fact: 8.5rem;
+  --fs-lead-title: 4.2rem; --fs-bigtype: 4.6rem;
   /* hard, mechanical motion */
   --motion-dur: 0.16s; --motion-ease: steps(2, end); --reveal-from: translateX(-10px); --stagger: 70ms;
 }
@@ -151,6 +155,7 @@
   --kicker-deco: none; --card-tick: 0;
   /* Swiss → larger, more confident display */
   --fs-cover: 5.5rem; --fs-section: 5.5rem; --fs-h2: 3rem; --fs-stat-xl: 7rem;
+  --fs-lead-title: 7.5rem; --fs-bigtype: 8.5rem;
   /* crisp, precise motion */
   --motion-dur: 0.5s; --motion-ease: cubic-bezier(0.16, 1, 0.3, 1); --reveal-from: translateX(-20px); --stagger: 80ms;
 }

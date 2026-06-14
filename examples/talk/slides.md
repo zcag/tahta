@@ -1,26 +1,24 @@
 ---
 theme: slidev-theme-tahta
-title: The Tail That Wags the Service
+title: "The tail that <em>wags</em> the service"
 info: A conference talk on tail latency — why averages lie and what to do about it.
 themeConfig:
   variant: editorial
 transition: slide-left
 mdc: true
 routerMode: hash
-layout: cover
+layout: lead
+index: "01"
+bg: mesh
 kicker: SREcon · 2026
 subtitle: Why your <span class="accent2">average</span> latency is a lie your worst customers don't believe.
 ---
 
-# The Tail That Wags the Service
-
 ---
-layout: statement
+layout: bigtype
 kicker: The setup
-title: Your dashboard says <span class="accent2">42ms</span>. Your angriest user waited 1.9 seconds.
+title: Your dashboard says <em>42ms</em>. Your angriest user waited 1.9 seconds.
 ---
-
-Both numbers are true. The mean just isn't the one that churns.
 
 ---
 layout: stats
@@ -119,10 +117,11 @@ author: Dean & Barroso · "The Tail at Scale"
 ---
 
 ---
-layout: fact
+layout: figure
 kicker: The takeaway
 value: "p99"
-label: Optimize the number your <span class="accent2">worst</span> customer feels, not the one your dashboard loves.
+ghost: "%"
+label: Optimize the number your <em>worst</em> customer feels, not the one your dashboard loves.
 ---
 
 ---

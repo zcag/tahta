@@ -218,6 +218,124 @@ title: Stat · StatCard
 </div>
 
 ---
+layout: section
+index: "C"
+bg: aurora
+kicker: Editorial & teaching
+title: Composition, rhythm, and a technical pack
+---
+
+---
+layout: lead
+index: "L"
+kicker: layout · lead
+title: Lead — an <em>asymmetric</em> opener
+subtitle: Title anchored low-left, big negative space, ghost numeral. The designed alternative to cover.
+---
+
+---
+layout: bigtype
+kicker: layout · bigtype
+title: Bigtype — one phrase, <em>edge to edge</em>.
+---
+
+---
+layout: figure
+kicker: layout · figure
+value: "63"
+unit: "%"
+ghost: "%"
+label: Figure — a giant number with <em>context</em> beside it.
+---
+
+---
+layout: agenda
+kicker: layout · agenda
+title: Agenda — numbered overview
+items:
+  - { topic: Getting started, desc: "install, first run" }
+  - { topic: Core tools, desc: "files, search, bash" }
+  - { topic: Extending, desc: "MCP, hooks, skills" }
+  - { topic: Shipping, desc: "commits, PRs, review" }
+---
+
+---
+layout: define
+kicker: layout · define
+term: Define — term + definition
+definition: For <span class="accent2">"What is X?"</span> moments — a big term, a clear one-liner, optional points.
+points:
+  - Supporting detail one
+  - Supporting detail two
+---
+
+---
+layout: columns
+kicker: layout · columns
+title: Columns — headed, side by side
+columns:
+  - { title: "Pros", items: ["No CSS to write", "Variant-aware", "Auto-fits"] }
+  - { title: "Use for", items: ["Compare two things", "Parallel lists", "Before / after"] }
+---
+
+---
+layout: panels
+kicker: layout · panels
+title: Panels — carded sub-topics
+panels:
+  - { icon: "lucide:box", title: Tokens, items: ["3-tier", "one accent"] }
+  - { icon: "lucide:layout-template", title: Layouts, items: ["30 of them", "frontmatter"] }
+  - { icon: "lucide:puzzle", title: Components, items: ["drop-in", "variant-aware"] }
+  - { icon: "lucide:shield-check", title: Gates, items: ["token contract", "WCAG AA"] }
+---
+
+---
+layout: reference
+kicker: layout · reference
+title: Reference — a cheatsheet
+groups:
+  - { title: Essentials, items: [{ term: "/help", desc: list commands }, { term: "/clear", desc: reset }] }
+  - { title: Session, items: [{ term: "/resume", desc: reopen }, { term: "/cost", desc: tokens used }] }
+---
+
+---
+layout: vs
+kicker: layout · vs
+title: Vs — A against B
+left: { title: This way, items: ["Clear", "Scannable", "Designed"] }
+right: { title: That way, items: ["Dense", "Walls of text", "Templated"] }
+---
+
+---
+layout: code-explain
+kicker: layout · code-explain
+title: Code-explain — code + notes
+notes:
+  - "<strong>Code</strong> goes in the slide body as a fenced block."
+  - "<strong>notes</strong> render as numbered points beside it."
+---
+
+```ts
+export function lint(markdown: string) {
+  return validate(parse(markdown))
+}
+```
+
+---
+layout: default
+kicker: components
+title: Kbd · Terminal · FileTree
+---
+
+<div style="display:flex; flex-direction:column; gap:1.1rem">
+  <div><Kbd>⌘</Kbd><Kbd>K</Kbd> &nbsp; <Kbd>Ctrl-R</Kbd> &nbsp; <Kbd>Shift</Kbd> + <Kbd>Tab</Kbd></div>
+  <div class="grid grid-cols-2 gap-8">
+    <Terminal title="zsh" :lines="[{ cmd: 'tahta lint deck.md' }, { out: '✓ 0 errors' }]" />
+    <FileTree :items="[{ name: 'theme/', dir: true, children: [{ name: 'layouts/' , dir: true }, { name: 'tokens.css' }] }]" />
+  </div>
+</div>
+
+---
 layout: end
 title: That's the kit
 subtitle: Tokens → components → layouts → grading

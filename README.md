@@ -78,9 +78,11 @@ stats:
 
 ### Layouts
 
-`cover` · `section` · `default` · `statement` · `quote` · `stats` · `fact` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
+**Keynote / pitch** — `cover` · `lead` · `section` · `default` · `statement` · `bigtype` · `quote` · `stats` · `fact` · `figure` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
 
-Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your one accent. `code` supports Magic Move. Long bodies auto-fit to the frame.
+**Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain` (+ `<Kbd>` / `<Terminal>` / `<FileTree>`)
+
+Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your one accent. `code` supports Magic Move. Long bodies auto-fit to the frame. `<em>word</em>` in a title sets italic accent emphasis.
 
 <p align="center"><img src="docs/assets/layouts.png" alt="Layout catalog" width="860"></p>
 

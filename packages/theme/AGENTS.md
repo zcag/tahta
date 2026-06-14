@@ -6,13 +6,15 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 ## Rules
 1. Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.
 2. One idea per slide.
-3. Titles/subtitles may contain <span class="accent2">highlight</span>. Nothing else needs HTML.
-4. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
-5. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
-6. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
-7. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
-8. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
-9. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+3. Titles/subtitles may contain <span class="accent2">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.
+4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use figure/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
+5. class: dropcap on a default slide sets a drop cap on the first paragraph.
+6. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
+7. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
+8. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
+9. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
+10. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
+11. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 
 ## Deck header (first slide)
 ```yaml
@@ -67,6 +69,16 @@ Per-slide frontmatter available on every layout.
 | `bleed` | Full-bleed image hero with overlaid text. | image*, kicker, stat, title, subtitle, duotone |
 | `embed` | Video or iframe. | kicker, title, video, iframe |
 | `end` | Closing slide. | title, subtitle, contact |
+| `lead` | Asymmetric opener — title anchored low-left, big negative space. A dramatic alternative to cover. | kicker, title*, subtitle, index |
+| `bigtype` | Full-bleed type — one phrase fills the slide. A punctuation/transition moment; auto-fits to the frame. | kicker, title*, subtitle |
+| `figure` | Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`). | value*, unit, kicker, label, ghost |
+| `agenda` | Numbered module overview / table of contents. | kicker, title, items* |
+| `define` | Term + definition ("What is X?"). | kicker, term*, definition, points |
+| `columns` | 2–3 headed columns side by side (compare / parallel lists). | kicker, title, columns* |
+| `panels` | 2–4 carded sub-topics in a grid. | kicker, title, panels* |
+| `reference` | Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts. | kicker, title, groups, items |
+| `vs` | A-vs-B comparison — two panels with a centered divider. | kicker, title, left*, right*, label |
+| `code-explain` | Code (in the slide body) + numbered explanation beside it. | kicker, title, notes* |
 
 *\* = required.*
 
@@ -438,6 +450,182 @@ contact: team@example.com
 ---
 ```
 
+### `lead`
+Asymmetric opener — title anchored low-left, big negative space. A dramatic alternative to cover.
+
+  - `kicker` (string, optional)
+  - `title` (string, **required**) — HTML allowed: <em>word</em> = italic accent emphasis; <span class="accent2">word</span> = accent color.
+  - `subtitle` (string, optional)
+  - `index` (string, optional) — Big faint ghost glyph in the negative space.
+
+```yaml
+---
+layout: lead
+index: "01"
+kicker: SREcon · 2026
+title: The tail that <em>wags</em> the service.
+---
+```
+
+### `bigtype`
+Full-bleed type — one phrase fills the slide. A punctuation/transition moment; auto-fits to the frame.
+
+  - `kicker` (string, optional)
+  - `title` (string, **required**) — HTML allowed (em / accent2).
+  - `subtitle` (string, optional)
+
+```yaml
+---
+layout: bigtype
+kicker: The takeaway
+title: Optimize the number your <em>worst</em> customer feels.
+---
+```
+
+### `figure`
+Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`).
+
+  - `value` (string, **required**) — Keep the number bare; put the symbol in unit.
+  - `unit` (string, optional)
+  - `kicker` (string, optional)
+  - `label` (string, optional) — Context line; HTML allowed.
+  - `ghost` (string, optional)
+
+```yaml
+---
+layout: figure
+kicker: The arithmetic of scale
+value: "63"
+unit: "%"
+label: of renders hit at least <em>one</em> p99 call.
+---
+```
+
+### `agenda`
+Numbered module overview / table of contents.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `items` (array, **required**) — items: `topic: string, desc: string`
+
+```yaml
+---
+layout: agenda
+title: What we'll cover
+items:
+  - { topic: Getting started, desc: "install, first run, the loop" }
+  - { topic: Core tools, desc: "files, search, bash" }
+---
+```
+
+### `define`
+Term + definition ("What is X?").
+
+  - `kicker` (string, optional)
+  - `term` (string, **required**)
+  - `definition` (string, optional) — HTML allowed (accent2 span).
+  - `points` (array, optional) — Supporting bullets (string array).
+
+```yaml
+---
+layout: define
+kicker: The basics
+term: What is Claude Code?
+definition: An <span class="accent2">agentic coding assistant</span> in your terminal.
+---
+```
+
+### `columns`
+2–3 headed columns side by side (compare / parallel lists).
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `columns` (array, **required**) — items: `title: string, items: string[] (bullets), body: string (html, alt to items)`
+
+```yaml
+---
+layout: columns
+title: One tool, many surfaces
+columns:
+  - { title: "It can…", items: ["Read & edit files", "Run shell & tests"] }
+  - { title: "Available on…", items: ["Terminal", "VS Code", "Web"] }
+---
+```
+
+### `panels`
+2–4 carded sub-topics in a grid.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `panels` (array, **required**) — items: `title: string, icon: string (lucide:*), items: string[], body: string (html, alt to items)`
+
+```yaml
+---
+layout: panels
+title: Keep the window healthy
+panels:
+  - { icon: "lucide:gauge", title: Watch usage, items: ["shows % used"] }
+  - { icon: "lucide:archive", title: When it fills, items: ["auto-compaction"] }
+---
+```
+
+### `reference`
+Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `groups` (array, optional) — Grouped sections. Use groups OR items. — items: `title: string, items: [{ term, desc }]`
+  - `items` (array, optional) — Flat list (no grouping). — items: `term: string, desc: string`
+
+```yaml
+---
+layout: reference
+title: Slash commands
+groups:
+  - { title: Essentials, items: [{ term: "/help", desc: list commands }, { term: "/clear", desc: reset }] }
+---
+```
+
+### `vs`
+A-vs-B comparison — two panels with a centered divider.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `left` (object, **required**) — `title: string; items: string[]`
+  - `right` (object, **required**) — `title: string; items: string[]`
+  - `label` (string, optional) — Divider label (default "vs").
+
+```yaml
+---
+layout: vs
+title: Two ways Claude remembers
+left: { title: CLAUDE.md, items: ["You write it", "Versioned in git"] }
+right: { title: Auto memory, items: ["Claude writes it", "Across sessions"] }
+---
+```
+
+### `code-explain`
+Code (in the slide body) + numbered explanation beside it.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `notes` (array, **required**) — Numbered notes shown beside the code (string array); HTML allowed (strong).
+
+```yaml
+---
+layout: code-explain
+title: Auto-format on edit
+notes:
+  - "<strong>PostToolUse</strong> fires after a tool runs."
+  - "Match Edit|Write to scope to file edits."
+---
+
+```json
+{ "hooks": {} }
+```
+---
+```
+
 ## Components
 For use inside `default` / `statement` bodies.
 
@@ -459,3 +647,9 @@ For use inside `default` / `statement` bodies.
   `<Fit>long body content that should never overflow</Fit>`
 - **`<Ghost>`** — Giant faint background glyph. props: `text`
   `<Ghost text="03" />`
+- **`<Kbd>`** — Keycap for keyboard shortcuts. props: —
+  `<Kbd>⌘</Kbd><Kbd>K</Kbd> · <Kbd>Ctrl-R</Kbd>`
+- **`<Terminal>`** — Shell-session window (prompt + output). props: `lines` (default []), `title`
+  `<Terminal title="zsh" :lines="[{cmd:'claude --version'},{out:'2.0.1'}]" />`
+- **`<FileTree>`** — Project / config tree with guides. props: `items`
+  `<FileTree :items="[{name:'src', children:[{name:'main.ts'}]}, {name:'README.md'}]" />`

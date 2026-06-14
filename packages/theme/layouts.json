@@ -20,7 +20,9 @@
   "rules": [
     "Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.",
     "One idea per slide.",
-    "Titles/subtitles may contain <span class=\"accent2\">highlight</span>. Nothing else needs HTML.",
+    "Titles/subtitles may contain <span class=\"accent2\">highlight</span> (accent color) or <em>highlight</em> (italic accent — the editorial emphasis). Nothing else needs HTML.",
+    "For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use figure/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.",
+    "class: dropcap on a default slide sets a drop cap on the first paragraph.",
     "Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.",
     "Keep numeric values bare; put the symbol in unit (value: 80, unit: \"%\").",
     "For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.",
@@ -140,7 +142,65 @@
       { "name": "title", "type": "string", "required": false },
       { "name": "subtitle", "type": "string", "required": false },
       { "name": "contact", "type": "string", "required": false } ],
-      "example": "layout: end\ntitle: Thanks\nsubtitle: Questions welcome\ncontact: team@example.com" }
+      "example": "layout: end\ntitle: Thanks\nsubtitle: Questions welcome\ncontact: team@example.com" },
+
+    { "id": "lead", "useFor": "Asymmetric opener — title anchored low-left, big negative space. A dramatic alternative to cover.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": true, "description": "HTML allowed: <em>word</em> = italic accent emphasis; <span class=\"accent2\">word</span> = accent color." },
+      { "name": "subtitle", "type": "string", "required": false },
+      { "name": "index", "type": "string", "required": false, "description": "Big faint ghost glyph in the negative space." } ],
+      "example": "layout: lead\nindex: \"01\"\nkicker: SREcon · 2026\ntitle: The tail that <em>wags</em> the service." },
+    { "id": "bigtype", "useFor": "Full-bleed type — one phrase fills the slide. A punctuation/transition moment; auto-fits to the frame.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": true, "description": "HTML allowed (em / accent2)." },
+      { "name": "subtitle", "type": "string", "required": false } ],
+      "example": "layout: bigtype\nkicker: The takeaway\ntitle: Optimize the number your <em>worst</em> customer feels." },
+    { "id": "figure", "useFor": "Asymmetric single figure — giant number on one side, context on the other (vs the centered `fact`).", "fields": [
+      { "name": "value", "type": "string", "required": true, "description": "Keep the number bare; put the symbol in unit." },
+      { "name": "unit", "type": "string", "required": false },
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "label", "type": "string", "required": false, "description": "Context line; HTML allowed." },
+      { "name": "ghost", "type": "string", "required": false } ],
+      "example": "layout: figure\nkicker: The arithmetic of scale\nvalue: \"63\"\nunit: \"%\"\nlabel: of renders hit at least <em>one</em> p99 call." },
+    { "id": "agenda", "useFor": "Numbered module overview / table of contents.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "items", "type": "array", "required": true, "items": { "topic": "string", "desc": "string" } } ],
+      "example": "layout: agenda\ntitle: What we'll cover\nitems:\n  - { topic: Getting started, desc: \"install, first run, the loop\" }\n  - { topic: Core tools, desc: \"files, search, bash\" }" },
+    { "id": "define", "useFor": "Term + definition (\"What is X?\").", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "term", "type": "string", "required": true },
+      { "name": "definition", "type": "string", "required": false, "description": "HTML allowed (accent2 span)." },
+      { "name": "points", "type": "array", "required": false, "description": "Supporting bullets (string array)." } ],
+      "example": "layout: define\nkicker: The basics\nterm: What is Claude Code?\ndefinition: An <span class=\"accent2\">agentic coding assistant</span> in your terminal." },
+    { "id": "columns", "useFor": "2–3 headed columns side by side (compare / parallel lists).", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "columns", "type": "array", "required": true, "items": { "title": "string", "items": "string[] (bullets)", "body": "string (html, alt to items)" } } ],
+      "example": "layout: columns\ntitle: One tool, many surfaces\ncolumns:\n  - { title: \"It can…\", items: [\"Read & edit files\", \"Run shell & tests\"] }\n  - { title: \"Available on…\", items: [\"Terminal\", \"VS Code\", \"Web\"] }" },
+    { "id": "panels", "useFor": "2–4 carded sub-topics in a grid.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "panels", "type": "array", "required": true, "items": { "title": "string", "icon": "string (lucide:*)", "items": "string[]", "body": "string (html, alt to items)" } } ],
+      "example": "layout: panels\ntitle: Keep the window healthy\npanels:\n  - { icon: \"lucide:gauge\", title: Watch usage, items: [\"shows % used\"] }\n  - { icon: \"lucide:archive\", title: When it fills, items: [\"auto-compaction\"] }" },
+    { "id": "reference", "useFor": "Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "groups", "type": "array", "required": false, "items": { "title": "string", "items": "[{ term, desc }]" }, "description": "Grouped sections. Use groups OR items." },
+      { "name": "items", "type": "array", "required": false, "items": { "term": "string", "desc": "string" }, "description": "Flat list (no grouping)." } ],
+      "example": "layout: reference\ntitle: Slash commands\ngroups:\n  - { title: Essentials, items: [{ term: \"/help\", desc: list commands }, { term: \"/clear\", desc: reset }] }" },
+    { "id": "vs", "useFor": "A-vs-B comparison — two panels with a centered divider.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "left", "type": "object", "required": true, "props": { "title": "string", "items": "string[]" } },
+      { "name": "right", "type": "object", "required": true, "props": { "title": "string", "items": "string[]" } },
+      { "name": "label", "type": "string", "required": false, "description": "Divider label (default \"vs\")." } ],
+      "example": "layout: vs\ntitle: Two ways Claude remembers\nleft: { title: CLAUDE.md, items: [\"You write it\", \"Versioned in git\"] }\nright: { title: Auto memory, items: [\"Claude writes it\", \"Across sessions\"] }" },
+    { "id": "code-explain", "useFor": "Code (in the slide body) + numbered explanation beside it.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "notes", "type": "array", "required": true, "description": "Numbered notes shown beside the code (string array); HTML allowed (strong)." } ],
+      "example": "layout: code-explain\ntitle: Auto-format on edit\nnotes:\n  - \"<strong>PostToolUse</strong> fires after a tool runs.\"\n  - \"Match Edit|Write to scope to file edits.\"\n---\n\n```json\n{ \"hooks\": {} }\n```" }
   ],
   "components": [
     { "name": "Stat", "useFor": "Big number + label (in default/statement bodies).", "props": [
@@ -168,6 +228,15 @@
     { "name": "Fit", "useFor": "Auto fit-to-frame: scales overflowing content down.", "props": [],
       "example": "<Fit>long body content that should never overflow</Fit>" },
     { "name": "Ghost", "useFor": "Giant faint background glyph.", "props": [ { "name": "text", "type": "string|number", "required": true } ],
-      "example": "<Ghost text=\"03\" />" }
+      "example": "<Ghost text=\"03\" />" },
+    { "name": "Kbd", "useFor": "Keycap for keyboard shortcuts.", "props": [],
+      "example": "<Kbd>⌘</Kbd><Kbd>K</Kbd> · <Kbd>Ctrl-R</Kbd>" },
+    { "name": "Terminal", "useFor": "Shell-session window (prompt + output).", "props": [
+      { "name": "lines", "type": "array", "required": true, "default": "[]" },
+      { "name": "title", "type": "string" } ],
+      "example": "<Terminal title=\"zsh\" :lines=\"[{cmd:'claude --version'},{out:'2.0.1'}]\" />" },
+    { "name": "FileTree", "useFor": "Project / config tree with guides.", "props": [
+      { "name": "items", "type": "array (nested [{name, dir?, children?}])", "required": true } ],
+      "example": "<FileTree :items=\"[{name:'src', children:[{name:'main.ts'}]}, {name:'README.md'}]\" />" }
   ]
 }
