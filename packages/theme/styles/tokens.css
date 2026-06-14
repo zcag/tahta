@@ -18,7 +18,9 @@
 /* ---------- SEMANTIC DEFAULTS (= editorial) ---------- */
 :root {
   --ink: #0c0d10; --ink-2: #15171c; --line: #262a33;
-  --fg: #ece9e3; --fg-dim: #9a9b94; --warn: #ff6b6b;
+  --fg: #ece9e3; --fg-dim: #9a9b94;
+  /* semantic roles (independent of brand accent) — dark defaults, lighter variants override */
+  --good: #46c97e; --warn: #e0a93b; --bad: #ff6b6b; --info: #5b9dff;
   --accent: #7aa2ff; --accent-2: #7aa2ff; --on-accent: #0c0d10;
 
   /* ONE-HUE RAMP — everything below is derived from --accent via relative-color OKLCH,
@@ -92,7 +94,7 @@
 /* BRUTALIST — mono, hard edges, heavy rules, blueprint grid (dark). */
 :root[data-variant='brutalist'] {
   --ink: #000; --ink-2: #0c0c0c; --line: #2c2c2c;
-  --fg: #f2f2ee; --fg-dim: #8d8d86; --warn: #ff5a3c;
+  --fg: #f2f2ee; --fg-dim: #8d8d86; --bad: #ff5a3c;
   --accent: #c8f135; --accent-2: #c8f135; --on-accent: #000;
   --font-display: 'Space Mono', monospace;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -113,7 +115,7 @@
 /* SOFT — humanist sans, big radius, soft shadows, warm paper (light). */
 :root[data-variant='soft'] {
   --ink: #f4f1ea; --ink-2: #ffffff; --line: #e7e1d6;
-  --fg: #221f1a; --fg-dim: #7c766c; --warn: #d9472b;
+  --fg: #221f1a; --fg-dim: #7c766c; --good: #1f9d57; --warn: #b45309; --bad: #c0392b; --info: #2563eb;
   --accent: #ee5a36; --accent-2: #ee5a36; --on-accent: #fff;
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -134,7 +136,7 @@
 /* MINIMAL — Swiss, huge type, max whitespace, hairline only, pure white (light). */
 :root[data-variant='minimal'] {
   --ink: #ffffff; --ink-2: #fafafa; --line: #e3e3e3;
-  --fg: #0a0a0a; --fg-dim: #6f6f6f; --warn: #e5341c;
+  --fg: #0a0a0a; --fg-dim: #6f6f6f; --good: #137a43; --warn: #a85c00; --bad: #d92d20; --info: #1d4ed8;
   --accent: #e5341c; --accent-2: #e5341c; --on-accent: #fff;
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-body: 'Archivo', system-ui, sans-serif;

@@ -55,6 +55,10 @@ subtitle: How we cut <span class="accent2">p95 latency 80%</span> by moving to t
 
 **Icons** — `stats[]`, `steps[]`, and `feature[]` items take an optional `icon:` ([Lucide](https://lucide.dev) name, e.g. `"lucide:zap"`), bundled offline. In a `default`/`statement` body use `<Icon name="lucide:rocket" />` directly.
 
+**Semantic roles** — `good · warn · bad · info` exist alongside the brand accent. Use `<Badge tone="good">shipped</Badge>` for inline status, `<Callout tone="warn">…</Callout>` for asides, and `tone:` on a `stats[]` item or `<Stat tone="bad">` to color a figure.
+
+**Language** — set `themeConfig.lang: tr` (or any BCP-47 tag) so uppercase kickers cast correctly (Turkish `i → İ`). Fonts cover Latin-Extended (Turkish, etc.).
+
 **Motion** — entrance animation is automatic and themeable (each variant has its own duration/easing/transform); stats/steps/feature stagger in. It's off in print/export and under `prefers-reduced-motion`. Wrap any body element in `<Reveal :delay="120">…</Reveal>` to opt extra content in.
 
 ## Copy-paste examples

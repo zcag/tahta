@@ -10,6 +10,8 @@ function apply () {
   const cfg = ($s.configs && $s.configs.themeConfig) || $s.themeConfigs || {}
   const root = document.documentElement
   root.dataset.variant = cfg.variant || 'editorial'
+  // locale: drives correct text-transform casing (e.g. Turkish i→İ on uppercase kickers)
+  if (cfg.lang) root.lang = cfg.lang
   if (cfg.accent) {
     root.style.setProperty('--accent', cfg.accent)
     root.style.setProperty('--accent-2', cfg.accent)

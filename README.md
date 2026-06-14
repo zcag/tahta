@@ -17,6 +17,7 @@ Default Slidev looks generic. **Tahta** is a token-driven design system that get
 - **Declarative layouts.** Pick a layout, fill fields. Auto footers, auto page numbers.
 - **Token-driven components.** `Stat`, `StatCard`, `Plot`/`BarChart` (ECharts), `Icon` (Lucide, bundled offline), `Callout`, `Reveal`, `Fit` (auto fit-to-frame) — all follow the active variant automatically.
 - **One accent → a whole palette.** Set one color; chart series, tints and shades derive from it via OKLCH (relative color).
+- **Semantic roles + i18n.** `good / warn / bad / info` tones (`Badge`, `Callout`, `Stat`), and `themeConfig.lang` for correct locale casing (e.g. Turkish `i → İ`).
 - **Motion with a personality per variant.** Entrance choreography (`--motion-*` tokens) differs by style — editorial fades, brutalist snaps, soft springs — and is off in print + under reduced-motion.
 
 ## Variants

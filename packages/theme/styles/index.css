@@ -143,9 +143,15 @@
 .showcase-media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 160px rgba(0,0,0,0.45); }
 .showcase-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
 
-/* ===== callout ===== */
-.callout { display: flex; gap: var(--sp-4); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius); background: var(--surface-bg); border: var(--surface-border); border-left: 3px solid var(--accent); align-items: flex-start; }
-.callout .tahta-icon { color: var(--accent); font-size: 1.4rem; margin-top: 0.1rem; flex: none; }
+/* ===== callout (tone via --tone) ===== */
+.callout { display: flex; gap: var(--sp-4); padding: var(--sp-4) var(--sp-6); border-radius: var(--radius); background: var(--surface-bg); border: var(--surface-border); border-left: 3px solid var(--tone, var(--accent)); align-items: flex-start; }
+.callout .tahta-icon { color: var(--tone, var(--accent)); font-size: 1.4rem; margin-top: 0.1rem; flex: none; }
+
+/* ===== badge — inline semantic pill (tone via --tone) ===== */
+.badge { display: inline-flex; align-items: center; gap: 0.3em; padding: 0.16em 0.6em; border-radius: 999px;
+  font: 600 0.82em/1.4 var(--font-mono); color: var(--tone, var(--accent));
+  background: color-mix(in oklab, var(--tone, var(--accent)) 15%, transparent);
+  border: 1px solid color-mix(in oklab, var(--tone, var(--accent)) 34%, transparent); }
 
 /* ===== fit-to-frame ===== */
 .fit { height: 100%; display: flex; flex-direction: column; justify-content: center; }
