@@ -119,3 +119,52 @@ used, did lint pass) is a cheap, high-signal regression test for the guide — e
 assert that across N briefs the agent uses ≥K distinct layouts and ≥1 component.
 
 Our reference harness (adapt freely): `tela/deck/agent-deck-test.sh`.
+
+---
+
+## 3. Concrete lint gap found this way: empty slide from a stray separator
+
+A real bug the loop surfaced (the user spotted a blank slide; `lint_deck` had
+**passed**). On the one slide with a markdown **body** (a `two-cols` with code),
+the agent ended the body with an extra standalone `---` *before* the next slide's
+frontmatter `---`:
+
+```
+Order owns its rules. Callers don't care *how*.
+
+---            ← stray separator (ends the slide)
+
+---            ← opens the next slide's frontmatter
+layout: statement
+```
+
+`---` `<blank>` `---` = a slide separator immediately followed by another → an
+**empty slide** between the two real ones. It only bit the body-bearing slide:
+frontmatter-only slides are `---FM---` and their closing `---` butts cleanly
+against the next `---FM---`, but once a slide has body content, a trailing `---`
+plus the next frontmatter's `---` doubles up. Slidev's parser renders it
+faithfully as a blank `(none)`-layout slide. Repro:
+
+```js
+const { parse } = require('@slidev/parser/core')
+// body + "\n\n---\n\n---\nlayout: x" → parses to an extra (none) slide;
+// collapsing to a single "\n\n---\n" fixes it.
+```
+
+Two fixes worth making in tahta:
+
+1. **`lint.mjs`: flag empty slides.** A parsed slide with no `layout` (or no
+   frontmatter) **and** no body content is almost always a stray-separator
+   mistake — error it with the slide number. This would have failed the agent's
+   `lint_deck` and made it self-correct before finishing. (It's also the single
+   highest-value check to add — the QA loop's whole premise is that lint is the
+   agent's safety net, and an invisible blank slide slipping through is the kind
+   of thing only a human reviewer caught.)
+2. **`AGENTS.md`: state the separator rule.** Add a rule like: *"Slides are
+   separated by a single `---`. Do not add an extra `---` after a slide's body —
+   the next slide's frontmatter `---` already separates them. A `---` immediately
+   followed by another `---` creates a blank slide."* (This is generator/`rules`
+   source, same as §1.)
+
+Net: §1 (component richness) raises the ceiling; this raises the floor — lint
+should make a malformed deck impossible to ship silently.
