@@ -15,7 +15,7 @@
     "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs",
     "docs": "node scripts/gen-agents.mjs",
     "site": "node scripts/build-site.mjs",
-    "deploy": "node scripts/build-site.mjs && rsync -az --delete dist/ archer:web/tahta/"
+    "deploy": "node scripts/build-site.mjs && rsync -az --delete dist/ hermes:web/tahta/"
   },
   "devDependencies": {
     "sharp": "^0.33.0"
