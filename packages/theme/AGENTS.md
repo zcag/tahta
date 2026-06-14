@@ -44,6 +44,7 @@ Pick the one whose **best for** fits the talk — this is a required, deliberate
 | `paper` | light | Long-form, narrative, research, retrospectives — humane and unhurried. | Warm editorial — rust serif on cream paper, faint grain. |
 | `atelier` | dark | Design-forward, launches, premium brand talks — polished and expressive. | Cool refined dark with gradient display titles, periwinkle accent. |
 | `notebook` | light | Teaching, workshops, casual internal updates — informal and hand-made. | White ruled paper, navy bold sans, dashed section rules, highlighter callouts. |
+| `lagoon` | dark | Modern company decks, product, creative — moody, premium, data-rich. | Dark teal depths with soft pastel role-colors (pink, sky, cream-yellow, sage), cream text, and rounded cards. Charts graduate through the pastels. |
 
 Override the brand color with `themeConfig.accent`; set `themeConfig.lang` (e.g. `tr`) for correct locale casing.
 

@@ -233,3 +233,27 @@
   --kicker-deco: line; --card-tick: 0;
   --motion-dur: 0.45s; --motion-ease: cubic-bezier(0.16,1,0.3,1); --reveal-from: translateY(12px); --stagger: 80ms;
 }
+
+/* LAGOON — dark teal depths + soft pastel surfaces. A faithful nod to Gamma's Lagoon:
+   cream text on saturated dark teal, rounded cards, pastel role-colors (pink/sky/cream/sage),
+   a top-light dreamy glow that evokes the green→teal cover gradient. */
+:root[data-variant='lagoon'] {
+  --ink: #0b211e; --ink-2: #102d28; --line: #20423c;
+  --fg: #efe8d8; --fg-dim: #9fb6af;
+  --good: #7fcf9f; --warn: #e8d48a; --bad: #f3a0c0; --info: #8fc7e0;
+  --accent: #58cabb; --accent-2: #58cabb; --on-accent: #07211d;
+  --cat-1: #58cabb; --cat-2: #f3a0c0; --cat-3: #8fc7e0; --cat-4: #e8d48a; --cat-5: #7fcf9f; /* pale teal, pink, sky, cream-yellow, sage */
+  --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --w-display: 800; --tr-display: -0.035em; --w-strong: 700;
+  --radius: 16px; --radius-sm: 11px; --rule-w: 1px;
+  --pad-x: 3.8rem; --pad-y: 3.4rem; --gap: 1.7rem;
+  --surface-bg: color-mix(in oklab, var(--ink-2) 90%, transparent); --surface-border: 1px solid var(--line);
+  --surface-shadow: 0 20px 46px -30px rgba(0,0,0,0.85);
+  --code-bg: #0c2723; --chart-muted: #2c4f48;
+  --bg-texture: var(--grain); --bg-texture-size: 160px 160px; --bg-texture-op: 0.03;
+  --glow: radial-gradient(72% 80% at 50% -6%, color-mix(in oklab, var(--accent) 17%, transparent), transparent 64%);
+  --kicker-deco: line; --card-tick: 1;
+  --motion-dur: 0.55s; --motion-ease: cubic-bezier(0.2,0.7,0.2,1); --reveal-from: translateY(16px); --stagger: 90ms;
+}

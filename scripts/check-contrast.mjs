@@ -8,8 +8,9 @@ import { fileURLToPath } from 'node:url'
 const theme = resolve(dirname(fileURLToPath(import.meta.url)), '../packages/theme')
 const css = readFileSync(`${theme}/styles/tokens.css`, 'utf8')
 
-// pull the default :root block (everything before the first variant) + each variant block
-const variantNames = ['editorial', 'brutalist', 'soft', 'minimal', 'paper', 'atelier', 'notebook']
+// pull the default :root block (everything before the first variant) + each variant block.
+// Variant ids come from variants.json (the source of truth) so a new variant is AA-gated automatically.
+const variantNames = JSON.parse(readFileSync(`${theme}/variants.json`, 'utf8')).variants.map(v => v.id)
 const defaultBlock = css.split("/* ---------- VARIANT BUNDLES")[0]
 const tokensIn = (block) => Object.fromEntries([...block.matchAll(/(--[a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,6})\b/g)].map(m => [m[1], m[2]]))
 const base = tokensIn(defaultBlock)

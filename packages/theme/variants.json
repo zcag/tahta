@@ -7,6 +7,7 @@
     { "id": "minimal", "label": "Minimal", "scheme": "light", "fit": "Data, strategy, corporate, finance — Swiss restraint that lets content lead.", "description": "Swiss — Archivo heavy, maximum whitespace, hairline rules, red accent." },
     { "id": "paper", "label": "Paper", "scheme": "light", "fit": "Long-form, narrative, research, retrospectives — humane and unhurried.", "description": "Warm editorial — rust serif on cream paper, faint grain." },
     { "id": "atelier", "label": "Atelier", "scheme": "dark", "fit": "Design-forward, launches, premium brand talks — polished and expressive.", "description": "Cool refined dark with gradient display titles, periwinkle accent." },
-    { "id": "notebook", "label": "Notebook", "scheme": "light", "fit": "Teaching, workshops, casual internal updates — informal and hand-made.", "description": "White ruled paper, navy bold sans, dashed section rules, highlighter callouts." }
+    { "id": "notebook", "label": "Notebook", "scheme": "light", "fit": "Teaching, workshops, casual internal updates — informal and hand-made.", "description": "White ruled paper, navy bold sans, dashed section rules, highlighter callouts." },
+    { "id": "lagoon", "label": "Lagoon", "scheme": "dark", "fit": "Modern company decks, product, creative — moody, premium, data-rich.", "description": "Dark teal depths with soft pastel role-colors (pink, sky, cream-yellow, sage), cream text, and rounded cards. Charts graduate through the pastels." }
   ]
 }
