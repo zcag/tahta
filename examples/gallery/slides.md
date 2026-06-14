@@ -218,6 +218,21 @@ title: Stat · StatCard
 </div>
 
 ---
+layout: default
+kicker: components
+title: Callout · Badge · Icon
+---
+
+<Callout icon="lucide:info">Callouts set off an aside, with a tone-colored rule and icon.</Callout>
+
+<div class="mt-6 text-lg" style="display:flex; flex-direction:column; gap:0.7rem">
+  <div>Status pills: <Badge tone="good">shipped</Badge> · <Badge tone="warn">at risk</Badge> · <Badge tone="bad">blocked</Badge> · <Badge tone="info">planned</Badge></div>
+  <div>Inline icons: <Icon name="lucide:rocket" /> <Icon name="lucide:git-branch" /> <Icon name="lucide:database" /> <Icon name="lucide:shield-check" /> — any Lucide name, bundled offline.</div>
+</div>
+
+<Callout tone="warn" icon="lucide:triangle-alert" class="mt-6">Tones: <code>good · warn · bad · info · accent</code> — shared by Callout, Badge, and per-stat <code>tone</code>.</Callout>
+
+---
 layout: section
 index: "C"
 bg: aurora

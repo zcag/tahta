@@ -55,6 +55,11 @@ const GALLERY_SKIP = new Set(['embed'])
 const gallery = read('examples/gallery/slides.md')
 for (const id of layoutIds) if (!GALLERY_SKIP.has(id) && !new RegExp(`layout:\\s*${id}(\\s|$)`, 'm').test(gallery)) errs.push(`gallery deck (examples/gallery) doesn't showcase layout "${id}"`)
 
+// 7. gallery also showcases the author-facing body components (catalog completeness).
+// Plot shows via the chart layout; Reveal/Fit/Ghost are automatic internals, not placed tags.
+const COMP_GALLERY_SKIP = new Set(['Plot', 'Reveal', 'Fit', 'Ghost'])
+for (const n of compNames) if (!COMP_GALLERY_SKIP.has(n) && !gallery.includes(`<${n}`)) errs.push(`gallery deck doesn't showcase component <${n}>`)
+
 if (errs.length) {
   console.error(`✗ sync check — ${errs.length} drift issue(s):\n  - ${errs.join('\n  - ')}`)
   process.exit(1)
