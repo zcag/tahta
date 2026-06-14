@@ -37,6 +37,13 @@ themeConfig:
 
 Override the brand color with `themeConfig.accent`; set `themeConfig.lang` (e.g. `tr`) for correct locale casing.
 
+## Universal per-slide fields
+Per-slide frontmatter available on every layout.
+  - `bg` (enum, optional) — Slide background. A generated (asset-free, accent-derived) background — mesh | aurora | grain | dots | grid — or an image path/URL, which is painted under an automatic contrast scrim. Opt-in; omit for the variant's default. — one of `mesh | aurora | grain | dots | grid`
+  - `ghost` (string, optional) — Giant faint background glyph (on default/section/stats/steps/fact).
+  - `glow` (boolean, optional) — Force the accent glow on (topic slides) or off (cover/section/statement).
+  - `foot` (string, optional) — Override the auto footer label for this slide.
+
 ## Layouts
 | layout | use for | key fields |
 |---|---|---|

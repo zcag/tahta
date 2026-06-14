@@ -8,6 +8,15 @@
       { "name": "lang", "type": "string", "required": false, "description": "BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ)." }
     ]
   },
+  "universal": {
+    "description": "Per-slide frontmatter available on every layout.",
+    "fields": [
+      { "name": "bg", "type": "enum", "required": false, "enum": ["mesh", "aurora", "grain", "dots", "grid"], "description": "Slide background. A generated (asset-free, accent-derived) background — mesh | aurora | grain | dots | grid — or an image path/URL, which is painted under an automatic contrast scrim. Opt-in; omit for the variant's default." },
+      { "name": "ghost", "type": "string", "required": false, "description": "Giant faint background glyph (on default/section/stats/steps/fact)." },
+      { "name": "glow", "type": "boolean", "required": false, "description": "Force the accent glow on (topic slides) or off (cover/section/statement)." },
+      { "name": "foot", "type": "string", "required": false, "description": "Override the auto footer label for this slide." }
+    ]
+  },
   "rules": [
     "Pick the layout that matches the content shape; fill its frontmatter fields. Do not write CSS, grids, or layout HTML.",
     "One idea per slide.",

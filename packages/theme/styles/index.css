@@ -20,6 +20,50 @@
   opacity: var(--bg-texture-op);
 }
 
+/* ===== per-slide background slot (frontmatter `bg:`, via <SlideBg>) =====
+   Generated backgrounds are drawn by the browser (CSS gradients + the shared
+   --grain SVG), derived from --accent via OKLCH — zero assets, deterministic on
+   export, and can't break the AA gate (every layer is low-alpha & accent-tuned).
+   `bg:` also accepts an image path → painted with an automatic contrast scrim.
+   Rendered as an early child so it sits above the ink bg + variant texture, below content. */
+.slide-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* mesh — soft accent light-pools, two corners */
+.slide-bg[data-bg="mesh"] {
+  background:
+    radial-gradient(58% 55% at 84% -8%, oklch(from var(--accent) l c h / 0.16), transparent 60%),
+    radial-gradient(46% 44% at -6% 106%, oklch(from var(--accent) l c calc(h + 44) / 0.10), transparent 60%);
+}
+/* aurora — wider, multi-hue ribbons (still pure gradient, no blur artifacts) */
+.slide-bg[data-bg="aurora"] {
+  background:
+    radial-gradient(40% 80% at 12% 0%, oklch(from var(--accent) calc(l + 0.04) c calc(h - 36) / 0.16), transparent 62%),
+    radial-gradient(46% 90% at 58% 18%, oklch(from var(--accent) l c calc(h + 60) / 0.13), transparent 60%),
+    radial-gradient(44% 80% at 100% 90%, oklch(from var(--accent) calc(l - 0.04) c calc(h + 8) / 0.14), transparent 60%);
+}
+/* grain — the shared fractal-noise SVG, deterministic */
+.slide-bg[data-bg="grain"] {
+  background-image: var(--grain); background-size: 200px 200px; opacity: 0.06; mix-blend-mode: overlay;
+}
+/* dots — accent-tinted dot grid */
+.slide-bg[data-bg="dots"] {
+  background-image: radial-gradient(circle, oklch(from var(--accent) l c h / 0.5) 1.1px, transparent 1.2px);
+  background-size: 26px 26px; opacity: 0.5;
+}
+/* grid — hairline blueprint grid */
+.slide-bg[data-bg="grid"] {
+  background-image:
+    linear-gradient(oklch(from var(--fg) l c h / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(from var(--fg) l c h / 0.06) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+}
+/* image — author's own photo, always under a contrast scrim so text stays AA-legible */
+.slide-bg[data-bg="image"] {
+  background-image:
+    linear-gradient(to top, oklch(from var(--ink) l c h / 0.92), oklch(from var(--ink) l c h / 0.55) 55%, oklch(from var(--ink) l c h / 0.7)),
+    var(--bg-image, none);
+  background-size: cover, cover; background-position: center, center;
+}
+
 .slidev-layout h1 { font-family: var(--font-display); font-weight: var(--w-display); letter-spacing: var(--tr-display); line-height: 1.0; }
 .slidev-layout h2 { font-family: var(--font-display); font-weight: var(--w-display); letter-spacing: var(--tr-display); line-height: 1.06; }
 .slidev-layout p  { margin: 0.4em 0; max-width: 54ch; }

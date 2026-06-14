@@ -69,6 +69,20 @@ themeConfig:
 
 Variant + accent are applied at runtime by `global-bottom.vue` (reads `themeConfig`); defaults to `editorial` if unset, so a deck with no config still looks finished.
 
+## Backgrounds (`bg:`)
+
+Any slide can take a `bg:` field. The generated options are drawn by the browser (accent-derived, no assets, deterministic on export, AA-safe):
+```yaml
+---
+layout: section
+bg: aurora   # mesh | aurora | grain | dots | grid
+---
+```
+Or pass an image path — it's painted under an automatic contrast scrim so text stays legible:
+```yaml
+bg: /hero.jpg
+```
+
 ## Demo
 See `../decks/demo/slides.md` — a 10-slide deck written almost entirely in frontmatter. Export to grade:
 ```

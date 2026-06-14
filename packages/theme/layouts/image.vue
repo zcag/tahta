@@ -8,6 +8,7 @@ const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
 
 <template>
   <div :class="['slidev-layout', 'l-split', side === 'left' ? 'split left' : 'split']">
+    <SlideBg />
     <div v-if="side === 'left'" class="split-media" :style="bg" />
     <div class="split-body">
       <div v-if="$frontmatter.kicker" class="kicker">{{ $frontmatter.kicker }}</div>

@@ -14,8 +14,10 @@ const variantsDoc = JSON.parse(readFileSync(new URL('./variants.json', import.me
 const LAYOUTS = Object.fromEntries(manifest.layouts.map(l => [l.id, l]))
 const VARIANTS = new Set(variantsDoc.variants.map(v => v.id))
 const SLIDEV_LAYOUTS = new Set(['default', 'center', 'cover', 'intro', 'section', 'statement', 'fact', 'quote', 'two-cols', 'image', 'image-left', 'image-right', 'iframe', 'iframe-left', 'iframe-right', 'full', 'none', 'end'])
-const GLOBAL_KEYS = new Set(['layout', 'class', 'foot', 'transition', 'clicks', 'clicksStart', 'level', 'src', 'hide', 'hideInToc', 'name', 'zoom', 'dragPos', 'disabled', 'routeAlias', 'preload', 'ghost', 'glow', 'mdc'])
-const HEADMATTER_KEYS = new Set(['theme', 'title', 'titleTemplate', 'info', 'author', 'keywords', 'themeConfig', 'fonts', 'colorSchema', 'highlighter', 'lineNumbers', 'drawings', 'aspectRatio', 'canvasWidth', 'selectable', 'remoteAssets', 'download', 'exportFilename', 'export', 'seoMeta', 'favicon'])
+const GLOBAL_KEYS = new Set(['layout', 'class', 'foot', 'transition', 'clicks', 'clicksStart', 'level', 'src', 'hide', 'hideInToc', 'name', 'zoom', 'dragPos', 'disabled', 'routeAlias', 'preload', 'ghost', 'glow', 'bg', 'mdc'])
+const BG_NAMED = new Set(['mesh', 'aurora', 'grain', 'dots', 'grid'])
+const BG_IMAGEY = /^(https?:|\/|\.\/|\.\.\/|data:)|\.(png|jpe?g|webp|gif|avif|svg)(\?|#|$)/i
+const HEADMATTER_KEYS = new Set(['theme', 'title', 'titleTemplate', 'info', 'author', 'keywords', 'themeConfig', 'fonts', 'colorSchema', 'highlighter', 'lineNumbers', 'drawings', 'aspectRatio', 'canvasWidth', 'selectable', 'remoteAssets', 'download', 'exportFilename', 'export', 'seoMeta', 'favicon', 'routerMode'])
 
 const typeOf = (t = '') => /array/.test(t) ? 'array' : /object/.test(t) ? 'object' : (/number/.test(t) && !/string/.test(t)) ? 'number' : /boolean/.test(t) ? 'boolean' : 'any'
 const enumOf = (f) => Array.isArray(f.enum) ? f.enum : (/enum\s+([a-z|]+)/.exec(f.type || '')?.[1]?.split('|') ?? null)
@@ -66,6 +68,7 @@ export async function lint (input, opts = {}) {
     const bare = (val, where) => { if (typeof val === 'string' && NOT_BARE.test(val)) add(i, 'warn', `${where}: keep the number bare, put the symbol in \`unit\` (got "${val}")`) }
     if (id === 'fact') bare(fm.value, 'fact.value')
     if (Array.isArray(fm.stats)) fm.stats.forEach((s, si) => bare(s?.value, `stats[${si}].value`))
+    if (typeof fm.bg === 'string' && fm.bg && !BG_NAMED.has(fm.bg) && !BG_IMAGEY.test(fm.bg)) add(i, 'warn', `bg "${fm.bg}" is neither an image path nor one of ${[...BG_NAMED].join('|')}`, 'bg')
     const variant = fm.themeConfig?.variant
     if (variant && !VARIANTS.has(variant)) add(i, 'error', `themeConfig.variant "${variant}" is not a tahta variant`, 'themeConfig.variant')
   })

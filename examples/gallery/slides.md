@@ -7,6 +7,7 @@ themeConfig:
 mdc: true
 routerMode: hash
 layout: cover
+bg: mesh
 kicker: Design System · Catalog
 subtitle: Every layout & component in one deck — grade across variants to see the whole system.
 ---
@@ -16,12 +17,14 @@ subtitle: Every layout & component in one deck — grade across variants to see 
 ---
 layout: section
 index: "A"
+bg: aurora
 kicker: Layouts
 title: One per slide — pick a layout, fill fields.
 ---
 
 ---
 layout: default
+bg: dots
 kicker: layout · default
 title: Default — body is plain markdown
 ghost: "·"
@@ -120,6 +123,7 @@ author: layout · quote
 
 ---
 layout: statement
+bg: grain
 kicker: layout · statement
 title: Statement — one big idea, centered.
 ---
@@ -196,6 +200,7 @@ subtitle: Fixed 43/57 split with a full-bleed image — dramatic, but it won't r
 ---
 layout: section
 index: "B"
+bg: grid
 kicker: Components
 title: Drop-in pieces for default / statement bodies
 ---

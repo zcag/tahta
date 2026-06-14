@@ -2,6 +2,10 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.6.0
+- **Per-slide background slot** — a universal `bg:` frontmatter field on every layout. Generated, asset-free, accent-derived backgrounds: `mesh` · `aurora` · `grain` · `dots` · `grid` (drawn from CSS gradients + the shared noise SVG via OKLCH — deterministic on export, zero licensing, can't break the AA gate). `bg:` also accepts an image path/URL, painted under an automatic contrast scrim so text stays AA-legible. Rendered in-layout (works in dev / print / export) via a `<SlideBg>` primitive; documented in `layouts.json` → `universal`.
+- `lint.mjs` validates `bg` (warns on a value that's neither a known name nor an image path) and stopped false-flagging `routerMode`.
+
 ## 0.5.0
 - **`lint.mjs`** — a structural validator exported from the package (`slidev-theme-tahta/lint.mjs`): unknown layout, missing/unknown fields, enum & type mismatch, value-not-bare, bad variant. For consumers (e.g. an MCP `lint_deck` tool). Optional `yaml` dep for the markdown path.
 - **Per-component examples** in `layouts.json` (surfaced in `AGENTS.md`).

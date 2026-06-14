@@ -7,6 +7,7 @@ const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
 </script>
 <template>
   <div :class="['slidev-layout', 'l-split', side === 'left' ? 'showcase flip' : 'showcase']">
+    <SlideBg />
     <div v-if="side === 'left'" class="showcase-media" :style="bg" />
     <div class="showcase-body">
       <Fit>

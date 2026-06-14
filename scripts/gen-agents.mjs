@@ -39,6 +39,10 @@ ${v.variants.map(x => `| \`${x.id}\` | ${x.scheme} | ${x.description} |`).join('
 
 Override the brand color with \`themeConfig.accent\`; set \`themeConfig.lang\` (e.g. \`tr\`) for correct locale casing.
 
+## Universal per-slide fields
+${m.universal.description}
+${m.universal.fields.map(fieldLine).join('\n')}
+
 ## Layouts
 | layout | use for | key fields |
 |---|---|---|

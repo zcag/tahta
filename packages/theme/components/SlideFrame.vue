@@ -9,6 +9,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
 <template>
   <!-- COVER -->
   <div v-if="mode === 'cover'" class="slidev-layout l-cover">
+    <SlideBg />
     <div v-if="showGlow" class="glow" />
     <Reveal class="l-center">
       <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
@@ -21,6 +22,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
 
   <!-- SECTION -->
   <div v-else-if="mode === 'section'" class="slidev-layout l-topic">
+    <SlideBg />
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.index ?? ''" />
     <Reveal class="l-body">
@@ -35,6 +37,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
 
   <!-- STATEMENT (also quote / fact, with custom body) -->
   <div v-else-if="mode === 'statement'" class="slidev-layout l-statement">
+    <SlideBg />
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.ghost ?? ''" />
     <Reveal class="l-center">
@@ -47,6 +50,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
 
   <!-- END -->
   <div v-else-if="mode === 'end'" class="slidev-layout l-end">
+    <SlideBg />
     <div class="glow" />
     <Reveal class="l-center middle">
       <div class="accent-bar mb-8" />
@@ -60,6 +64,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
 
   <!-- TOPIC -->
   <div v-else class="slidev-layout l-topic">
+    <SlideBg />
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.ghost ?? ''" />
     <Reveal v-if="fm.kicker || fm.title" class="l-head">

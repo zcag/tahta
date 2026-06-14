@@ -8,6 +8,7 @@ const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
 
 <template>
   <div class="slidev-layout l-bleed">
+    <SlideBg />
     <div class="bleed-img" :class="{ duotone }" :style="bg" />
     <div v-if="duotone" class="bleed-duotone" />
     <div class="bleed-scrim" />
