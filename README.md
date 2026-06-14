@@ -19,7 +19,7 @@ What makes it a system, not a theme:
 
 - **Foundations as data.** A 3-tier token layer ([`tokens.json`](packages/theme/tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH.
 - **A published contract.** [`layouts.json`](packages/theme/layouts.json) (every layout + field) and [`variants.json`](packages/theme/variants.json) ship in the package; [`AGENTS.md`](packages/theme/AGENTS.md) is *generated* from them.
-- **Components & patterns.** `Stat`, `Plot` (ECharts), `Callout`, `Badge`, `Icon` (Lucide, bundled), `Reveal`, `Fit` + 20 layouts — all variant-aware. Semantic `good/warn/bad/info` roles; `themeConfig.lang` for locale casing (Turkish `i→İ`).
+- **Components & patterns.** `Stat`, `Plot` (ECharts), `Callout`, `Badge`, `Icon` (Lucide, bundled), `Reveal`, `Fit` + 30 layouts — all variant-aware. Semantic `good/warn/bad/info` roles; `themeConfig.lang` for locale casing (Turkish `i→İ`).
 - **Quality is enforced, not hoped for.** `npm test` gates a **token-contract** (no hardcoded values) and **WCAG-AA contrast** for every variant; CI renders every layout across every variant.
 - **Variants are the proof.** `themeConfig.variant` — 13 complete styles (6 dark / 7 light) swapping type, shape, texture, density, motion, and palette. *That's* the one-liner — a consequence of the token system, not the pitch.
 
@@ -108,7 +108,7 @@ See [`docs/design-system.md`](docs/design-system.md).
 
 ```
 packages/theme/   slidev-theme-tahta — the design system (tokens · variants · layouts · components)
-packages/grade/   tahta — visual-grading CLI used to develop the theme
+packages/grade/   @zcag/tahta-grade — visual-grading CLI used to develop the theme
 examples/edge/    a deck authored entirely in frontmatter
 examples/gallery/ every layout + component, in one deck
 docs/             design-system.md + generated images
@@ -116,7 +116,7 @@ docs/             design-system.md + generated images
 
 ## Developing tahta
 
-The theme is the project; the tooling exists to build it well. `packages/grade` (`tahta`) is the inner loop — it exports every slide to PNG, flags blank/broken/regressed/overflowing slides, and serves a side-by-side report with a tab per variant.
+The theme is the project; the tooling exists to build it well. `packages/grade` (`@zcag/tahta-grade`) is the inner loop — it exports every slide to PNG, flags blank/broken/regressed/overflowing slides, and serves a side-by-side report with a tab per variant.
 
 ```bash
 npm install
@@ -125,7 +125,7 @@ npm run grade      # export + grade the example across all four variants, serve 
 npm run assets     # regenerate the README images from source
 ```
 
-Editing the system, the loop is: change a token → `npx tahta examples/gallery/slides.md --variants editorial,brutalist,soft,minimal --watch` → see every slide in every variant update, with regressions flagged. Details in [`packages/grade/README.md`](packages/grade/README.md).
+Editing the system, the loop is: change a token → `npx @zcag/tahta-grade examples/gallery/slides.md --variants editorial,brutalist,soft,minimal --watch` → see every slide in every variant update, with regressions flagged. Details in [`packages/grade/README.md`](packages/grade/README.md).
 
 ## License
 

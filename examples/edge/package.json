@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "slidev slides.md --open",
     "build": "slidev build slides.md",
-    "grade": "tahta slides.md --variants editorial,brutalist,soft,minimal --serve 4180"
+    "grade": "tahta-grade slides.md --variants editorial,brutalist,soft,minimal --serve 4180"
   },
   "dependencies": {
     "@slidev/cli": "^52.0.0",
@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "playwright-chromium": "^1.49.0",
-    "tahta": "*"
+    "@zcag/tahta-grade": "*"
   }
 }

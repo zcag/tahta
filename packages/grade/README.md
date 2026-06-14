@@ -3,9 +3,9 @@
 The local-dev companion to `slidev-theme-tahta` (works with any Slidev deck). It exports every slide to PNG, runs automated checks, and builds a side-by-side HTML report with a tab per variant.
 
 ```bash
-npx tahta slides.md                  # grade as authored
-npx tahta slides.md --serve 4180     # + serve the report (0.0.0.0)
-npx tahta slides.md --watch          # re-grade on save (inner loop)
+npx @zcag/tahta-grade slides.md                  # grade as authored
+npx @zcag/tahta-grade slides.md --serve 4180     # + serve the report (0.0.0.0)
+npx @zcag/tahta-grade slides.md --watch          # re-grade on save (inner loop)
 ```
 
 ## What it checks
@@ -29,5 +29,5 @@ npx tahta slides.md --watch          # re-grade on save (inner loop)
 Exits non-zero when any slide is flagged — drop it in CI:
 
 ```yaml
-- run: npx tahta slides.md --variants editorial,brutalist,soft,minimal --checks
+- run: npx @zcag/tahta-grade slides.md --variants editorial,brutalist,soft,minimal --checks
 ```

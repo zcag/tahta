@@ -1,6 +1,6 @@
 {
-  "name": "tahta",
-  "version": "0.1.0",
+  "name": "@zcag/tahta-grade",
+  "version": "1.0.0",
   "description": "Visual-grading CLI for Slidev decks — export every slide to PNG, auto-flag blank/broken slides, and open a side-by-side review report. Local-dev companion to slidev-theme-tahta.",
   "keywords": [
     "slidev",
@@ -18,7 +18,7 @@
   },
   "type": "module",
   "bin": {
-    "tahta": "./cli.mjs"
+    "tahta-grade": "./cli.mjs"
   },
   "files": [
     "cli.mjs",
@@ -37,5 +37,8 @@
     "slidev-theme-tahta": {
       "optional": true
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
