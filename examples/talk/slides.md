@@ -6,6 +6,7 @@ themeConfig:
   variant: editorial
 transition: slide-left
 mdc: true
+routerMode: hash
 layout: cover
 kicker: SREcon · 2026
 subtitle: Why your <span class="accent2">average</span> latency is a lie your worst customers don't believe.

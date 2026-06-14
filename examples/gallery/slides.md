@@ -5,6 +5,7 @@ info: Every layout and component, in one deck. Grade it across variants to see t
 themeConfig:
   variant: editorial
 mdc: true
+routerMode: hash
 layout: cover
 kicker: Design System · Catalog
 subtitle: Every layout & component in one deck — grade across variants to see the whole system.

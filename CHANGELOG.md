@@ -2,6 +2,15 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.5.0
+- **`lint.mjs`** — a structural validator exported from the package (`slidev-theme-tahta/lint.mjs`): unknown layout, missing/unknown fields, enum & type mismatch, value-not-bare, bad variant. For consumers (e.g. an MCP `lint_deck` tool). Optional `yaml` dep for the markdown path.
+- **Per-component examples** in `layouts.json` (surfaced in `AGENTS.md`).
+- **Live theming** — `global-bottom` listens for `postMessage({tahtaVariant})`, so an embed can switch variant with no reload (used by the tahta.cagdas.io explorer).
+
+## 0.4.0
+- URL overrides `?variant` / `?accent` / `?lang` (shareable variant URLs).
+- tahta.cagdas.io site; broadened npm keywords.
+
 ## 0.3.0
 - **`tokens.json`** — the semantic token layer is now a documented public contract (foundations for theming/overrides). Bound to `styles/tokens.css` by the token-contract test.
 - **AA-contrast gate** — `npm test` now statically verifies every variant's `--fg`/`--fg-dim`/`--accent` meet WCAG AA against its background. The build fails otherwise.

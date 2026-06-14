@@ -7,6 +7,7 @@ themeConfig:
   accent: "#3b5bff"
 transition: slide-left
 mdc: true
+routerMode: hash
 layout: cover
 kicker: Seed round · 2026
 subtitle: Drop-in observability for edge functions — see the <span class="accent2">tail</span>, not just the average.

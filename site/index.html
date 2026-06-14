@@ -156,7 +156,9 @@ const VARIANTS = ['editorial','brutalist','soft','minimal','paper','atelier','no
 const tabs = document.getElementById('tabs'), frame = document.getElementById('ex'), cur = document.getElementById('cur')
 VARIANTS.forEach((v,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' on':'');b.textContent=v;b.onclick=()=>{
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');
-  frame.src='gallery/?variant='+v;cur.textContent=v};tabs.appendChild(b)})
+  // switch in-place (no reload → no flash); fall back to src if the frame isn't ready
+  try{ frame.contentWindow.postMessage({tahtaVariant:v},'*') }catch(e){ frame.src='gallery/?variant='+v }
+  cur.textContent=v};tabs.appendChild(b)})
 </script>
 </body>
 </html>

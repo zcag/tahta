@@ -7,6 +7,7 @@ themeConfig:
   lang: tr
 transition: slide-left
 mdc: true
+routerMode: hash
 layout: cover
 kicker: Çeyreklik rapor · 2026
 subtitle: Kullanıcı büyümesi, gelir ve <span class="accent2">elde tutma</span> — ikinci çeyrek özeti.

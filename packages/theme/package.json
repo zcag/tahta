@@ -1,6 +1,6 @@
 {
   "name": "slidev-theme-tahta",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Tahta — a pristine, themeable Slidev design system. Token-driven style variants, declarative frontmatter layouts, charts.",
   "keywords": [
     "slidev-theme",
@@ -32,7 +32,8 @@
     "AGENTS.md",
     "layouts.json",
     "variants.json",
-    "tokens.json"
+    "tokens.json",
+    "lint.mjs"
   ],
   "peerDependencies": {
     "echarts": "^5 || ^6"
@@ -54,5 +55,8 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.0",
     "@iconify/vue": "^5.0.0"
+  },
+  "optionalDependencies": {
+    "yaml": "^2.0.0"
   }
 }

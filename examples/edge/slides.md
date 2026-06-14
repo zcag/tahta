@@ -6,6 +6,7 @@ themeConfig:
   variant: editorial
 transition: slide-left
 mdc: true
+routerMode: hash
 layout: cover
 kicker: Platform Engineering · 2026
 subtitle: How we cut <span class="accent2">p95 latency 80%</span> by moving compute to the edge.

@@ -26,7 +26,22 @@ function apply () {
   }
 }
 
-onMounted(apply)
+onMounted(() => {
+  apply()
+  // live theming without reload — the explorer postMessages variant/accent/lang
+  // to the embedded deck (no iframe reload = no flash).
+  window.addEventListener('message', (e) => {
+    const d = e && e.data
+    if (!d || typeof d !== 'object') return
+    const root = document.documentElement
+    if (d.tahtaVariant) root.dataset.variant = d.tahtaVariant
+    if (d.tahtaLang) root.lang = d.tahtaLang
+    if (d.tahtaAccent !== undefined) {
+      if (d.tahtaAccent) { root.style.setProperty('--accent', d.tahtaAccent); root.style.setProperty('--accent-2', d.tahtaAccent) }
+      else { root.style.removeProperty('--accent'); root.style.removeProperty('--accent-2') }
+    }
+  })
+})
 watchEffect(apply)
 </script>
 

@@ -52,7 +52,7 @@ ${m.layouts.map(l => `### \`${l.id}\`\n${l.useFor}\n\n${l.fields.map(fieldLine).
 ## Components
 For use inside \`default\` / \`statement\` bodies.
 
-${m.components.map(c => `- **\`<${c.name}>\`** — ${c.useFor} props: ${c.props.length ? c.props.map(p => `\`${p.name}\`${p.default ? ` (default ${p.default})` : ''}`).join(', ') : '—'}`).join('\n')}
+${m.components.map(c => `- **\`<${c.name}>\`** — ${c.useFor} props: ${c.props.length ? c.props.map(p => `\`${p.name}\`${p.default ? ` (default ${p.default})` : ''}`).join(', ') : '—'}${c.example ? `\n  \`${c.example}\`` : ''}`).join('\n')}
 `
 
 writeFileSync(`${theme}/AGENTS.md`, out)

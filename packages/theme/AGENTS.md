@@ -435,11 +435,20 @@ contact: team@example.com
 For use inside `default` / `statement` bodies.
 
 - **`<Stat>`** — Big number + label (in default/statement bodies). props: `value`, `unit`, `label`, `size` (default xl), `icon`, `tone`, `accent` (default true)
+  `<Stat value="80" unit="%" label="lower p95" tone="good" icon="lucide:trending-down" />`
 - **`<StatCard>`** — Stat in a card. props: `(same as Stat)` (default size=md, accent=false)
+  `<StatCard value="38" unit="ms" label="p95 (after)" accent />`
 - **`<Plot>`** — ECharts chart (alias: BarChart). Used by the chart layout. props: `type` (default bar), `categories`, `series`, `unit`, `height`, `horizontal` (default true)
+  `<Plot type="line" :categories="['Q1','Q2','Q3']" :series="[{name:'ARR',data:[40,95,180]}]" unit="k" />`
 - **`<Icon>`** — Lucide icon, bundled offline. props: `name`, `size` (default 1em)
+  `<Icon name="lucide:rocket" />`
 - **`<Callout>`** — Tinted aside. props: `icon` (default lucide:info), `tone` (default accent)
+  `<Callout tone="warn" icon="lucide:triangle-alert">Heads up: this is the one risk.</Callout>`
 - **`<Badge>`** — Inline status pill. props: `tone` (default accent)
+  `shipped <Badge tone="good">done</Badge> · <Badge tone="warn">at risk</Badge>`
 - **`<Reveal>`** — Themeable entrance wrapper for extra body content. props: `delay` (default 0)
+  `<Reveal :delay="120">appears second</Reveal>`
 - **`<Fit>`** — Auto fit-to-frame: scales overflowing content down. props: —
+  `<Fit>long body content that should never overflow</Fit>`
 - **`<Ghost>`** — Giant faint background glyph. props: `text`
+  `<Ghost text="03" />`
