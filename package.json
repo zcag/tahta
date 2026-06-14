@@ -13,7 +13,8 @@
     "grade": "npm run grade -w @tahta/example-edge",
     "assets": "node scripts/gen-assets.mjs",
     "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs",
-    "docs": "node scripts/gen-agents.mjs"
+    "docs": "node scripts/gen-agents.mjs",
+    "site": "node scripts/build-site.mjs"
   },
   "devDependencies": {
     "sharp": "^0.33.0"

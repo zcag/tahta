@@ -1,13 +1,18 @@
 {
   "name": "slidev-theme-tahta",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Tahta — a pristine, themeable Slidev design system. Token-driven style variants, declarative frontmatter layouts, charts.",
   "keywords": [
     "slidev-theme",
     "slidev",
     "presentation",
     "design-system",
-    "tahta"
+    "tahta",
+    "slidev-template",
+    "keynote",
+    "slides",
+    "presentation-theme",
+    "themeable"
   ],
   "license": "MIT",
   "homepage": "https://github.com/zcag/tahta",

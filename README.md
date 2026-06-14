@@ -5,6 +5,8 @@ Tokens, components, and patterns — so a deck is something you <i>assemble</i>,
 
 <p align="center"><code>npm i slidev-theme-tahta</code></p>
 
+<p align="center"><a href="https://tahta.cagdas.io">tahta.cagdas.io</a> — live explorer (every layout × every variant) · used in production by <a href="https://tela.cagdas.io">tela</a> as its deck theme.</p>
+
 <p align="center"><img src="docs/assets/variants.png" alt="One deck rendered in all seven tahta variants" width="860"></p>
 
 <p align="center"><em>One deck, seven variants — one line changed. Not a recolor: different typefaces, shapes, textures, density, and motion.</em></p>

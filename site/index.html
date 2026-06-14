@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tahta — a design system for Slidev</title>
+<meta name="description" content="tahta is a design system for Slidev: design tokens, components and patterns with 7 themeable variants. Build keynote-grade slide decks from declarative frontmatter — no CSS. WCAG-AA, MIT, on npm.">
+<meta name="keywords" content="slidev theme, slidev themes, slidev design system, slidev template, presentation theme, keynote theme, slide deck theme, markdown slides, slidev dark theme">
+<link rel="canonical" href="https://tahta.cagdas.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tahta.cagdas.io/">
+<meta property="og:title" content="tahta — a design system for Slidev">
+<meta property="og:description" content="Tokens, components and patterns for Slidev. 7 themeable variants, keynote-grade decks from frontmatter. MIT, on npm.">
+<meta property="og:image" content="https://tahta.cagdas.io/variants.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="tahta — a design system for Slidev">
+<meta name="twitter:description" content="Tokens, components and patterns for Slidev. 7 themeable variants, keynote-grade decks from frontmatter.">
+<meta name="twitter:image" content="https://tahta.cagdas.io/variants.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%237aa2ff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Hanken+Grotesk:wght@400..800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"tahta","description":"A design system for Slidev — tokens, components and patterns with 7 themeable variants.","codeRepository":"https://github.com/zcag/tahta","programmingLanguage":"CSS, Vue","license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"Cagdas Salur"}}
+</script>
+<style>
+:root{--ink:#0c0d10;--ink2:#15171c;--line:#262a33;--fg:#ece9e3;--dim:#9a9b94;--accent:#7aa2ff;
+--display:'Fraunces',Georgia,serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0}
+body{background:var(--ink);color:var(--fg);font-family:var(--body);line-height:1.6;
+background-image:radial-gradient(60% 50% at 80% -5%,rgba(122,162,255,.10),transparent 60%);background-repeat:no-repeat}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+a{color:var(--accent);text-decoration:none}
+nav{display:flex;align-items:center;gap:22px;padding:22px 0;font-size:14px}
+nav .brand{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.02em;margin-right:auto}
+nav .brand b{color:var(--accent)}
+.kick{font:600 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.6rem}
+.kick::before{content:"";width:1.6rem;height:2px;background:var(--accent)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.03em;margin:18px 0 14px;max-width:18ch}
+.lead{font-size:clamp(1.1rem,2.4vw,1.5rem);color:var(--dim);max-width:46ch}
+.cmd{display:inline-block;font:500 15px/1 var(--mono);background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:22px 0}
+.cmd b{color:var(--accent)}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px}
+.btn.primary{background:var(--accent);color:#0c0d10}
+.btn.ghost{border:1px solid var(--line);color:var(--fg)}
+.hero-img{width:100%;border:1px solid var(--line);border-radius:14px;margin-top:40px;display:block}
+section{padding:64px 0;border-top:1px solid var(--line);margin-top:64px}
+h2{font-family:var(--display);font-weight:650;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-bottom:8px}
+.sub{color:var(--dim);max-width:54ch;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:22px;position:relative}
+.card::before{content:"";position:absolute;top:-1px;left:22px;width:34px;height:2px;background:var(--accent)}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.25rem;margin-bottom:6px}
+.card p{color:var(--dim);font-size:.96rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{background:var(--ink2);border:1px solid var(--line);color:var(--dim);border-radius:8px;padding:7px 14px;font:600 13px/1 var(--body);cursor:pointer;text-transform:capitalize}
+.tab.on{color:var(--fg);border-color:var(--accent)}
+.frame{width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:12px;background:#000;overflow:hidden}
+.frame iframe{width:100%;height:100%;border:0;display:block}
+.hint{color:var(--dim);font-size:.85rem;margin-top:10px;font-family:var(--mono)}
+.examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.ex{display:block;background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:18px}
+.ex b{display:block;color:var(--fg);font-family:var(--display);font-size:1.1rem}
+.ex span{color:var(--dim);font-size:.9rem}
+pre{background:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto;font:500 14px/1.6 var(--mono);color:var(--fg)}
+footer{border-top:1px solid var(--line);margin-top:64px;padding:40px 0 70px;color:var(--dim);font-size:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+footer .brand{font-family:var(--display);color:var(--fg)}
+footer a{margin-right:4px}
+.spacer{margin-left:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <span class="brand"><b>tahta</b></span>
+  <a href="#explore">Explore</a>
+  <a href="#start">Start</a>
+  <a href="https://github.com/zcag/tahta">GitHub</a>
+  <a href="https://www.npmjs.com/package/slidev-theme-tahta">npm</a>
+</nav>
+
+<header style="padding-top:36px">
+  <span class="kick">Design system · for Slidev</span>
+  <h1>A design system for Slidev.</h1>
+  <p class="lead">Tokens, components and patterns — so a deck is something you <em>assemble</em>, not style. Seven themeable variants, keynote-grade output, written in plain frontmatter.</p>
+  <div class="cmd">npm i <b>slidev-theme-tahta</b></div>
+  <div class="btns">
+    <a class="btn primary" href="#explore">Explore the variants →</a>
+    <a class="btn ghost" href="https://github.com/zcag/tahta">GitHub</a>
+  </div>
+  <img class="hero-img" src="variants.png" alt="One Slidev deck rendered in all seven tahta variants: editorial, brutalist, soft, minimal, paper, atelier, notebook">
+</header>
+
+<section>
+  <span class="kick">Why a system, not a theme</span>
+  <h2>Substance, not a stylesheet</h2>
+  <p class="sub">Most Slidev themes are some CSS and a few layouts. tahta has the parts of an actual design system — and a test that enforces its own rules.</p>
+  <div class="grid">
+    <div class="card"><h3>Tokens as a contract</h3><p>A 3-tier token layer (primitives → semantic → variants), shipped as <code>tokens.json</code>. One accent derives the whole palette via OKLCH.</p></div>
+    <div class="card"><h3>Components & 20 patterns</h3><p>Stat, Plot (charts), Callout, Badge, Icon, Reveal, Fit — and 20 layouts, all variant-aware, all documented in <code>layouts.json</code>.</p></div>
+    <div class="card"><h3>Quality enforced</h3><p>CI gates a token-contract <em>and</em> WCAG-AA contrast for every variant. Accessible by construction, not by hope.</p></div>
+    <div class="card"><h3>Author from frontmatter</h3><p>Pick a layout, fill fields. No CSS, no grids, no layout HTML. Auto footers, page numbers, motion.</p></div>
+  </div>
+</section>
+
+<section id="explore">
+  <span class="kick">Live explorer</span>
+  <h2>Every layout, in any variant</h2>
+  <p class="sub">The same deck — every layout and component — switched live across all seven variants. Click the frame and use arrow keys.</p>
+  <div class="tabs" id="tabs"></div>
+  <div class="frame"><iframe id="ex" src="gallery/?variant=editorial" title="tahta gallery"></iframe></div>
+  <p class="hint">variant: <span id="cur">editorial</span> · shareable as gallery/?variant=…</p>
+</section>
+
+<section>
+  <span class="kick">Example decks</span>
+  <h2>Real decks, real content</h2>
+  <p class="sub">Authored almost entirely in frontmatter — the honest test of the system.</p>
+  <div class="examples">
+    <a class="ex" href="decks/talk/"><b>Conference talk</b><span>tail latency · editorial</span></a>
+    <a class="ex" href="decks/pitch/"><b>Seed pitch</b><span>edge observability · minimal</span></a>
+    <a class="ex" href="decks/report/"><b>Çeyreklik rapor</b><span>Turkish report · editorial</span></a>
+    <a class="ex" href="decks/edge/"><b>Edge functions</b><span>the original · editorial</span></a>
+    <a class="ex" href="gallery/"><b>Gallery</b><span>every layout + component</span></a>
+  </div>
+</section>
+
+<section id="start">
+  <span class="kick">Quick start</span>
+  <h2>Three lines to a deck</h2>
+  <p class="sub">Install, point a deck at it, pick a variant. See the contract in <a href="https://github.com/zcag/tahta/blob/main/packages/theme/AGENTS.md">AGENTS.md</a>.</p>
+  <pre>npm i slidev-theme-tahta echarts
+
+---
+theme: slidev-theme-tahta
+title: My Talk
+themeConfig: { variant: atelier }   # or editorial · brutalist · soft · minimal · paper · notebook
+layout: cover
+kicker: Team · 2026
+---</pre>
+</section>
+
+<footer>
+  <span class="brand">tahta</span>
+  <span>MIT © Cagdas Salur</span>
+  <a href="https://github.com/zcag/tahta">GitHub</a>
+  <a href="https://www.npmjs.com/package/slidev-theme-tahta">npm</a>
+  <span class="spacer">Powers the deck theme in <a href="https://tela.cagdas.io">tela</a>.</span>
+</footer>
+
+</div>
+<script>
+const VARIANTS = ['editorial','brutalist','soft','minimal','paper','atelier','notebook']
+const tabs = document.getElementById('tabs'), frame = document.getElementById('ex'), cur = document.getElementById('cur')
+VARIANTS.forEach((v,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' on':'');b.textContent=v;b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');
+  frame.src='gallery/?variant='+v;cur.textContent=v};tabs.appendChild(b)})
+</script>
+</body>
+</html>
