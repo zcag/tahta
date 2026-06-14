@@ -15,10 +15,11 @@
 //   node qa/run.mjs --brief architecture # one brief
 //   node qa/run.mjs --export --vision    # also render + LLM-critique the result
 //   node qa/run.mjs --keep               # keep workdirs for inspection
+//   node qa/run.mjs --brief pitch --serve # build, then serve it in slidev + print a link
 import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync, symlinkSync, rmSync } from 'node:fs'
 import { resolve, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { tmpdir } from 'node:os'
+import { tmpdir, hostname } from 'node:os'
 import { spawn } from 'node:child_process'
 import { parseStream, analyzeDeck, assess } from './lib/analyze.mjs'
 
@@ -30,13 +31,14 @@ const componentNames = manifest.components.map(c => c.name)
 
 // ── args ─────────────────────────────────────────────────────────────────────
 const argv = process.argv.slice(2)
-const o = { brief: null, export: false, vision: false, keep: false, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 3, minComponentTypes: 2, minSlides: 6 }
+const o = { brief: null, export: false, vision: false, keep: false, serve: null, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 3, minComponentTypes: 2, minSlides: 6 }
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i]
   if (a === '--brief') o.brief = argv[++i]
   else if (a === '--export') o.export = true
   else if (a === '--vision') { o.export = true; o.vision = true }
   else if (a === '--keep') o.keep = true
+  else if (a === '--serve') { o.serve = /^\d+$/.test(argv[i + 1]) ? +argv[++i] : 3030; o.keep = true }
   else if (a === '--work') o.work = argv[++i]
   else if (a === '--model') o.model = argv[++i]
   else if (a === '--timeout') o.timeout = +argv[++i]
@@ -84,7 +86,27 @@ async function runBrief (b) {
 
   report(b, dir, s, deck, verdict, render, critique)
   if (!o.keep) { try { rmSync(join(dir, 'node_modules')) } catch {} } // artifacts (run.jsonl, slides.md) always kept; --keep also keeps the node_modules symlink
-  return { name: b.name, pass: verdict.pass, dir }
+  return { name: b.name, pass: verdict.pass, dir, exists: deck.exists }
+}
+
+// Serve each authored deck with slidev (--remote so it's reachable over the network),
+// print a link per deck, and block until Ctrl-C. Needs the kept node_modules symlink.
+async function serveDecks (runs) {
+  const host = hostname()
+  let port = o.serve
+  const servers = []
+  console.log(C.acc('\nserving decks') + C.dim(' (slidev --remote; Ctrl-C to stop)'))
+  for (const r of runs) {
+    if (!r.exists) continue
+    writeFileSync(join(r.dir, 'vite.config.ts'), "import { defineConfig } from 'vite'\nexport default defineConfig({ server: { allowedHosts: true } })\n")
+    servers.push(spawn('npx', ['slidev', 'slides.md', '--port', String(port), '--remote'], { cwd: r.dir, stdio: 'ignore' }))
+    console.log(`  ${r.name}: ${C.acc(`http://${host}:${port}/`)} ${C.dim('· /overview/ for all slides')}`)
+    port++
+  }
+  if (!servers.length) { console.log(C.dim('  (no decks to serve)')); return }
+  const stop = () => { for (const s of servers) s.kill('SIGTERM'); process.exit(0) }
+  process.on('SIGINT', stop); process.on('SIGTERM', stop)
+  await new Promise(() => {}) // block until interrupted
 }
 
 // ── claude -p (stream-json in/out) ──────────────────────────────────────────────
@@ -154,6 +176,7 @@ function report (b, dir, s, deck, verdict, render, critique) {
     console.log(C.dim(`  critique:`) + ` content ${sc.content}/5 · variety ${sc.variety}/5 · fit ${sc.fit}/5 · polish ${sc.polish}/5 — ${critique.verdict || ''}`)
     for (const w of critique.weaknesses || []) console.log(C.ylw(`    · ${w}`))
   }
+  if (deck.exists && (o.keep || o.serve)) console.log(C.dim(`  view:`) + ` cd ${dir} && npx slidev slides.md --remote`)
   console.log(verdict.pass ? C.grn(`  PASS`) : C.red(`  FAIL`))
 }
 
@@ -166,6 +189,7 @@ function help () {
   --export              also render the deck to PNG via the grade CLI
   --vision              + adversarial LLM critique of the rendered slides (implies --export)
   --keep                keep the agent workdir + node_modules symlink for inspection
+  --serve [port]        after running, serve each deck with slidev (--remote) and print a link (implies --keep; default port 3030)
   --work <dir>          base workdir (default: $TMPDIR/tahta-qa)
   --model <id>          model for the authoring agent (default: claude's default)
   --min-layouts <n>     gate: distinct layouts required (default 5)
@@ -184,4 +208,5 @@ const results = []
 for (const b of list) { try { results.push(await runBrief(b)) } catch (e) { console.error(C.red(`  ${b.name}: ${e.message}`)); results.push({ name: b.name, pass: false }) } }
 const failed = results.filter(r => !r.pass)
 console.log(failed.length ? C.red(`\n${failed.length}/${results.length} failed: ${failed.map(r => r.name).join(', ')}`) : C.grn(`\nall ${results.length} passed`))
+if (o.serve) await serveDecks(results) // blocks until Ctrl-C
 process.exit(failed.length ? 1 : 0)

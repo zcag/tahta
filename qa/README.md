@@ -20,7 +20,12 @@ node qa/run.mjs --brief pitch    # one brief (node qa/run.mjs --list to see them
 node qa/run.mjs --export         # also render the deck to PNG via the grade CLI
 node qa/run.mjs --vision         # + adversarial LLM critique of the render (implies --export)
 node qa/run.mjs --keep           # keep the workdir for inspection
+node qa/run.mjs --brief pitch --serve  # build it, then serve in slidev + print a link
 ```
+
+`--serve [port]` runs the brief(s), then launches a `slidev --remote` server per deck
+and prints a link (e.g. `http://<host>:3030/`) so you can look at the real rendered
+deck — slidev is the viewer, not a PDF. Implies `--keep`; blocks until Ctrl-C.
 
 Needs the `claude` CLI on PATH and authenticated. Each run spends tokens (it drives
 a real agent), so it's a manual / scheduled check, not a per-PR gate.
