@@ -2,6 +2,14 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.9.0
+Authoring is now a deliberate, self-validating flow — the agent makes (and surfaces) design decisions instead of coasting on defaults, and `lint` blocks decks that look fine but won't ship.
+
+- **`themeConfig.variant` is now required.** `tahta-lint` errors if a deck omits it — no silent default at author time (the theme still renders `editorial` if truly unset). Each variant gains a **`best for`** (tone/audience) in `variants.json`, surfaced in `AGENTS.md`, so the choice is informed; the contract tells the agent to state which variant it chose and why, and that it's switchable. **Breaking (pre-1.0):** existing decks without `themeConfig.variant` now fail `lint` (add one).
+- **`lint` catches two more ship-blockers:** an **empty slide** from a stray `---` separator (renders blank), and a **duplicate frontmatter key** — e.g. a deck-level `title` and the first slide's `title` in the same opening block, which lints clean under `@slidev/parser` but fails `slidev export` with `DUPLICATE_KEY`. "Lints clean" now implies "will render".
+- **`tahta-lint` CLI** — the linter ships as a `bin`, so `npx tahta-lint slides.md` is a one-command pre-flight for authoring agents and CI. The theme's `lint()` is the single source of truth; the grade CLI and the agent-QA harness reuse it (no parallel implementation).
+- **Richer composition guidance** — rules now bias toward composing components *liberally and with variety* (a content→component map: number→`<Stat>`, status→`<Badge>`, stack→`<Tags>`, person→`<Person>`, …) on `default`/`two-cols`/`statement` canvases, plus the single-`---` separator rule.
+
 ## 0.8.0
 - **New components** — `<Figure>` (image/diagram + caption + credit — the basic figure primitive), `<Meter>` (labeled progress bar, tone-aware), `<Person>` (avatar + name + role; initials fallback), `<Tags>` (keyword chips). All tokenized + showcased in the gallery.
 - **Breaking (pre-1.0):** the asymmetric hero-number layout `figure` is renamed **`metric`** (so `<Figure>` can mean image+caption, the publishing sense). Update `layout: figure` → `layout: metric`.
