@@ -129,12 +129,22 @@
   -webkit-text-stroke: 1.5px color-mix(in oklab, var(--fg) 7%, transparent); pointer-events: none; user-select: none; }
 
 /* ===== cards ===== */
+/* role-color: each card in a grid cycles a distinct hue from the variant's --cat ramp
+   (the Gamma "every card has its own color" signature). Set on the grid child so it
+   cascades to the cell even when wrapped (e.g. feature's <Reveal>). */
+.panels > *:nth-child(5n+1), .feature > *:nth-child(5n+1), .cols > *:nth-child(5n+1) { --card-accent: var(--cat-1); }
+.panels > *:nth-child(5n+2), .feature > *:nth-child(5n+2), .cols > *:nth-child(5n+2) { --card-accent: var(--cat-2); }
+.panels > *:nth-child(5n+3), .feature > *:nth-child(5n+3), .cols > *:nth-child(5n+3) { --card-accent: var(--cat-3); }
+.panels > *:nth-child(5n+4), .feature > *:nth-child(5n+4), .cols > *:nth-child(5n+4) { --card-accent: var(--cat-4); }
+.panels > *:nth-child(5n+5), .feature > *:nth-child(5n+5), .cols > *:nth-child(5n+5) { --card-accent: var(--cat-5); }
+
 .card {
   position: relative; background: var(--surface-bg); border: var(--surface-border);
+  border-color: color-mix(in oklab, var(--card-accent, var(--accent)) 32%, var(--line));
   border-radius: var(--radius); padding: var(--sp-6) var(--sp-6); box-shadow: var(--surface-shadow);
 }
 .card::before { content: ""; position: absolute; top: calc(var(--rule-w) * -1); left: 1.3rem;
-  width: 2.2rem; height: 2px; background: var(--accent); opacity: var(--card-tick); }
+  width: 2.2rem; height: 2px; background: var(--card-accent, var(--accent)); opacity: var(--card-tick); }
 
 /* ===== stats ===== */
 .stat-grid { display: grid; gap: var(--sp-12); }
@@ -151,12 +161,12 @@
 .tahta-icon { display: inline-block; vertical-align: -0.125em; }
 .stat-icon { font-size: 1.7rem; color: var(--accent); margin-bottom: var(--sp-3); }
 .step-icon { font-size: 1.5rem; color: var(--accent); margin-bottom: var(--sp-3); display: block; }
-.feature-icon { font-size: 1.9rem; color: var(--accent); margin-bottom: var(--sp-4); }
+.feature-icon { font-size: 1.9rem; color: var(--card-accent, var(--accent)); margin-bottom: var(--sp-4); }
 
 /* ===== feature grid ===== */
 .feature { display: grid; gap: var(--gap); }
 .feature-cell { display: flex; flex-direction: column; }
-.feature-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.4rem; margin-bottom: var(--sp-2); }
+.feature-title { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.4rem; margin-bottom: var(--sp-2); color: var(--card-accent, var(--fg)); }
 .feature-desc { color: var(--fg-dim); }
 
 /* ===== fact (single giant figure) ===== */
@@ -306,18 +316,18 @@
 /* ----- columns — N headed columns (clean, rule-topped) ----- */
 .cols { display: flex; gap: var(--sp-10, 2.5rem); align-items: stretch; }
 .cols > .col { flex: 1 1 0; min-width: 0; }
-.col-rule { height: var(--rule-w); background: var(--accent); width: 2.4rem; margin-bottom: var(--sp-4); }
-.col-head { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.3rem; letter-spacing: var(--tr-display); margin-bottom: var(--sp-3); }
+.col-rule { height: var(--rule-w); background: var(--card-accent, var(--accent)); width: 2.4rem; margin-bottom: var(--sp-4); }
+.col-head { font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.3rem; letter-spacing: var(--tr-display); margin-bottom: var(--sp-3); color: var(--card-accent, var(--fg)); }
 .col-body { color: var(--fg-dim); }
 .col-body ul { margin: 0; }
 
 /* ----- panels — 2–4 carded sub-topics in a grid ----- */
 .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--gap); }
 .panels.two { grid-template-columns: repeat(2, 1fr); }
-.panel { position: relative; background: var(--surface-bg); border: var(--surface-border); border-radius: var(--radius); padding: var(--sp-6); box-shadow: var(--surface-shadow); }
-.panel::before { content: ""; position: absolute; top: calc(var(--rule-w) * -1); left: var(--sp-6); width: 2.2rem; height: 2px; background: var(--accent); opacity: var(--card-tick); }
-.panel-title { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.2rem; margin-bottom: var(--sp-3); }
-.panel-title .tahta-icon { color: var(--accent); font-size: 1.3rem; }
+.panel { position: relative; background: var(--surface-bg); border: var(--surface-border); border-color: color-mix(in oklab, var(--card-accent, var(--accent)) 32%, var(--line)); border-radius: var(--radius); padding: var(--sp-6); box-shadow: var(--surface-shadow); }
+.panel::before { content: ""; position: absolute; top: calc(var(--rule-w) * -1); left: var(--sp-6); width: 2.2rem; height: 2px; background: var(--card-accent, var(--accent)); opacity: var(--card-tick); }
+.panel-title { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--font-display); font-weight: var(--w-display); font-size: 1.2rem; margin-bottom: var(--sp-3); color: var(--card-accent, var(--fg)); }
+.panel-title .tahta-icon { color: var(--card-accent, var(--accent)); font-size: 1.3rem; }
 .panel-body { color: var(--fg-dim); font-size: 0.98rem; }
 .panel-body ul { margin: 0; }
 
