@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.1
+- **Fix: brutalist entrance motion was choppy.** `--motion-ease` was `steps(2, end)` (a literal 2-frame stepped easing that read as broken, not “mechanical”); now a sharp-but-smooth `cubic-bezier(0.2,0,0,1)`.
+
 ## 0.10.0
 A best-of-the-best variant revamp — decomposed the strongest themes from Gamma, Keynote, PowerPoint, and Pitch, added two system upgrades that make *every* variant render richer, then built six new variants faithful to specific references (two QA render rounds each).
 
