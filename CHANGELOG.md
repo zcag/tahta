@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.2
+- **Fix: charts could render blank on a slide that wasn’t active at mount** (echarts `Can’t get DOM width or height` on a 0×0 container). `<Plot>` now lazily inits + paints via a `ResizeObserver` once the container has size, and re-fits on resize.
+
 ## 0.10.1
 - **Fix: brutalist entrance motion was choppy.** `--motion-ease` was `steps(2, end)` (a literal 2-frame stepped easing that read as broken, not “mechanical”); now a sharp-but-smooth `cubic-bezier(0.2,0,0,1)`.
 
