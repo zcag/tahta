@@ -58,7 +58,7 @@ export async function analyzeDeck (slidesPath, { layoutIds, componentNames }) {
 // the notes call for: across briefs the agent should reach for varied layouts AND
 // at least one component, never emit CSS, and never ship a malformed slide.
 export function assess (deck, t = {}) {
-  const { minLayouts = 5, minComponents = 1, minSlides = 6 } = t
+  const { minLayouts = 5, minComponents = 3, minComponentTypes = 2, minSlides = 6 } = t
   const checks = []
   const add = (name, ok, detail) => checks.push({ name, ok, detail })
 
@@ -68,6 +68,7 @@ export function assess (deck, t = {}) {
     add(`≥${minSlides} slides`, deck.slideCount >= minSlides, `${deck.slideCount} slides`)
     add(`≥${minLayouts} distinct layouts`, deck.layouts.distinct >= minLayouts, `${deck.layouts.distinct}: ${deck.layouts.used.join(', ')}`)
     add(`≥${minComponents} component(s)`, deck.components.total >= minComponents, deck.components.total ? `${deck.components.total}× ${deck.components.used.join(', ')}` : 'none used')
+    add(`≥${minComponentTypes} component types`, deck.components.distinct >= minComponentTypes, `${deck.components.distinct} distinct: ${deck.components.used.join(', ') || '—'}`)
     add('no raw CSS', !deck.hasRawCss, deck.hasRawCss ? '<style> found — contract violation' : '')
   }
   return { pass: checks.every(c => c.ok), checks }

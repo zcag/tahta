@@ -30,7 +30,7 @@ const componentNames = manifest.components.map(c => c.name)
 
 // ── args ─────────────────────────────────────────────────────────────────────
 const argv = process.argv.slice(2)
-const o = { brief: null, export: false, vision: false, keep: false, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 3, minSlides: 6 }
+const o = { brief: null, export: false, vision: false, keep: false, work: join(tmpdir(), 'tahta-qa'), model: null, timeout: 600000, minLayouts: 5, minComponents: 3, minComponentTypes: 2, minSlides: 6 }
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i]
   if (a === '--brief') o.brief = argv[++i]
@@ -42,6 +42,7 @@ for (let i = 0; i < argv.length; i++) {
   else if (a === '--timeout') o.timeout = +argv[++i]
   else if (a === '--min-layouts') o.minLayouts = +argv[++i]
   else if (a === '--min-components') o.minComponents = +argv[++i]
+  else if (a === '--min-component-types') o.minComponentTypes = +argv[++i]
   else if (a === '--list') { console.log(briefs().map(b => b.name).join('\n')); process.exit(0) }
   else if (a === '--help' || a === '-h') { help(); process.exit(0) }
 }
@@ -168,7 +169,8 @@ function help () {
   --work <dir>          base workdir (default: $TMPDIR/tahta-qa)
   --model <id>          model for the authoring agent (default: claude's default)
   --min-layouts <n>     gate: distinct layouts required (default 5)
-  --min-components <n>  gate: components required (default 1)
+  --min-components <n>  gate: total components required (default 3)
+  --min-component-types <n>  gate: distinct component types (default 2)
   --timeout <ms>        per-agent timeout (default 600000)
 
   Exits non-zero if any brief fails its gates — drop it in CI (manual/scheduled).`)
