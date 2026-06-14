@@ -1,0 +1,4 @@
+Walk new engineering hires through how on-call and incident response work on our
+team: the weekly rotation, the severity levels, who to page and when, what a good
+incident timeline looks like, and the blameless postmortem afterwards. Keep it
+practical and reassuring — most of them have never been on-call before.

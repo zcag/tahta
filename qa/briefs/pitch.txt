@@ -1,0 +1,4 @@
+Pitch an internal build-caching tool to the wider engineering org. It cut median
+CI time from 12 minutes to 5, and the cache hit rate is around 80%. Convince a
+room of skeptical engineers it's worth adopting team-by-team, and address the
+obvious objection head-on: "is a cache I don't control actually reliable?"

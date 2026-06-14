@@ -1,0 +1,4 @@
+Teach a team of mid-level engineers the core principles of good software
+architecture — coupling and cohesion, clear module boundaries, and which way
+dependencies should point — in about a 15-minute talk. Use concrete examples.
+Assume they can code well but haven't thought much about structure.

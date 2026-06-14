@@ -1,0 +1,41 @@
+name: qa
+
+# Agent-tests-the-guide harness (qa/run.mjs). Drives a real claude -p agent, so it
+# spends tokens — it is NOT a per-PR gate. Run it manually or on a schedule to catch
+# regressions in what the authoring contract actually makes agents do.
+on:
+  workflow_dispatch:
+    inputs:
+      brief:
+        description: brief to run (blank = all)
+        required: false
+      export:
+        description: also render + lint the deck (slower)
+        type: boolean
+        default: false
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm install -g @anthropic-ai/claude-code
+      - if: ${{ inputs.export }}
+        run: npx playwright install --with-deps chromium
+      - name: run harness
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node qa/run.mjs --work "$RUNNER_TEMP/tahta-qa" --keep ${{ inputs.brief && format('--brief {0}', inputs.brief) || '' }} ${{ inputs.export && '--export' || '' }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-runs
+          path: ${{ runner.temp }}/tahta-qa/**/{run.jsonl,slides.md,BRIEF.md}
+          if-no-files-found: ignore
