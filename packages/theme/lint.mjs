@@ -53,22 +53,39 @@ async function toSlides (input) {
   try {
     const { parseSync } = await import('@slidev/parser')
     const { slides } = parseSync(input, '')
-    return slides.map((s, i) => ({ fm: s.frontmatter || {}, body: s.content || '', i }))
+    return slides.map((s, i) => ({ fm: s.frontmatter || {}, body: s.content || '', raw: s.frontmatterRaw || '', i }))
   } catch {}
   // Fallback (no Slidev around): light regex + optional yaml — field checks only, no body checks.
   let YAML
   try { const m = await import('yaml'); YAML = m.default ?? m } catch { throw new Error('lint(markdown) needs "@slidev/parser" or the optional "yaml" dependency — or pass an array of parsed frontmatter objects') }
   const slides = []; const re = /(^|\n)---\n([\s\S]*?)\n---(?=\n|$)/g; let m, i = 0
-  while ((m = re.exec(input))) { let fm = {}; try { fm = YAML.parse(m[2]) || {} } catch {} slides.push({ fm, body: null, i: i++ }) }
+  while ((m = re.exec(input))) { let fm = {}; try { fm = YAML.parse(m[2]) || {} } catch {} slides.push({ fm, body: null, raw: m[2], i: i++ }) }
   return slides
+}
+
+// Lazy YAML loader for the strict duplicate-key check (yaml is an optional dep).
+let _yaml
+async function loadYaml () {
+  if (_yaml === undefined) { try { const m = await import('yaml'); _yaml = m.default ?? m } catch { _yaml = null } }
+  return _yaml
 }
 
 export async function lint (input, opts = {}) {
   const slides = await toSlides(input)
+  const YAML = await loadYaml()
   const issues = []
   const add = (slide, level, message, field) => issues.push({ slide, level, message, ...(field ? { field } : {}) })
 
-  slides.forEach(({ fm, body, i }) => {
+  slides.forEach(({ fm, body, raw, i }) => {
+    // Duplicate frontmatter key: @slidev/parser silently keeps the last value, but
+    // slidev's strict YAML export throws DUPLICATE_KEY — so a deck can lint clean yet
+    // fail to render. Most common cause: a deck-level title and the first slide's title
+    // both in the opening block (slidev merges them). Catch it here.
+    if (YAML && raw) {
+      for (const e of YAML.parseDocument(raw).errors) {
+        if (e.code === 'DUPLICATE_KEY') add(i, 'error', `${e.message.split('\n')[0]} — slidev export rejects duplicate YAML keys (e.g. a deck-level title and the first slide's title in the same block)`, 'frontmatter')
+      }
+    }
     // Empty slide: no frontmatter AND no body → renders blank. Almost always a stray
     // `---` (the next slide's frontmatter `---` already separates slides, so a trailing
     // `---` after a body opens an empty slide between them). Only checkable when we have

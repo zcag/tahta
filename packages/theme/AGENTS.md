@@ -12,14 +12,15 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 6. Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.
 7. Use components liberally AND with variety — they are the main source of richness and make each deck feel bespoke rather than templated. Map content to the component it invites: a number→<Stat>/<Meter>, a status→<Badge>, a stack/skill list→<Tags>, a person→<Person>, a command/artifact→<Terminal>/<Plot>/<Kbd>, an aside→<Callout>. Aim for a component on most content slides, and reach for several different ones across the deck — leaning on a single type (e.g. only <Callout>) still reads templated. A deck where nearly every slide carries a fitting component reads custom; one that only fills layout fields reads generic.
 8. Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.
-9. Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.
-10. class: dropcap on a default slide sets a drop cap on the first paragraph.
-11. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
-12. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
-13. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
-14. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
-15. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
-16. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+9. The opening --- block is both the deck headmatter and the first slide's frontmatter — don't set the same key twice in it. A deck-level title plus the first slide's title collide (duplicate YAML key) and break slidev export; let the cover's title stand as the deck title, or start with a headmatter-only block and put the cover next.
+10. Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.
+11. class: dropcap on a default slide sets a drop cap on the first paragraph.
+12. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
+13. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
+14. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
+15. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
+16. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
+17. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 
 ## Deck header (first slide)
 ```yaml
