@@ -24,6 +24,9 @@
   "engines": {
     "slidev": ">=0.48.0"
   },
+  "bin": {
+    "tahta-lint": "./lint.mjs"
+  },
   "files": [
     "layouts",
     "components",

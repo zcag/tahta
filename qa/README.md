@@ -33,7 +33,8 @@ Per brief, from the saved `run.jsonl` and the authored `slides.md`:
   authoring? A "no" is a discovery gap in how the contract is surfaced.
 - **adherence** — distinct layouts used, components used, slide count, and whether
   it emitted raw `<style>`/CSS (a contract violation).
-- **structure** — the same empty-slide lint the grade CLI runs (`deck-lint.mjs`).
+- **structure** — the theme's own `lint()` (empty slides, unclosed frontmatter,
+  missing required fields) — the same validator `npx tahta-lint` and grade run.
 - **(opt-in) render** — `--export` builds PNGs and reuses grade's blank/broken lint.
 - **(opt-in) critique** — `--vision` has a model score the render against
   `rubric.md` and list concrete weaknesses, adversarially.

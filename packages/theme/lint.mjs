@@ -1,12 +1,17 @@
+#!/usr/bin/env node
 // Structural validator for tahta decks. The theme owns the layout/field semantics,
 // so it owns validation. Consumers (e.g. tela's deck sidecar) import this and expose
-// it (an MCP `lint_deck` tool). Validates against layouts.json + variants.json.
+// it (an MCP `lint_deck` tool); the grade CLI and the qa harness reuse it too.
+// Validates against layouts.json + variants.json.
 //
 //   import { lint } from 'slidev-theme-tahta/lint.mjs'
 //   const { ok, issues } = await lint(markdownString)        // or an array of parsed frontmatter objects
 //
+//   npx tahta-lint slides.md                                  # CLI — exits non-zero on errors
+//
 // Returns { ok, errors, warnings, issues:[{ slide, level:'error'|'warn', field?, message }] }.
-import { readFileSync } from 'node:fs'
+import { readFileSync, realpathSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 const manifest = JSON.parse(readFileSync(new URL('./layouts.json', import.meta.url)))
 const variantsDoc = JSON.parse(readFileSync(new URL('./variants.json', import.meta.url)))
@@ -64,6 +69,13 @@ export async function lint (input, opts = {}) {
   const add = (slide, level, message, field) => issues.push({ slide, level, message, ...(field ? { field } : {}) })
 
   slides.forEach(({ fm, body, i }) => {
+    // Empty slide: no frontmatter AND no body → renders blank. Almost always a stray
+    // `---` (the next slide's frontmatter `---` already separates slides, so a trailing
+    // `---` after a body opens an empty slide between them). Only checkable when we have
+    // the body text (markdown input), not in frontmatter-array mode.
+    if (body != null && !Object.keys(fm || {}).length && !body.trim()) {
+      return add(i, 'error', 'empty slide (no frontmatter, no body) — likely a stray `---` separator; the next slide’s frontmatter `---` already separates slides')
+    }
     const leak = leakedFrontmatter(body)
     if (leak) add(i, 'error', `slide body starts with frontmatter keys (${leak.slice(0, 3).join(', ')}…) — a slide's frontmatter probably isn't closed with \`---\`, so it renders as text`)
     if (!fm || typeof fm !== 'object') return
@@ -103,3 +115,21 @@ export async function lint (input, opts = {}) {
 }
 
 export default lint
+
+// CLI: `tahta-lint <slides.md> [...]` — the one-command pre-flight for authoring
+// agents and CI. Exits non-zero on any error-level issue.
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const files = process.argv.slice(2)
+  if (!files.length) { console.error('usage: tahta-lint <slides.md> [...]'); process.exit(2) }
+  let errors = 0, warnings = 0
+  for (const f of files) {
+    const { issues } = await lint(readFileSync(f, 'utf8'))
+    for (const x of issues) {
+      const tag = x.level === 'error' ? '✗' : '·'
+      console.error(`${tag} ${f} #${x.slide} [${x.level}]: ${x.message}`)
+      x.level === 'error' ? errors++ : warnings++
+    }
+  }
+  if (errors) { console.error(`\n${errors} error(s), ${warnings} warning(s)`); process.exit(1) }
+  console.log(warnings ? `✓ no errors (${warnings} warning(s))` : '✓ deck lint: clean')
+}

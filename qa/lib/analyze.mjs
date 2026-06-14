@@ -1,6 +1,6 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { parse } from '@slidev/parser/core'
-import { lintDeck } from '../../packages/grade/lib/deck-lint.mjs'
+import { lint } from '../../packages/theme/lint.mjs'
 
 // ── stream inspection ────────────────────────────────────────────────────────
 // Pull the decision stream out of a `claude -p` stream-json run.jsonl: which tools
@@ -48,7 +48,7 @@ export async function analyzeDeck (slidesPath, { layoutIds, componentNames }) {
     layouts: { counts: layoutCounts, used: Object.keys(layoutCounts), distinct: Object.keys(layoutCounts).length },
     components: { counts: compCounts, used: Object.keys(compCounts), distinct: Object.keys(compCounts).length, total: Object.values(compCounts).reduce((a, b) => a + b, 0) },
     hasRawCss: /<style\b/i.test(raw),
-    lintIssues: await lintDeck(slidesPath),
+    lintIssues: (await lint(raw)).issues.filter(x => x.level === 'error'),
   }
 }
 
@@ -63,7 +63,7 @@ export function assess (deck, t = {}) {
 
   add('authored slides.md', deck.exists, deck.exists ? '' : 'no slides.md produced')
   if (deck.exists) {
-    add('parses & lint-clean', deck.lintIssues.length === 0, deck.lintIssues.map(i => `#${i.slide} ${i.code}`).join(', '))
+    add('parses & lint-clean', deck.lintIssues.length === 0, deck.lintIssues.map(i => `#${i.slide} ${i.message}`).join('; '))
     add(`≥${minSlides} slides`, deck.slideCount >= minSlides, `${deck.slideCount} slides`)
     add(`≥${minLayouts} distinct layouts`, deck.layouts.distinct >= minLayouts, `${deck.layouts.distinct}: ${deck.layouts.used.join(', ')}`)
     add(`≥${minComponents} component(s)`, deck.components.total >= minComponents, deck.components.total ? `${deck.components.total}× ${deck.components.used.join(', ')}` : 'none used')

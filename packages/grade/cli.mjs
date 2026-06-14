@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-import { readdirSync, existsSync, cpSync, watch as fsWatch } from 'node:fs'
+import { readdirSync, readFileSync, existsSync, cpSync, watch as fsWatch } from 'node:fs'
 import { join, dirname, resolve, basename } from 'node:path'
 import { createServer } from 'node:http'
 import { spawn } from 'node:child_process'
 import sirv from 'sirv'
 import { exportDeck, withVariant } from './lib/export.mjs'
 import { analyze, flagsFor } from './lib/lint.mjs'
-import { lintDeck } from './lib/deck-lint.mjs'
 import { diffAgainst } from './lib/diff.mjs'
 import { runChecks } from './lib/checks.mjs'
 import { writeReport } from './lib/report.mjs'
@@ -35,12 +34,25 @@ const C = { dim: s => `\x1b[2m${s}\x1b[0m`, red: s => `\x1b[31m${s}\x1b[0m`, grn
 const numeric = (a, b) => parseInt(a) - parseInt(b)
 const pngs = (dir) => readdirSync(dir).filter(f => f.endsWith('.png') && !f.startsWith('diff-')).sort(numeric)
 
+// Pre-render structural lint via the theme's exported validator. Only for decks that
+// declare slidev-theme-tahta (its checks are tahta-contract-aware), and a no-op if the
+// theme isn't installed — keeps grade usable on any deck.
+async function structuralLint (entry) {
+  try {
+    const md = readFileSync(entry, 'utf8')
+    if (!md.includes('slidev-theme-tahta')) return []
+    const { lint } = await import('slidev-theme-tahta/lint.mjs')
+    return (await lint(md)).issues.filter(x => x.level === 'error')
+  } catch { return [] }
+}
+
 async function grade () {
   const variants = o.variants || [null]
   const results = []
-  // Structural lint on the source markdown — variant-independent, runs once.
-  const structural = await lintDeck(o.entry)
-  for (const s of structural) console.log(C.red(`  ⚠ source #${s.slide}: ${s.msg}`))
+  // Structural lint on the source markdown — variant-independent, runs once. Reuses
+  // the theme's own validator (the contract owner); skipped for non-tahta decks.
+  const structural = await structuralLint(o.entry)
+  for (const s of structural) console.log(C.red(`  ⚠ source #${s.slide}: ${s.message}`))
   for (const v of variants) {
     const name = v || 'deck'
     const dir = join(o.out, name)

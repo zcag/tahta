@@ -10,13 +10,14 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 4. For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.
 5. Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.
 6. Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.
-7. class: dropcap on a default slide sets a drop cap on the first paragraph.
-8. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
-9. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
-10. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
-11. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
-12. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
-13. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+7. Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.
+8. class: dropcap on a default slide sets a drop cap on the first paragraph.
+9. Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.
+10. Keep numeric values bare; put the symbol in unit (value: 80, unit: "%").
+11. For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.
+12. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
+13. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
+14. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 
 ## Deck header (first slide)
 ```yaml

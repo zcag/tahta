@@ -24,6 +24,7 @@
     "For varied, designed decks vary the composition: open with lead, punctuate with bigtype, and use metric/agenda/define/columns/panels/reference/vs for teaching content — not every slide as a centered title+body.",
     "Layouts are your default — the design is built in, so reach for the one that matches the content shape (definition→define, comparison→vs, numbers→stats, process→steps). But don't force every slide into a preset: default/two-cols bodies (and the space under a statement) are a canvas — compose components there (<Callout>, <Stat>, <Plot>, <Terminal>, <Kbd>, <Figure>, <Meter>, <Tags>, …) to enrich a slide, and reach for them whenever no layout cleanly fits. A deck that mixes designed layouts with a few composed slides reads richer than one that only fills templates.",
     "Slides are separated by a single ---. Don't add an extra --- after a slide's body — the next slide's frontmatter --- already separates them; a --- immediately followed by another --- renders a blank slide.",
+    "Before finishing, validate the deck: run `npx tahta-lint slides.md` (ships with the theme) and fix what it reports — it catches empty slides, unclosed frontmatter, missing required fields, and bad enum values.",
     "class: dropcap on a default slide sets a drop cap on the first paragraph.",
     "Footer label auto-fills from the deck title (override per slide with foot:). Never add page numbers.",
     "Keep numeric values bare; put the symbol in unit (value: 80, unit: \"%\").",

@@ -30,6 +30,12 @@
     "sirv": "^3.0.0"
   },
   "peerDependencies": {
-    "@slidev/cli": ">=0.48.0"
+    "@slidev/cli": ">=0.48.0",
+    "slidev-theme-tahta": ">=0.8.0"
+  },
+  "peerDependenciesMeta": {
+    "slidev-theme-tahta": {
+      "optional": true
+    }
   }
 }
