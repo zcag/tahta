@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.5
+- **Overflow signal: when a slide is so dense it spills even at `<Fit>`’s min scale (0.42), say so.** `<Fit>` now emits a one-shot `console.warn` (visible in `slidev dev`/export logs) and sets `data-fit-overflow` on the frame — an author cue to split or trim the slide. The `tahta-grade --checks` overflow gate now trusts that attribute where a `.fit` governs sizing (a `transform: scale()` doesn’t shrink `scrollHeight`, so the raw scroll metric would otherwise false-flag every healthy scaled slide).
+
 ## 0.10.4
 - **Fix: dense slides (big tables, full glossaries) overflowed the bottom — the `<Fit>` auto-shrink never actually fired.** Two bugs compounded: (1) `.l-body` / `.fit` are flex items with the default `min-height: auto`, so a tall body *grew the container to its own height* instead of being capped — `<Fit>` then measured `available ≈ content` and computed scale 1, so its shrink path was effectively dead code. Added `min-height: 0` so the container holds the frame height and `<Fit>` sees the real overflow. (2) Once scaling actually fires, `<Fit>` centered the content on its *unscaled* (taller) box — a CSS `transform: scale()` doesn't change layout size — so shrunk content bled upward into the title. `<Fit>` now top-aligns whenever it's scaling (origin is already top), so content shrinks within its frame instead of overlapping the header or the footer.
 

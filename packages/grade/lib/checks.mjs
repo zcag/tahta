@@ -52,7 +52,13 @@ function measure () {
   const deco = [...el.querySelectorAll('.ghost, .glow, .bleed-img, .bleed-duotone, .bleed-scrim')]
   const prev = deco.map(d => d.style.display)
   deco.forEach(d => { d.style.display = 'none' })
-  const overflow = (el.scrollHeight - el.clientHeight > 4) || (el.scrollWidth - el.clientWidth > 4)
+  // <Fit> shrinks tall content via transform:scale — which doesn't reduce scrollHeight, so the
+  // raw scroll metric would flag every scaled-but-fitting slide. Where a .fit governs vertical
+  // sizing, trust its own verdict (data-fit-overflow = still spills at the min scale); fall back
+  // to the scroll metric only for layouts without a .fit. Width isn't scaled, so still measure it.
+  const fit = el.querySelector('.fit')
+  const vOverflow = fit ? el.querySelector('.fit[data-fit-overflow]') != null : (el.scrollHeight - el.clientHeight > 4)
+  const overflow = vOverflow || (el.scrollWidth - el.clientWidth > 4)
   deco.forEach((d, i) => { d.style.display = prev[i] })
   const px = (c) => (c.match(/[\d.]+/g) || [0, 0, 0]).map(Number)
   const lum = ([r, g, b]) => { const a = [r, g, b].map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }); return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2] }
