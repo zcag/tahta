@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.10.6
+- **Fix: cover/section titles still clipped on an embedded SPA renderer (e.g. tela), even after the `<Fit>` wrapping in 0.10.3–0.10.5.** Root cause was `<Fit>`’s height measurement, not the wrapping: it read `available` from its own `height:100%` box (`outer.clientHeight`), which is correct under Slidev’s definite-height canvas but gets *inflated* when a host SPA leaves the percentage-height chain unresolved — so `<Fit>` thought the title fit, kept it vertically centered at scale 1, and the host’s fixed-aspect frame clipped the top. `<Fit>` now also derives the height from the real visible frame (the `.slidev-layout` box, which has `overflow:hidden` + a definite height) and takes the smaller of the two, all in transform-immune layout pixels — so it scales down correctly regardless of host. It additionally re-fits on `requestAnimationFrame` and `document.fonts.ready`, closing a one-shot-render race where a web font swaps in (and reflows the title taller) after the initial measure. No-op for slides that already fit; verified identical scale to before across Slidev dev + export at multiple canvas widths.
+
 ## 0.10.5
 - **Overflow signal: when a slide is so dense it spills even at `<Fit>`’s min scale (0.42), say so.** `<Fit>` now emits a one-shot `console.warn` (visible in `slidev dev`/export logs) and sets `data-fit-overflow` on the frame — an author cue to split or trim the slide. The `tahta-grade --checks` overflow gate now trusts that attribute where a `.fit` governs sizing (a `transform: scale()` doesn’t shrink `scrollHeight`, so the raw scroll metric would otherwise false-flag every healthy scaled slide).
 
