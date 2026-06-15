@@ -13,13 +13,14 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <div v-if="showGlow" class="glow" />
     <Reveal class="l-center">
       <Fit>
+        <BrandLogo mode="hero" />
         <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
         <h1 class="fs-cover mw-cover" v-html="fm.title" />
         <div v-if="fm.subtitle" class="fs-lead mw-lead dim mt-5" v-html="fm.subtitle" />
         <slot />
       </Fit>
     </Reveal>
-    <Foot />
+    <Foot :mark="false" />
   </div>
 
   <!-- SECTION -->
@@ -29,6 +30,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <Ghost :text="fm.index ?? ''" />
     <Reveal class="l-body">
       <Fit>
+        <BrandLogo mode="hero" />
         <div v-if="fm.index" class="stat-num accent-num fs-stat-sm mb-4">{{ fm.index }}</div>
         <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
         <h1 class="fs-section mw-title" v-html="fm.title" />
@@ -36,7 +38,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
         <slot />
       </Fit>
     </Reveal>
-    <Foot />
+    <Foot :mark="false" />
   </div>
 
   <!-- STATEMENT (also quote / fact, with custom body) -->
@@ -60,6 +62,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
     <div class="glow" />
     <Reveal class="l-center middle">
       <Fit>
+        <BrandLogo mode="hero" />
         <div class="accent-bar mb-8" />
         <h1 class="fs-cover" v-html="fm.title || 'Thanks'" />
         <div v-if="fm.subtitle" class="fs-lead dim mt-4" v-html="fm.subtitle" />
@@ -67,7 +70,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
         <slot />
       </Fit>
     </Reveal>
-    <Foot />
+    <Foot :mark="false" />
   </div>
 
   <!-- TOPIC -->

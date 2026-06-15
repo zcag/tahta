@@ -229,6 +229,13 @@
   display: flex; justify-content: space-between; align-items: center;
   font: 500 0.68rem/1 var(--font-mono); color: color-mix(in oklab, var(--fg-dim) 70%, transparent); letter-spacing: 0.06em; }
 .foot .pg { color: var(--accent); }
+.foot-left { display: flex; align-items: center; gap: 0.5rem; }
+
+/* brand logo (themeConfig.logo) — hero on openers, small mark in the footer */
+.brand-logo { display: block; width: auto; }
+.brand-logo.hero { height: 2.4rem; margin-bottom: 1.7rem; }
+.brand-logo.mark { height: 0.92rem; opacity: 0.8; }
+.brand-logo.invert { filter: invert(1) grayscale(1) brightness(1.85); }  /* monochrome mark on the opposite scheme */
 
 /* ===== table ===== */
 .slidev-layout table { width: 100%; border-collapse: collapse; font-size: 1rem; }

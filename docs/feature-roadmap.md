@@ -113,7 +113,16 @@ hand-tuned as default, switch to derived only on override. Best of both.
 
 ---
 
-## 3. Branding module (after accent)
+## 3. Branding module — v1 logo slot (IMPLEMENTED)
+
+> Shipped v1 (scope: **logo slot only**, decided with the user): `themeConfig.logo` +
+> `logoInvert`, a `<BrandLogo>` component (hero on cover/section/lead/end, small footer mark on
+> content slides, `mark:false` opt-out), documented in the core contract, plus the first
+> capability module `modules/branding.md` + the `modules/modules.json` manifest pattern.
+> Brand color rides the hue-safe accent; **fonts stay the variant's** (the module picks the
+> variant that fits). **Deferred:** brand font override + a 2nd locked brand color.
+
+Original rationale below.
 
 Strong fit — "take plain brand data → declarative theme choices", plays to the one-accent
 → whole-palette strength. It's **not only a prompt addendum**; it exposes real theme gaps

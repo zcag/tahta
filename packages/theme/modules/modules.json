@@ -1,0 +1,11 @@
+{
+  "$comment": "Optional capability modules. Each is a prompt fragment a consumer (e.g. tela's MCP deck flow, or a CLI agent) appends to AGENTS.md ONLY when that capability is present in the run — so the always-served core contract stays lean. Append the file's contents after AGENTS.md when `when` holds.",
+  "modules": [
+    {
+      "id": "branding",
+      "file": "modules/branding.md",
+      "when": "the deck has brand inputs to honor — a logo, brand color(s), or a brand name/personality",
+      "adds": "how to turn a brand brief into a deck: pick the variant that fits the brand, set the accent to the brand hue (hue-matched, not exact), wire the logo, set lang"
+    }
+  ]
+}

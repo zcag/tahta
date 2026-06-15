@@ -6,6 +6,8 @@
 
 → **Agents: read [`AGENTS.md`](./AGENTS.md)** — the full authoring contract (every layout's schema + copy-paste examples), generated from `layouts.json` + `variants.json`.
 
+→ **Optional capability modules** ([`modules/`](./modules/modules.json)) — prompt fragments a consumer appends to `AGENTS.md` only when a capability is in play (e.g. [`branding`](./modules/branding.md) when the deck has a logo / brand color), keeping the core contract lean.
+
 ## Why a system, not a theme
 
 - **Foundations as data.** A 3-tier token layer ([`tokens.json`](./tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH.

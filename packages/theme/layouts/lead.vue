@@ -11,6 +11,7 @@ const { $frontmatter: fm } = useSlideContext()
     <Reveal class="l-lead-inner">
       <Fit>
         <div class="lead-body">
+          <BrandLogo mode="hero" />
           <div class="accent-bar" />
           <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>
           <h1 v-html="fm.title" />
@@ -19,6 +20,6 @@ const { $frontmatter: fm } = useSlideContext()
         </div>
       </Fit>
     </Reveal>
-    <Foot />
+    <Foot :mark="false" />
   </div>
 </template>

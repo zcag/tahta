@@ -30,6 +30,8 @@ themeConfig:
   variant: editorial   # REQUIRED — one of: editorial | brutalist | soft | minimal | paper | atelier | notebook. Choose one deliberately to fit the talk's tone/audience (see the Variants table's 'best for'). Don't omit it to coast on a default.
   # accent: string  — Override the brand accent (any CSS color). NOT reproduced exactly — only the HUE is honored; lightness/saturation adapt to the variant's envelope so the color stays legible and on-style instead of clashing. So a brand color won't render as its literal hex, but its hue carries through the whole palette (tints, shades, chart series, on-accent text).
   # lang: string  — BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ).
+  # logo: string  — Brand logo (path/URL). Renders prominently on openers (cover/section/lead/end) and as a small footer mark on content slides (opt out per slide with `mark: false`). Supply a logo that reads on the variant's scheme. Inert if unset.
+  # logoInvert: boolean  — Invert the logo (for a monochrome mark whose color is wrong for the variant's scheme — e.g. a black mark on a dark variant). Don't use on a full-color logo.
 ```
 
 ## Variants (themeConfig.variant)

@@ -39,7 +39,8 @@
     "layouts.json",
     "variants.json",
     "tokens.json",
-    "lint.mjs"
+    "lint.mjs",
+    "modules"
   ],
   "peerDependencies": {
     "echarts": "^5 || ^6"
