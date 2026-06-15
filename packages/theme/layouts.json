@@ -4,7 +4,7 @@
     "description": "Deck-level config set in the first slide's headmatter under themeConfig.",
     "fields": [
       { "name": "variant", "type": "enum", "required": true, "enum": ["editorial", "brutalist", "soft", "minimal", "paper", "atelier", "notebook"], "description": "Choose one deliberately to fit the talk's tone/audience (see the Variants table's 'best for'). Don't omit it to coast on a default." },
-      { "name": "accent", "type": "string", "required": false, "description": "Override the brand accent (any CSS color). The whole palette (tints, shades, chart series) derives from it." },
+      { "name": "accent", "type": "string", "required": false, "description": "Override the brand accent (any CSS color). The hue is kept but its lightness/chroma are normalized into the variant's envelope, so any brand color stays legible and on-style instead of clashing; the whole palette (tints, shades, chart series, on-accent text) re-derives from it." },
       { "name": "lang", "type": "string", "required": false, "description": "BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ)." }
     ]
   },

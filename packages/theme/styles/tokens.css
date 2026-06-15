@@ -21,7 +21,12 @@
   --fg: #ece9e3; --fg-dim: #9a9b94;
   /* semantic roles (independent of brand accent) — dark defaults, lighter variants override */
   --good: #46c97e; --warn: #e0a93b; --bad: #ff6b6b; --info: #5b9dff;
-  --accent: #7aa2ff; --accent-2: #7aa2ff; --on-accent: #0c0d10;
+  --accent-base: #7aa2ff; --accent-l-lo: 0.66; --accent-l-hi: 0.78; --accent-c-hi: 0.18;
+  /* Accent ENVELOPE — a brand override supplies --brand (raw color); we keep its HUE and clamp
+   * L/C into the variant's band, so any brand color lands in the variant's voice. No --brand →
+   * falls back to --accent-base (in-band → clamp is a no-op) → the variant's designed accent. */
+  --accent: oklch(from var(--brand, var(--accent-base)) clamp(var(--accent-l-lo), l, var(--accent-l-hi)) min(c, var(--accent-c-hi)) h);
+  --on-accent: #0c0d10;
 
   /* ONE-HUE RAMP — everything below is derived from --accent via relative-color OKLCH,
    * so setting one accent (variant default or themeConfig.accent) reskins the whole palette,
@@ -101,7 +106,7 @@
 :root[data-variant='brutalist'] {
   --ink: #000; --ink-2: #0c0c0c; --line: #2c2c2c;
   --fg: #f2f2ee; --fg-dim: #8d8d86; --bad: #ff5a3c;
-  --accent: #c8f135; --accent-2: #c8f135; --on-accent: #000;
+  --accent-base: #c8f135; --accent-l-lo: 0.84; --accent-l-hi: 0.96; --accent-c-hi: 0.25; --on-accent: #000;
   --cat-1: #c8f135; --cat-2: #35e0f1; --cat-3: #ff5ca8; --cat-4: #ffd23f; --cat-5: #9d7bff; /* neon on dark — distinct roles */
   --font-display: 'Space Mono', monospace;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -124,7 +129,7 @@
 :root[data-variant='soft'] {
   --ink: #f4f1ea; --ink-2: #ffffff; --line: #e7e1d6;
   --fg: #221f1a; --fg-dim: #7c766c; --good: #1f9d57; --warn: #b45309; --bad: #c0392b; --info: #2563eb;
-  --accent: #ee5a36; --accent-2: #ee5a36; --on-accent: #fff;
+  --accent-base: #ee5a36; --accent-l-lo: 0.6; --accent-l-hi: 0.72; --accent-c-hi: 0.23; --on-accent: #fff;
   --cat-1: #ee5a36; --cat-2: #1ba39c; --cat-3: #f3a712; --cat-4: #7c83db; --cat-5: #5fa873; /* warm friendly pastels on light */
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -146,7 +151,7 @@
 :root[data-variant='minimal'] {
   --ink: #ffffff; --ink-2: #fafafa; --line: #e3e3e3;
   --fg: #0a0a0a; --fg-dim: #6f6f6f; --good: #137a43; --warn: #a85c00; --bad: #d92d20; --info: #1d4ed8;
-  --accent: #e5341c; --accent-2: #e5341c; --on-accent: #fff;
+  --accent-base: #e5341c; --accent-l-lo: 0.54; --accent-l-hi: 0.66; --accent-c-hi: 0.26; --on-accent: #fff;
   --cat-1: #e5341c; --cat-2: #1f2937; --cat-3: #2f6fed; --cat-4: #c9a227; --cat-5: #8a8f98; /* Swiss restraint — red + neutrals + one blue */
   --font-display: 'Archivo', system-ui, sans-serif;
   --font-body: 'Archivo', system-ui, sans-serif;
@@ -171,7 +176,7 @@
   --ink: #f6f1e7; --ink-2: #fffdf8; --line: #e6dcc8;
   --fg: #2c2620; --fg-dim: #8a7c66;
   --good: #1f7a4d; --warn: #b45309; --bad: #b3261e; --info: #2563eb;
-  --accent: #b5502e; --accent-2: #b5502e; --on-accent: #fff;
+  --accent-base: #b5502e; --accent-l-lo: 0.5; --accent-l-hi: 0.62; --accent-c-hi: 0.17; --on-accent: #fff;
   --cat-1: #b5502e; --cat-2: #7d7a3a; --cat-3: #c98a3c; --cat-4: #5f7d63; --cat-5: #9c6b58; /* earthy editorial — rust, olive, ochre, sage, clay */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Fraunces', Georgia, serif;
@@ -194,7 +199,7 @@
   --ink: #0b0d14; --ink-2: #141824; --line: #262c3b;
   --fg: #e9ecf5; --fg-dim: #969eb4;
   --good: #46c97e; --warn: #e0a93b; --bad: #ff6b6b; --info: #7c8cff;
-  --accent: #8590ff; --accent-2: #8590ff; --on-accent: #0b0d14;
+  --accent-base: #8590ff; --accent-l-lo: 0.64; --accent-l-hi: 0.76; --accent-c-hi: 0.2; --on-accent: #0b0d14;
   --cat-1: #8590ff; --cat-2: #5fd0e0; --cat-3: #c4a0ff; --cat-4: #7fdca8; --cat-5: #f3a0c0; /* Lagoon-cool pastels on dark */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -216,7 +221,7 @@
   --ink: #ffffff; --ink-2: #fbfaf7; --line: #e4e2da;
   --fg: #1b2440; --fg-dim: #6b7280;
   --good: #1f7a4d; --warn: #b45309; --bad: #c0392b; --info: #2546c7;
-  --accent: #2546c7; --accent-2: #2546c7; --on-accent: #fff;
+  --accent-base: #2546c7; --accent-l-lo: 0.4; --accent-l-hi: 0.52; --accent-c-hi: 0.24; --on-accent: #fff;
   --cat-1: #2546c7; --cat-2: #e5484d; --cat-3: #f2b705; --cat-4: #2e9e6b; --cat-5: #8b5cf6; /* highlighter primaries on white paper */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -241,7 +246,7 @@
   --ink: #0b211e; --ink-2: #102d28; --line: #20423c;
   --fg: #efe8d8; --fg-dim: #9fb6af;
   --good: #7fcf9f; --warn: #e8d48a; --bad: #f3a0c0; --info: #8fc7e0;
-  --accent: #58cabb; --accent-2: #58cabb; --on-accent: #07211d;
+  --accent-base: #58cabb; --accent-l-lo: 0.71; --accent-l-hi: 0.83; --accent-c-hi: 0.14; --on-accent: #07211d;
   --cat-1: #58cabb; --cat-2: #f3a0c0; --cat-3: #8fc7e0; --cat-4: #e8d48a; --cat-5: #7fcf9f; /* pale teal, pink, sky, cream-yellow, sage */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -264,7 +269,7 @@
   --ink: #fcfbf8; --ink-2: #f1efe9; --line: #1a1813;
   --fg: #14110b; --fg-dim: #5c584f;
   --good: #2f6f4f; --warn: #8a5e16; --bad: #b0241c; --info: #2b4d8a;
-  --accent: #b0241c; --accent-2: #14110b; --on-accent: #fff;
+  --accent-base: #b0241c; --accent-l-lo: 0.44; --accent-l-hi: 0.56; --accent-c-hi: 0.21; --on-accent: #fff;
   --cat-1: #14110b; --cat-2: #b0241c; --cat-3: #4c483f; --cat-4: #2b4d8a; --cat-5: #8a5e16; /* ink, red spot, deep-gray, slate, ochre */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -287,7 +292,7 @@
   --ink: #0e1b2e; --ink-2: #15273f; --line: #2a3f5c;
   --fg: #eef3fa; --fg-dim: #9fb2cb;
   --good: #46c97e; --warn: #f0a93b; --bad: #ff6b6b; --info: #5b9bd5;
-  --accent: #f08a3c; --accent-2: #f08a3c; --on-accent: #0e1b2e;
+  --accent-base: #f08a3c; --accent-l-lo: 0.67; --accent-l-hi: 0.79; --accent-c-hi: 0.19; --on-accent: #0e1b2e;
   --cat-1: #f08a3c; --cat-2: #5b9bd5; --cat-3: #46c0b0; --cat-4: #e8c861; --cat-5: #8a9bc4; /* orange, steel-blue, teal, gold, slate */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -310,7 +315,7 @@
   --ink: #050506; --ink-2: #101216; --line: #23262e;
   --fg: #f4f5f7; --fg-dim: #898d96;
   --good: #34e5b0; --warn: #ffcf4a; --bad: #ff5d6c; --info: #38d6e0;
-  --accent: #1fe3d2; --accent-2: #1fe3d2; --on-accent: #04100f;
+  --accent-base: #1fe3d2; --accent-l-lo: 0.77; --accent-l-hi: 0.89; --accent-c-hi: 0.18; --on-accent: #04100f;
   --cat-1: #1fe3d2; --cat-2: #ff5d8a; --cat-3: #9b7bff; --cat-4: #ffd23f; --cat-5: #4ad0ff; /* electric set on black */
   --font-display: 'Hanken Grotesk', system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -333,7 +338,7 @@
   --ink: #d9cdb5; --ink-2: #e6dcc6; --line: #b3a585;
   --fg: #20190f; --fg-dim: #585030;
   --good: #4f6b3a; --warn: #8a5a16; --bad: #9c3a2c; --info: #3a5670;
-  --accent: #46592f; --accent-2: #46592f; --on-accent: #f2ecdb;
+  --accent-base: #46592f; --accent-l-lo: 0.38; --accent-l-hi: 0.5; --accent-c-hi: 0.1; --on-accent: #f2ecdb;
   --cat-1: #46592f; --cat-2: #9c5a2c; --cat-3: #6f6a3a; --cat-4: #7a5236; --cat-5: #45607a; /* olive, rust, ochre, clay, slate-blue */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -356,7 +361,7 @@
   --ink: #f6f1e7; --ink-2: #ede6d6; --line: #1c1814;
   --fg: #181410; --fg-dim: #6b6256;
   --good: #2f7d4f; --warn: #c47a14; --bad: #d23a1f; --info: #2b5a9a;
-  --accent: #e23c1e; --accent-2: #e23c1e; --on-accent: #fff;
+  --accent-base: #e23c1e; --accent-l-lo: 0.54; --accent-l-hi: 0.66; --accent-c-hi: 0.25; --on-accent: #fff;
   --cat-1: #e23c1e; --cat-2: #14304f; --cat-3: #1f8a7a; --cat-4: #e0a519; --cat-5: #7a3b6e; /* red, navy, teal, gold, plum */
   --font-display: 'Anton', 'Archivo', sans-serif;
   --font-body: 'Hanken Grotesk', system-ui, sans-serif;
@@ -371,4 +376,20 @@
   --glow: none;
   --kicker-deco: line; --card-tick: 1;
   --motion-dur: 0.4s; --motion-ease: cubic-bezier(0.2,0.8,0.2,1); --reveal-from: translateY(14px); --stagger: 65ms;
+}
+
+/* ---------- ACCENT OVERRIDE (brand color) ----------
+ * Active only when JS sets data-accent='custom' (a real --brand override). Re-derives the two
+ * things hand-tuned per variant so they stay coherent with ANY accent hue:
+ *   --on-accent : legible text on the accent, picked by the normalized accent's lightness.
+ *   --cat-1..5  : harmonious rotations of the accent (same offsets as the base ramp), replacing
+ *                 the variant's hand-tuned categorical hex (which were tuned for ITS accent).
+ * No override → this block is inert and each variant keeps its crafted on-accent + cats. */
+:root[data-accent='custom'] {
+  --on-accent: oklch(from var(--accent) clamp(0.04, (0.62 - l) * 999, 0.98) min(c, 0.03) h);
+  --cat-1: var(--accent);
+  --cat-2: oklch(from var(--accent) calc(l + 0.02) c calc(h + 42));
+  --cat-3: oklch(from var(--accent) calc(l - 0.05) c calc(h - 52));
+  --cat-4: oklch(from var(--accent) calc(l + 0.10) calc(c * 0.92) calc(h + 18));
+  --cat-5: oklch(from var(--accent) calc(l - 0.10) c calc(h + 80));
 }

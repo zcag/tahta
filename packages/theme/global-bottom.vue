@@ -4,6 +4,33 @@ import { useSlideContext } from '@slidev/client'
 
 const ctx = useSlideContext()
 
+// WCAG relative luminance from an "r, g, b" channel list (0..255).
+const relLum = (rgb) => { const a = rgb.map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4 }); return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2] }
+
+// Apply / clear a brand override. On set: --brand (raw) + data-accent='custom' let the CSS keep
+// the hue and clamp L/C into the variant's envelope (tokens.css). We then read the CSS-computed
+// --accent back and set --on-accent to whichever of dark/light text actually contrasts more —
+// the one pick CSS relative-color can't make (it needs luminance, not OKLCH lightness).
+function setBrand (root, color) {
+  if (color) {
+    root.style.setProperty('--brand', color)
+    root.dataset.accent = 'custom'
+    const probe = document.createElement('span')
+    probe.style.cssText = 'color:var(--accent);display:none'
+    root.appendChild(probe)
+    const ch = getComputedStyle(probe).color.match(/[\d.]+/g)
+    root.removeChild(probe)
+    if (ch) {
+      // crossover luminance where black/white contrast is equal ≈ 0.179
+      root.style.setProperty('--on-accent', relLum(ch.map(Number)) > 0.179 ? '#0a0a0c' : '#fafaf8')
+    }
+  } else {
+    root.style.removeProperty('--brand')
+    root.style.removeProperty('--on-accent')
+    delete root.dataset.accent
+  }
+}
+
 function apply () {
   if (typeof document === 'undefined') return
   const $s = ctx.$slidev || {}
@@ -16,14 +43,7 @@ function apply () {
   // locale: drives correct text-transform casing (e.g. Turkish i→İ on uppercase kickers)
   const lang = q.get('lang') || cfg.lang
   if (lang) root.lang = lang
-  const accent = q.get('accent') || cfg.accent
-  if (accent) {
-    root.style.setProperty('--accent', accent)
-    root.style.setProperty('--accent-2', accent)
-  } else {
-    root.style.removeProperty('--accent')
-    root.style.removeProperty('--accent-2')
-  }
+  setBrand(root, q.get('accent') || cfg.accent)
 }
 
 onMounted(() => {
@@ -36,10 +56,7 @@ onMounted(() => {
     const root = document.documentElement
     if (d.tahtaVariant) root.dataset.variant = d.tahtaVariant
     if (d.tahtaLang) root.lang = d.tahtaLang
-    if (d.tahtaAccent !== undefined) {
-      if (d.tahtaAccent) { root.style.setProperty('--accent', d.tahtaAccent); root.style.setProperty('--accent-2', d.tahtaAccent) }
-      else { root.style.removeProperty('--accent'); root.style.removeProperty('--accent-2') }
-    }
+    if (d.tahtaAccent !== undefined) setBrand(root, d.tahtaAccent)
   })
 })
 watchEffect(apply)

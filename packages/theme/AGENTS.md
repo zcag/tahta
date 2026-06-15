@@ -28,7 +28,7 @@ theme: slidev-theme-tahta
 title: My Talk
 themeConfig:
   variant: editorial   # REQUIRED — one of: editorial | brutalist | soft | minimal | paper | atelier | notebook. Choose one deliberately to fit the talk's tone/audience (see the Variants table's 'best for'). Don't omit it to coast on a default.
-  # accent: string  — Override the brand accent (any CSS color). The whole palette (tints, shades, chart series) derives from it.
+  # accent: string  — Override the brand accent (any CSS color). The hue is kept but its lightness/chroma are normalized into the variant's envelope, so any brand color stays legible and on-style instead of clashing; the whole palette (tints, shades, chart series, on-accent text) re-derives from it.
   # lang: string  — BCP-47 language tag, e.g. 'tr'. Drives correct locale casing on uppercase kickers (Turkish i→İ).
 ```
 
