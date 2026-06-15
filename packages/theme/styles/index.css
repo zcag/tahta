@@ -274,8 +274,15 @@
 .slidev-layout.l-bleed, .slidev-layout.l-split { padding: 0; }
 
 /* ===== lead — asymmetric opener (title anchored low-left, vast negative space top-right) ===== */
-.slidev-layout.l-lead { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; height: 100%; }
-.lead-body { position: relative; z-index: 1; max-width: 66%; }
+.slidev-layout.l-lead { height: 100%; }
+/* full-height wrapper so <Fit> can measure overflow (mirrors .l-center on cover); content
+   bottom-anchored to keep the low-left opener look. .fit centers by default → flex-end here;
+   when <Fit> scales it overrides to flex-start inline (top-align) so a shrunk title can't
+   bleed off the top. transform-origin top-left so left-anchored content scales in place. */
+.l-lead-inner { position: absolute; inset: 0; padding: var(--pad-y) var(--pad-x); z-index: 1; }
+.l-lead .fit { justify-content: flex-end; }
+.l-lead .fit-inner { transform-origin: top left; }
+.lead-body { max-width: 66%; }
 .l-lead h1 { font-size: var(--fs-lead-title); line-height: 0.96; }
 .l-lead .accent-bar { margin-bottom: var(--sp-6); }
 
