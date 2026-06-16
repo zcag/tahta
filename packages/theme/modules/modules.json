@@ -4,8 +4,8 @@
     {
       "id": "branding",
       "file": "modules/branding.md",
-      "when": "the deck has brand inputs to honor — a logo, brand color(s), or a brand name/personality",
-      "adds": "how to turn a brand brief into a deck: pick the variant that fits the brand, set the accent to the brand hue (hue-matched, not exact), wire the logo, set lang"
+      "when": "the deck has brand inputs to honor — a logo, brand color(s), or a brand name",
+      "adds": "branding = accent (brand color, hue-matched not exact) + logo; the variant stays a free per-deck choice (no brand→variant mapping, don't converge on one); set lang"
     },
     {
       "id": "imagery",

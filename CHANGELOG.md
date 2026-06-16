@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.11.1
+- **Branding model clarified: brand = accent + logo, not the variant.** `modules/branding.md` no longer couples the brand to a variant or maps brand types to specific variants (which led agents to converge on the same few). The brand through-line is the accent (hue-matched) + logo, which ride on *any* variant; the `variant` stays a deliberate per-deck choice for the deck's content and occasion. Docs-only; no API change.
+
 ## 0.11.0
 - **Accent override now keeps the hue, normalized into the variant.** A `themeConfig.accent` brand color comes in as `--brand`; its lightness/chroma are clamped into a per-variant envelope (`--accent-l-lo/-hi`, `--accent-c-hi`) and the whole palette — `--on-accent` (contrast-picked), chart `--cat-*`, tints/shades — re-derives from the normalized accent. So an arbitrary brand color stays legible and on-style instead of clashing; only the hue carries through, **not the exact hex**. The contrast gate now fuzzes the hue wheel through every envelope to prove on-accent AA for any override. Dropped the dead `--accent-2` token.
 - **Branding (logo slot) + the capability-module pattern.** New `themeConfig.logo` (+ `logoInvert`): a `<BrandLogo>` renders a hero logo on openers (cover/section/lead/end) and a small footer mark on content slides (`mark: false` to opt out). Introduces **optional capability modules** — prompt fragments in `modules/` (with a `modules.json` manifest) that a consumer appends to `AGENTS.md` only when relevant, keeping the core lean. First module: `modules/branding.md`.
