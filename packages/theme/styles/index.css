@@ -258,7 +258,11 @@
 /* ===== image split ===== */
 .split { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
 .split.left { grid-template-columns: 0.9fr 1.1fr; }
-.split-media { background-size: cover; background-position: center; position: relative; }
+.split-media { background-size: cover; background-position: center; position: relative;
+  /* feather the seam edge so the image dissolves into the body ground instead of a hard cut */
+  --feather: 13%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); }
+.split.left .split-media { -webkit-mask-image: linear-gradient(to left, transparent 0, #000 var(--feather)); mask-image: linear-gradient(to left, transparent 0, #000 var(--feather)); }
 .split-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
 
 /* ===== bleed ===== */
