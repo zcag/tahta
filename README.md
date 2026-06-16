@@ -17,8 +17,9 @@ Most Slidev themes are a stylesheet and some layouts. **Tahta is a design system
 
 What makes it a system, not a theme:
 
-- **Foundations as data.** A 3-tier token layer ([`tokens.json`](packages/theme/tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH.
+- **Foundations as data.** A 3-tier token layer ([`tokens.json`](packages/theme/tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH — and a brand override keeps its *hue*, normalized into the variant's envelope so it stays legible instead of clashing.
 - **A published contract.** [`layouts.json`](packages/theme/layouts.json) (every layout + field) and [`variants.json`](packages/theme/variants.json) ship in the package; [`AGENTS.md`](packages/theme/AGENTS.md) is *generated* from them.
+- **Agent capability modules.** Optional prompt fragments ([`modules/`](packages/theme/modules/modules.json)) a consumer appends to `AGENTS.md` only when relevant — `branding` (logo + brand color) and `imagery` (generating & placing images, with a deterministic `tahta-imagine` treat step). The always-served core stays lean.
 - **Components & patterns.** `Stat`, `Plot` (ECharts), `Callout`, `Badge`, `Icon` (Lucide, bundled), `Reveal`, `Fit` + 30 layouts — all variant-aware. Semantic `good/warn/bad/info` roles; `themeConfig.lang` for locale casing (Turkish `i→İ`).
 - **Quality is enforced, not hoped for.** `npm test` gates a **token-contract** (no hardcoded values) and **WCAG-AA contrast** for every variant; CI renders every layout across every variant.
 - **Variants are the proof.** `themeConfig.variant` — 13 complete styles (6 dark / 7 light) swapping type, shape, texture, density, motion, and palette. *That's* the one-liner — a consequence of the token system, not the pitch.
@@ -103,6 +104,15 @@ Three levels, all declarative:
 3. **Tokens** — `packages/theme/styles/tokens.css` is a 3-tier system (primitives → semantic → variant bundles). Components read only semantic tokens, so a new `:root[data-variant='…']` block restyles everything.
 
 See [`docs/design-system.md`](docs/design-system.md).
+
+## Branding & imagery
+
+Two more declarative knobs and two agent modules:
+
+- **`themeConfig.accent`** — a brand color. Only the *hue* is honored; lightness/chroma normalize into the variant's envelope, so any brand color stays legible and on-style (not the exact hex).
+- **`themeConfig.logo`** (+ `logoInvert`) — a brand logo: rendered large on openers, as a small mark in the footer of content slides (`mark: false` to opt out).
+- **Capability modules** ([`modules/`](packages/theme/modules/modules.json)) — prompt fragments a tool (e.g. an agent host) appends to `AGENTS.md` when relevant: [`branding`](packages/theme/modules/branding.md) and [`imagery`](packages/theme/modules/imagery.md).
+- **`tahta-imagine`** — for imagery, tahta ships the *taste* (the recipe) and a deterministic *treat* step (`imagine.mjs`: crop → scheme-aware duotone → grain), reading each variant's palette from the tokens. It never generates images — your agent does. See the [`atlas`](examples/atlas) (dark) and [`roast`](examples/roast) (light) example decks.
 
 ## Repo
 

@@ -12,6 +12,7 @@
 
 - **Foundations as data.** A 3-tier token layer ([`tokens.json`](./tokens.json)) — primitives → semantic → variant bundles. Components read *only* semantic tokens, so a variant is a remap. One `--accent` derives the whole palette (tints, shades, chart series) via OKLCH.
 - **A published contract.** [`layouts.json`](./layouts.json) + [`variants.json`](./variants.json) ship in the package; `AGENTS.md` is generated from them. A [`lint`](./lint.mjs) validator is exported for tooling.
+- **Branding & imagery.** `themeConfig.accent` (hue-normalized into the variant) + `themeConfig.logo`; agent capability modules for `branding` and `imagery`; and `tahta-imagine` — a deterministic image *treat* step (the agent generates, tahta makes it on-brand).
 - **Quality enforced.** CI gates a token-contract (no hardcoded values) *and* WCAG-AA contrast for every variant.
 
 ## Install
