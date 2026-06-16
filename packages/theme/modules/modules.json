@@ -6,6 +6,12 @@
       "file": "modules/branding.md",
       "when": "the deck has brand inputs to honor — a logo, brand color(s), or a brand name/personality",
       "adds": "how to turn a brand brief into a deck: pick the variant that fits the brand, set the accent to the brand hue (hue-matched, not exact), wire the logo, set lang"
+    },
+    {
+      "id": "imagery",
+      "file": "modules/imagery.md",
+      "when": "the run can generate or place images (an image model is available, or the agent is adding background/concept/focal imagery)",
+      "adds": "what imagery to make and where: imagery for 3 jobs only, reuse one background, the rich/on-palette/steps-10/raw quality recipe, isolate focal subjects on the variant ground, treatment (tahta-imagine) as a fallback, the generation contract, save-to-public determinism"
     }
   ]
 }

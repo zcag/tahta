@@ -6,7 +6,7 @@
 
 → **Agents: read [`AGENTS.md`](./AGENTS.md)** — the full authoring contract (every layout's schema + copy-paste examples), generated from `layouts.json` + `variants.json`.
 
-→ **Optional capability modules** ([`modules/`](./modules/modules.json)) — prompt fragments a consumer appends to `AGENTS.md` only when a capability is in play (e.g. [`branding`](./modules/branding.md) when the deck has a logo / brand color), keeping the core contract lean.
+→ **Optional capability modules** ([`modules/`](./modules/modules.json)) — prompt fragments a consumer appends to `AGENTS.md` only when a capability is in play, keeping the core contract lean: [`branding`](./modules/branding.md) (logo / brand color) and [`imagery`](./modules/imagery.md) (generating & placing images). A consumer reads `modules.json`, and for each entry whose `when` holds, appends the file after `AGENTS.md`. For imagery, the agent generates via its **own** image endpoint per the recipe and may palette-lock results with the bundled `tahta-imagine` (`imagine.mjs`, needs the optional `sharp`) — tahta never calls a model itself.
 
 ## Why a system, not a theme
 

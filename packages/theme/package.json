@@ -1,6 +1,6 @@
 {
   "name": "slidev-theme-tahta",
-  "version": "0.10.7",
+  "version": "0.11.0",
   "description": "Tahta — a pristine, themeable Slidev design system. Token-driven style variants, declarative frontmatter layouts, charts.",
   "keywords": [
     "slidev-theme",
@@ -28,7 +28,8 @@
     "slidev": ">=0.48.0"
   },
   "bin": {
-    "tahta-lint": "./lint.mjs"
+    "tahta-lint": "./lint.mjs",
+    "tahta-imagine": "./imagine.mjs"
   },
   "files": [
     "layouts",
@@ -40,6 +41,7 @@
     "variants.json",
     "tokens.json",
     "lint.mjs",
+    "imagine.mjs",
     "modules"
   ],
   "peerDependencies": {
@@ -64,6 +66,7 @@
     "@iconify/vue": "^5.0.0"
   },
   "optionalDependencies": {
-    "yaml": "^2.0.0"
+    "yaml": "^2.0.0",
+    "sharp": "^0.33.0"
   }
 }

@@ -137,7 +137,17 @@ Then a `branding.md` module teaches the agent to map brand inputs → `variant` 
 
 ---
 
-## 4. Imagery module (after branding) — tools + context ONLY
+## 4. Imagery module — IMPLEMENTED (v0.11.0)
+
+> Shipped: `modules/imagery.md` (the recipe) + `tahta-imagine` (`imagine.mjs` bin) — a
+> deterministic treat step (crop → scheme-aware duotone → grain → optional scrim) reading
+> per-variant palettes from the theme's own tokens; `sharp` optional. Plus the `image`-split
+> **feather**. Boundary held: tahta supplies recipe + treat tool; the operating agent
+> generates via its own endpoint. The recipe (proven across ~10 experiment/QA decks): rich →
+> reused → raw → rare; substance in layouts; duotone is a fallback, not the default; focal
+> subjects keep natural color and isolate on the variant ground. Original boundary notes below.
+
+
 
 Boundary (decided): **tahta supplies taste + slot; the operating agent generates.** tahta
 never calls an image model. It ships, as data/context:
