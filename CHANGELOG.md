@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.11.2
+- **Rule 8 (the slide-separator rule) rewritten so it stops misleading agents on body-less slides.** The old "slides are separated by a single `---`" — read literally for the common all-frontmatter slide — produces the shared-fence bug: bare `layout:`/`title:` keys after a single `---` with no opening fence, which Slidev renders as body text and mis-parses the rest of the deck (observed in the wild: a whole deck that 404'd on Present). Rule 8 now states the real contract — every slide's frontmatter is fenced `---`…`---`, the separator *is* the next slide's opening fence, so two body-less slides correctly show two `---` lines between them — and names both failure modes (sharing one fence; a stray `---` after a body). `lint.mjs` already errors both. Docs-only; no API change.
+
 ## 0.11.1
 - **Branding model clarified: brand = accent + logo, not the variant.** `modules/branding.md` no longer couples the brand to a variant or maps brand types to specific variants (which led agents to converge on the same few). The brand through-line is the accent (hue-matched) + logo, which ride on *any* variant; the `variant` stays a deliberate per-deck choice for the deck's content and occasion. Docs-only; no API change.
 
