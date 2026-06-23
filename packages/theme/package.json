@@ -1,6 +1,6 @@
 {
   "name": "slidev-theme-tahta",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "Tahta — a pristine, themeable Slidev design system. Token-driven style variants, declarative frontmatter layouts, charts.",
   "keywords": [
     "slidev-theme",

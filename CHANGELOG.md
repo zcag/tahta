@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.13.1
+- **Fix: count-up + diagram `build` now actually play.** 0.13.0 triggered them on mount, but Slidev pre-mounts slides off-screen so the animation finished before the slide was shown (it read as static). Both now trigger on slide activation (and replay on re-entry); the diagram build polls for the async Mermaid SVG and cancels cleanly on leave.
+
 ## 0.13.0
 - **Count-up numbers.** `stats`, `fact`, `metric`, and `<Stat>`/`<StatCard>` animate their figure up from 0 on entry (ease-out), like the theme's entrance motion. Only real numbers animate (commas/decimals ok); anything else renders verbatim. Skipped under reduced-motion and in print/export (static frames show the final value).
 - **Self-building diagrams.** `build: true` on the `diagram` layout cascades the diagram's pieces in on entry, ordered top→down — chronological for a sequence, ~flow for a TD flowchart. Opt-in (for the diagrams where the build-up teaches), auto-timed, static in print/export + reduced-motion, and composes with `highlight`.
