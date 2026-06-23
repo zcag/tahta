@@ -16,7 +16,8 @@
       { "name": "bg", "type": "enum", "required": false, "enum": ["mesh", "aurora", "grain", "dots", "grid"], "description": "Slide background. A generated (asset-free, accent-derived) background — mesh | aurora | grain | dots | grid — or an image path/URL, which is painted under an automatic contrast scrim. Opt-in; omit for the variant's default." },
       { "name": "ghost", "type": "string", "required": false, "description": "Giant faint background glyph (on default/section/stats/steps/fact)." },
       { "name": "glow", "type": "boolean", "required": false, "description": "Force the accent glow on (topic slides) or off (cover/section/statement)." },
-      { "name": "foot", "type": "string", "required": false, "description": "Override the auto footer label for this slide." }
+      { "name": "foot", "type": "string", "required": false, "description": "Override the auto footer label for this slide." },
+      { "name": "aside", "type": "boolean|string", "required": false, "description": "Mark a slide as a tangent / optional deep-dive ('under the hood', an internals detour). Adds a left accent rail + a small corner tag, so the audience reads it as a side-thread, not the main spine. `aside: true` tags it 'deep dive'; `aside: \"label\"` sets the tag text. Use on topic/content slides." }
     ]
   },
   "rules": [
@@ -37,7 +38,10 @@
     "Inside { ... } flow rows, quote any value containing a comma or colon (before: \"$4,200\").",
     "ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.",
     "Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.",
-    "Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram)."
+    "Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram).",
+    "Reveal step-by-step for teaching: wrap body items in `<v-clicks>…</v-clicks>` (each child appears on a click) or put `v-click` on one element — great for building a list, or showing a diagram then its explanation. The renderer exports one frame per click-step, so the build-up survives in tela's preview/export and in PDF. Use it for pacing a teaching moment, not on every slide.",
+    "Add speaker notes as an HTML comment that is the LAST block of a slide's markdown body: `<!-- what you'll say out loud -->`. It never renders on the slide; tela surfaces it as the presenter note. Author notes for any talk you'll actually present — the deck is the slides plus what you say.",
+    "Mark tangents with `aside: true` (or `aside: \"label\"`): an optional deep-dive / 'under the hood' detour gets a left accent rail + a corner tag so the audience knows it's off the main spine. Use it for the curiosity slides, not the core argument."
   ],
   "layouts": [
     { "id": "cover", "useFor": "Title / opening slide.", "fields": [

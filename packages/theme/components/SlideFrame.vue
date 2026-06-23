@@ -74,9 +74,10 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
   </div>
 
   <!-- TOPIC -->
-  <div v-else class="slidev-layout l-topic">
+  <div v-else class="slidev-layout l-topic" :class="{ 'l-aside': fm.aside }">
     <SlideBg />
     <div v-if="showGlow" class="glow" />
+    <div v-if="fm.aside" class="aside-tag">{{ typeof fm.aside === 'string' ? fm.aside : 'deep dive' }}</div>
     <Ghost :text="fm.ghost ?? ''" />
     <Reveal v-if="fm.kicker || fm.title" class="l-head">
       <div v-if="fm.kicker" class="kicker">{{ fm.kicker }}</div>

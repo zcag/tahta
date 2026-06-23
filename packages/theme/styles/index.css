@@ -445,6 +445,15 @@
 .diagram-stage .mermaid svg { max-width: 100%; max-height: 60vh; height: auto; }
 .diagram-note { margin: var(--sp-4) auto 0; max-width: 60ch; text-align: center; font-size: 0.95rem; }
 
+/* ===== aside / deep-dive — mark a tangent or optional deep-dive so it reads as one
+   (frontmatter `aside: true` or `aside: "label"`). A left accent rail + a corner tag;
+   tokenized so it carries the variant. ===== */
+.l-aside::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--accent); opacity: 0.85; z-index: 2; }
+.aside-tag { position: absolute; top: 1.5rem; right: var(--pad-x); z-index: 60;
+  font: 600 0.62rem/1 var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+  border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent); border-radius: 999px; padding: 0.32rem 0.62rem; }
+
 /* ===== variant signature motifs ===== */
 /* atelier — gradient display titles (h1 = cover/section/end heroes) */
 :root[data-variant='atelier'] h1 {

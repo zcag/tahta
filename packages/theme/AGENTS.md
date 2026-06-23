@@ -22,6 +22,9 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 16. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
 17. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 18. Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram).
+19. Reveal step-by-step for teaching: wrap body items in `<v-clicks>…</v-clicks>` (each child appears on a click) or put `v-click` on one element — great for building a list, or showing a diagram then its explanation. The renderer exports one frame per click-step, so the build-up survives in tela's preview/export and in PDF. Use it for pacing a teaching moment, not on every slide.
+20. Add speaker notes as an HTML comment that is the LAST block of a slide's markdown body: `<!-- what you'll say out loud -->`. It never renders on the slide; tela surfaces it as the presenter note. Author notes for any talk you'll actually present — the deck is the slides plus what you say.
+21. Mark tangents with `aside: true` (or `aside: "label"`): an optional deep-dive / 'under the hood' detour gets a left accent rail + a corner tag so the audience knows it's off the main spine. Use it for the curiosity slides, not the core argument.
 
 ## Deck header (first slide)
 ```yaml
@@ -62,6 +65,7 @@ Per-slide frontmatter available on every layout.
   - `ghost` (string, optional) — Giant faint background glyph (on default/section/stats/steps/fact).
   - `glow` (boolean, optional) — Force the accent glow on (topic slides) or off (cover/section/statement).
   - `foot` (string, optional) — Override the auto footer label for this slide.
+  - `aside` (boolean|string, optional) — Mark a slide as a tangent / optional deep-dive ('under the hood', an internals detour). Adds a left accent rail + a small corner tag, so the audience reads it as a side-thread, not the main spine. `aside: true` tags it 'deep dive'; `aside: "label"` sets the tag text. Use on topic/content slides.
 
 ## Layouts
 | layout | use for | key fields |

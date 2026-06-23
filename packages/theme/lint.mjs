@@ -19,7 +19,7 @@ const variantsDoc = JSON.parse(readFileSync(new URL('./variants.json', import.me
 const LAYOUTS = Object.fromEntries(manifest.layouts.map(l => [l.id, l]))
 const VARIANTS = new Set(variantsDoc.variants.map(v => v.id))
 const SLIDEV_LAYOUTS = new Set(['default', 'center', 'cover', 'intro', 'section', 'statement', 'fact', 'quote', 'two-cols', 'image', 'image-left', 'image-right', 'iframe', 'iframe-left', 'iframe-right', 'full', 'none', 'end'])
-const GLOBAL_KEYS = new Set(['layout', 'class', 'foot', 'transition', 'clicks', 'clicksStart', 'level', 'src', 'hide', 'hideInToc', 'name', 'zoom', 'dragPos', 'disabled', 'routeAlias', 'preload', 'ghost', 'glow', 'bg', 'mdc'])
+const GLOBAL_KEYS = new Set(['layout', 'class', 'foot', 'transition', 'clicks', 'clicksStart', 'level', 'src', 'hide', 'hideInToc', 'name', 'zoom', 'dragPos', 'disabled', 'routeAlias', 'preload', 'ghost', 'glow', 'bg', 'aside', 'mdc'])
 const BG_NAMED = new Set(['mesh', 'aurora', 'grain', 'dots', 'grid'])
 const BG_IMAGEY = /^(https?:|\/|\.\/|\.\.\/|data:)|\.(png|jpe?g|webp|gif|avif|svg)(\?|#|$)/i
 const HEADMATTER_KEYS = new Set(['theme', 'title', 'titleTemplate', 'info', 'author', 'keywords', 'themeConfig', 'fonts', 'colorSchema', 'highlighter', 'lineNumbers', 'drawings', 'aspectRatio', 'canvasWidth', 'selectable', 'remoteAssets', 'download', 'exportFilename', 'export', 'seoMeta', 'favicon', 'routerMode'])
