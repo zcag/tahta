@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.3
+- **Fix: chart category labels no longer clip.** A horizontal bar's left-axis labels (e.g. "Column store") overran the fixed gutter; the gutter is now sized to the widest label measured in the deck's mono font (ECharts' own containLabel under-measures under the SVG renderer). Vertical charts keep containLabel.
+
 ## 0.12.2
 - **`diagram` `highlight`** — `highlight: [Root, M, Hit]` accents that flowchart path (nodes + the edges between them) and dims the rest, so the point of a diagram pops: the lookup path through a B-tree, the chosen shard, who-talks-to-whom.
 - **`code-explain` click sync** — when the code steps its line highlight (```` ```sql {1|2|4} ````), the note matching the current click lights up while the rest dim, so the spoken note and the highlighted line advance together. Static code is unchanged.
