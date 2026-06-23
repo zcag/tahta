@@ -21,6 +21,7 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 15. Inside { ... } flow rows, quote any value containing a comma or colon (before: "$4,200").
 16. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
 17. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
+18. Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram).
 
 ## Deck header (first slide)
 ```yaml

@@ -76,6 +76,12 @@ export async function lint (input, opts = {}) {
   const issues = []
   const add = (slide, level, message, field) => issues.push({ slide, level, message, ...(field ? { field } : {}) })
 
+  // pedagogy/density thresholds (warn-level) — a slide is not a document
+  const MANY_BULLETS = 7      // more than this on one slide → split or visualize
+  const LONG_BULLET = 140     // a single bullet longer than this reads as prose
+  const plain = (s) => String(s).replace(/<[^>]+>/g, '')
+  let runLayout = null, runLen = 0
+
   slides.forEach(({ fm, body, raw, i }) => {
     // Duplicate frontmatter key: @slidev/parser silently keeps the last value, but
     // slidev's strict YAML export throws DUPLICATE_KEY — so a deck can lint clean yet
@@ -125,6 +131,33 @@ export async function lint (input, opts = {}) {
     if (typeof fm.bg === 'string' && fm.bg && !BG_NAMED.has(fm.bg) && !BG_IMAGEY.test(fm.bg)) add(i, 'warn', `bg "${fm.bg}" is neither an image path nor one of ${[...BG_NAMED].join('|')}`, 'bg')
     const variant = fm.themeConfig?.variant
     if (variant && !VARIANTS.has(variant)) add(i, 'error', `themeConfig.variant "${variant}" is not a tahta variant`, 'themeConfig.variant')
+
+    // ---- pedagogy / density (warn-level): nudge scannable slides, not walls of text ----
+    // Consecutive identical layouts read templated (default/section are canvases — exempt).
+    if (id === runLayout) runLen++; else { runLayout = id; runLen = 1 }
+    if (runLen === 3 && id !== 'default' && id !== 'section')
+      add(i, 'warn', `3rd "${id}" slide in a row — vary the composition (a diagram, stats, quote, metric…) so the deck doesn't read templated`)
+    // Gather every bullet list this slide shows, from any layout shape.
+    const lists = []
+    if (Array.isArray(fm.points)) lists.push(fm.points)
+    if (id === 'agenda' && Array.isArray(fm.items)) lists.push(fm.items.map(x => x?.topic))
+    if (Array.isArray(fm.columns)) fm.columns.forEach(c => Array.isArray(c?.items) && lists.push(c.items))
+    if (Array.isArray(fm.left?.items)) lists.push(fm.left.items)
+    if (Array.isArray(fm.right?.items)) lists.push(fm.right.items)
+    if (Array.isArray(fm.panels)) fm.panels.forEach(p => Array.isArray(p?.items) && lists.push(p.items))
+    if (typeof body === 'string') {
+      const b = body.split('\n').filter(l => /^\s*([-*+]|\d+\.)\s+/.test(l))
+      if (b.length) lists.push(b.map(l => l.replace(/^\s*([-*+]|\d+\.)\s+/, '')))
+    }
+    for (const L of lists) {
+      if (L.length > MANY_BULLETS)
+        add(i, 'warn', `${id}: ${L.length} bullets on one slide — aim for ≤${MANY_BULLETS}; split it or show the structure as a diagram/table/stats`)
+      const long = L.find(x => typeof x === 'string' && plain(x).length > LONG_BULLET)
+      if (long) add(i, 'warn', `${id}: a bullet runs ${plain(long).length} chars — tighten to a phrase; a slide is not a document`)
+    }
+    // A diagram slide with nothing to draw is almost always a mistake.
+    if (id === 'diagram' && typeof body === 'string' && !/```mermaid|<Figure|<Plot|<img|!\[/.test(body))
+      add(i, 'warn', 'diagram: no ```mermaid block, <Figure>, or image in the slide body')
   })
 
   // themeConfig.variant is required on a full deck — a deliberate visual choice, never a

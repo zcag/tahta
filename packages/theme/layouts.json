@@ -36,7 +36,8 @@
     "For cover/section/statement/end/fact, the title comes from frontmatter — leave the slide body empty.",
     "Inside { ... } flow rows, quote any value containing a comma or colon (before: \"$4,200\").",
     "ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.",
-    "Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion."
+    "Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.",
+    "Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram)."
   ],
   "layouts": [
     { "id": "cover", "useFor": "Title / opening slide.", "fields": [
