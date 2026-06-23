@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.4
+- **Contract: the `code-explain` click-sync is now front and center.** The behaviour shipped in 0.12.2, but `AGENTS.md`/`layouts.json` described `code-explain` as a static "code + notes" layout, so authoring agents missed its best mode. The description now leads with it and the example IS the stepped pattern (a `{1|2|3}` line highlight + one note per step). Also documents `diagram` `highlight` in the README. Docs only; no API change.
+
 ## 0.12.3
 - **Fix: chart category labels no longer clip.** A horizontal bar's left-axis labels (e.g. "Column store") overran the fixed gutter; the gutter is now sized to the widest label measured in the deck's mono font (ECharts' own containLabel under-measures under the SVG renderer). Vertical charts keep containLabel.
 
