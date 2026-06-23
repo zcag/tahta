@@ -34,6 +34,7 @@
   "files": [
     "layouts",
     "components",
+    "setup",
     "styles",
     "global-bottom.vue",
     "AGENTS.md",

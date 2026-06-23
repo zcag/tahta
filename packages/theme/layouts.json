@@ -208,7 +208,12 @@
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false },
       { "name": "notes", "type": "array", "required": true, "description": "Numbered notes shown beside the code (string array); HTML allowed (strong)." } ],
-      "example": "layout: code-explain\ntitle: Auto-format on edit\nnotes:\n  - \"<strong>PostToolUse</strong> fires after a tool runs.\"\n  - \"Match Edit|Write to scope to file edits.\"\n---\n\n```json\n{ \"hooks\": {} }\n```" }
+      "example": "layout: code-explain\ntitle: Auto-format on edit\nnotes:\n  - \"<strong>PostToolUse</strong> fires after a tool runs.\"\n  - \"Match Edit|Write to scope to file edits.\"\n---\n\n```json\n{ \"hooks\": {} }\n```" },
+    { "id": "diagram", "useFor": "A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck.", "fields": [
+      { "name": "kicker", "type": "string", "required": false },
+      { "name": "title", "type": "string", "required": false },
+      { "name": "note", "type": "string", "required": false, "description": "Caption under the diagram; HTML allowed." } ],
+      "example": "layout: diagram\nkicker: The race\ntitle: Two transactions, one seat\nnote: Without isolation, both reads see <strong>1</strong> — and both writes win.\n---\n\n```mermaid\nsequenceDiagram\n  participant A as Buyer A\n  participant DB\n  participant B as Buyer B\n  A->>DB: SELECT seats → 1\n  B->>DB: SELECT seats → 1\n  A->>DB: UPDATE seats = 0\n  B->>DB: UPDATE seats = 0\n  Note over DB: 2 bookings, 1 seat\n```" }
   ],
   "components": [
     { "name": "Stat", "useFor": "Big number + label (in default/statement bodies).", "props": [

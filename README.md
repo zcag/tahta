@@ -87,7 +87,7 @@ stats:
 
 **Keynote / pitch** — `cover` · `lead` · `section` · `default` · `statement` · `bigtype` · `quote` · `stats` · `fact` · `metric` · `compare` · `chart` · `steps` · `feature` · `timeline` · `logos` · `code` · `two-cols` · `image` · `showcase` · `bleed` · `embed` · `end`
 
-**Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain` (+ `<Kbd>` / `<Terminal>` / `<FileTree>`)
+**Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain` · `diagram` (themed Mermaid) (+ `<Kbd>` / `<Terminal>` / `<FileTree>`)
 
 Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your one accent. `code` supports Magic Move. Long bodies auto-fit to the frame. `<em>word</em>` in a title sets italic accent emphasis.
 

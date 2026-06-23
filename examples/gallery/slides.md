@@ -353,6 +353,20 @@ export function lint(markdown: string) {
 ```
 
 ---
+layout: diagram
+kicker: layout · diagram
+title: Diagram — themed Mermaid
+note: A ```mermaid``` block, re-tinted to the variant via tokens.
+---
+
+```mermaid
+flowchart LR
+  A[Author] -->|frontmatter| T[tahta]
+  T -->|tokens| D[Diagram]
+  T -->|tokens| L[Layouts]
+```
+
+---
 layout: default
 kicker: components
 title: Kbd · Terminal · FileTree

@@ -431,6 +431,20 @@
 .tags .tag { font: 600 0.8rem/1.5 var(--font-mono); padding: 0.16em 0.7em; border-radius: 999px;
   color: var(--fg-dim); border: 1px solid var(--line); background: color-mix(in oklab, var(--fg) 4%, transparent); }
 
+/* ============================================================
+   DIAGRAM — a framed stage for a visual (Mermaid SVG, Figure, …).
+   Mermaid is themed entirely from tokens so a diagram reskins with the
+   variant like every other layout. We win over mermaid's own embedded
+   <style> (ID-scoped but NOT !important) with class-level !important.
+   ============================================================ */
+.diagram-stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+/* Slidev renders Mermaid inside a ShadowRoot (host = .mermaid), so document CSS can't
+   reach the SVG — the diagram is THEMED via Mermaid themeVariables (setup/mermaid.ts),
+   derived from these same tokens. Here we only size the light-DOM host to the stage. */
+.diagram-stage .mermaid { display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 60vh; }
+.diagram-stage .mermaid svg { max-width: 100%; max-height: 60vh; height: auto; }
+.diagram-note { margin: var(--sp-4) auto 0; max-width: 60ch; text-align: center; font-size: 0.95rem; }
+
 /* ===== variant signature motifs ===== */
 /* atelier — gradient display titles (h1 = cover/section/end heroes) */
 :root[data-variant='atelier'] h1 {

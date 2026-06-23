@@ -95,6 +95,7 @@ Per-slide frontmatter available on every layout.
 | `reference` | Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts. | kicker, title, groups, items |
 | `vs` | A-vs-B comparison — two panels with a centered divider. | kicker, title, left*, right*, label |
 | `code-explain` | Code (in the slide body) + numbered explanation beside it. | kicker, title, notes* |
+| `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note |
 
 *\* = required.*
 
@@ -638,6 +639,35 @@ notes:
 
 ```json
 { "hooks": {} }
+```
+---
+```
+
+### `diagram`
+A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck.
+
+  - `kicker` (string, optional)
+  - `title` (string, optional)
+  - `note` (string, optional) — Caption under the diagram; HTML allowed.
+
+```yaml
+---
+layout: diagram
+kicker: The race
+title: Two transactions, one seat
+note: Without isolation, both reads see <strong>1</strong> — and both writes win.
+---
+
+```mermaid
+sequenceDiagram
+  participant A as Buyer A
+  participant DB
+  participant B as Buyer B
+  A->>DB: SELECT seats → 1
+  B->>DB: SELECT seats → 1
+  A->>DB: UPDATE seats = 0
+  B->>DB: UPDATE seats = 0
+  Note over DB: 2 bookings, 1 seat
 ```
 ---
 ```
