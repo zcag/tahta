@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { useSlideContext } from '@slidev/client'
+import { ref, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
+import { useSlideContext, useIsSlideActive } from '@slidev/client'
 const { $frontmatter: fm } = useSlideContext()
+const active = useIsSlideActive()
 // A framed stage for a VISUAL: a ```mermaid fence (flowchart, sequence, ER, state,
 // class…), a <Figure>, or composed markup. The Mermaid SVG is themed to the active
 // variant from tokens (setup/mermaid.ts). Optional `note:` prints a caption.
@@ -48,7 +49,9 @@ const edgeEndsOf = (el) => { const m = /L_([^_]+)_([^_]+)_\d+$/.exec(el.id || ''
 const REDUCE = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 const isPrint = () => typeof document !== 'undefined' && !!document.querySelector('.print,.slidev-print,[data-print],.export')
 const BUILD_SEL = '.node,.cluster,.flowchart-link,.edgePaths path,.edgeLabel,.messageText,.messageLine0,.messageLine1,.note,.noteText,.loopLine,.loopText,.labelText,.activation0,.activation1,.activation2'
-let built = false
+let built = false, bRaf, bClear, bEls = []
+function clearStyles () { bEls.forEach(el => { el.style.opacity = el.style.transition = el.style.transitionDelay = '' }) }
+function cancelBuild () { cancelAnimationFrame(bRaf); clearTimeout(bClear); clearStyles(); bEls = [] }
 function buildIn (svg) {
   if (built || !fm.build || REDUCE || isPrint()) return
   const els = [...svg.querySelectorAll(BUILD_SEL)]
@@ -56,10 +59,11 @@ function buildIn (svg) {
   built = true
   const y = (el) => { try { const b = el.getBBox(); return b.y + b.height / 2 } catch { return 0 } }
   els.sort((a, b) => y(a) - y(b))
+  bEls = els
   const step = Math.min(110, 1300 / els.length)
   els.forEach((el, i) => { el.style.opacity = '0'; el.style.transition = 'opacity .42s ease'; el.style.transitionDelay = `${Math.round(i * step)}ms` })
-  requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => { el.style.opacity = '1' })))
-  setTimeout(() => { els.forEach(el => { el.style.opacity = el.style.transition = el.style.transitionDelay = '' }); decorate() }, els.length * step + 520)
+  bRaf = requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => { el.style.opacity = '1' })))
+  bClear = setTimeout(() => { clearStyles(); decorate() }, els.length * step + 520)
 }
 
 function decorate () {
@@ -77,11 +81,10 @@ function decorate () {
   })
 }
 
-const tick = () => {
-  fit()
+const tick = () => { fit(); decorate() }
+const tryBuild = () => {
   const svg = stage.value?.querySelector('.mermaid')?.shadowRoot?.querySelector('svg')
   if (svg) buildIn(svg)
-  decorate()
 }
 
 onMounted(async () => {
@@ -91,7 +94,19 @@ onMounted(async () => {
   const host = stage.value?.querySelector('.mermaid'); if (host) ro.observe(host)
   for (const t of [80, 250, 600, 1200]) setTimeout(tick, t)
 })
-onBeforeUnmount(() => ro?.disconnect())
+
+// Build (and replay) when the slide is actually shown — mount fires while pre-rendered
+// off-screen, so a mount-time cascade would finish before the audience sees it. Reset on
+// leave so the next entry re-assembles. The mermaid SVG renders async (and can take >½s on
+// first paint), so poll until buildIn finds elements rather than guessing a fixed delay.
+let pollId
+watch(active, (a) => {
+  clearInterval(pollId)
+  if (!a) { cancelBuild(); built = false; return }
+  let n = 0
+  pollId = setInterval(() => { tryBuild(); if (built || ++n > 40) clearInterval(pollId) }, 100)
+}, { immediate: true })
+onBeforeUnmount(() => { ro?.disconnect(); clearInterval(pollId) })
 </script>
 
 <template>
