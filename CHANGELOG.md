@@ -2,6 +2,15 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.0
+A toolkit release — diagrams, math, wayfinding, and a density linter, so a technical/teaching deck is something you assemble end-to-end.
+- **`diagram` layout — variant-aware Mermaid.** A framed stage for a Mermaid diagram (flowchart, sequence, ER, state, class…), a `<Figure>`, or composed markup. Slidev renders Mermaid inside a ShadowRoot, so document CSS can't reach it — instead the SVG is themed via Mermaid `themeVariables` derived **at render time from the same tokens every layout reads** (`setup/mermaid.ts`): a diagram reskins with the variant like everything else, zero per-diagram config. The vector SVG auto-scales to fill the stage.
+- **Math (KaTeX).** Slide **bodies** render `$inline$` / `$$block$$` via Slidev's KaTeX in the variant's type; the `define` layout also renders math in its `definition`/`points` (new `lib/tex.mjs`) for "term = formula" slides. `katex` is an optional peer (Slidev provides it).
+- **Section progress rail (wayfinding).** When a deck has `layout: section` dividers, a thin segmented bar at the top edge shows which part the audience is in. Automatic (no layout/field), rendered per-slide so it's correct in export. Pure tokens.
+- **Pedagogy/density lint.** `lint_deck` now **warns** (never errors) on slides that read like a document: >7 bullets, a bullet over 140 chars, the same layout 3× in a row, or an empty `diagram`.
+- **Deep-dive `aside` treatment.** New universal `aside: true | "label"` marks a tangent — a left accent rail + a corner tag — so curiosity detours read as off the main spine.
+- **Authoring guidance** for step-by-step reveals (`<v-clicks>`) and speaker notes (trailing `<!-- … -->`). Contract (`layouts.json` → `AGENTS.md`), both READMEs, and the gallery deck updated. 31 layouts; all 13 variants AA.
+
 ## 0.11.2
 - **Rule 8 (the slide-separator rule) rewritten so it stops misleading agents on body-less slides.** The old "slides are separated by a single `---`" — read literally for the common all-frontmatter slide — produces the shared-fence bug: bare `layout:`/`title:` keys after a single `---` with no opening fence, which Slidev renders as body text and mis-parses the rest of the deck (observed in the wild: a whole deck that 404'd on Present). Rule 8 now states the real contract — every slide's frontmatter is fenced `---`…`---`, the separator *is* the next slide's opening fence, so two body-less slides correctly show two `---` lines between them — and names both failure modes (sharing one fence; a stray `---` after a body). `lint.mjs` already errors both. Docs-only; no API change.
 
