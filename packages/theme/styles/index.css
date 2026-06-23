@@ -371,6 +371,11 @@
   color: var(--accent); border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent); border-radius: 999px;
   width: 1.5rem; height: 1.5rem; display: grid; place-items: center; }
 .explain-note strong { color: var(--fg); }
+/* click-synced emphasis: the note for the highlighted code line lights up, the rest dim */
+.explain-note { transition: opacity .25s; }
+.explain-note.note-idle { opacity: 0.38; }
+.explain-note.note-active { color: var(--fg); }
+.explain-note.note-active::before { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
 
 /* ----- vs — A vs B with a centered divider ----- */
 .vs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: var(--sp-6); }
