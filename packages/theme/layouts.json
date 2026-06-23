@@ -219,7 +219,8 @@
     { "id": "diagram", "useFor": "A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck.", "fields": [
       { "name": "kicker", "type": "string", "required": false },
       { "name": "title", "type": "string", "required": false },
-      { "name": "note", "type": "string", "required": false, "description": "Caption under the diagram; HTML allowed." } ],
+      { "name": "note", "type": "string", "required": false, "description": "Caption under the diagram; HTML allowed." },
+      { "name": "highlight", "type": "array", "required": false, "description": "FLOWCHART only — a list of node ids to accent (the answer path / the subset that matters); everything else dims. Makes the point of the diagram pop instead of every node looking equal. Use the node ids from your mermaid (e.g. `flowchart TD\\n Root --> M` → `highlight: [Root, M]`); keep ids underscore-free. Edges between two highlighted nodes are accented too." } ],
       "example": "layout: diagram\nkicker: The race\ntitle: Two transactions, one seat\nnote: Without isolation, both reads see <strong>1</strong> — and both writes win.\n---\n\n```mermaid\nsequenceDiagram\n  participant A as Buyer A\n  participant DB\n  participant B as Buyer B\n  A->>DB: SELECT seats → 1\n  B->>DB: SELECT seats → 1\n  A->>DB: UPDATE seats = 0\n  B->>DB: UPDATE seats = 0\n  Note over DB: 2 bookings, 1 seat\n```" }
   ],
   "components": [

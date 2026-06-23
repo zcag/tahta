@@ -102,7 +102,7 @@ Per-slide frontmatter available on every layout.
 | `reference` | Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts. | kicker, title, groups, items |
 | `vs` | A-vs-B comparison — two panels with a centered divider. | kicker, title, left*, right*, label |
 | `code-explain` | Code (in the slide body) + numbered explanation beside it. | kicker, title, notes* |
-| `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note |
+| `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note, highlight |
 
 *\* = required.*
 
@@ -656,6 +656,7 @@ A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, stat
   - `kicker` (string, optional)
   - `title` (string, optional)
   - `note` (string, optional) — Caption under the diagram; HTML allowed.
+  - `highlight` (array, optional) — FLOWCHART only — a list of node ids to accent (the answer path / the subset that matters); everything else dims. Makes the point of the diagram pop instead of every node looking equal. Use the node ids from your mermaid (e.g. `flowchart TD\n Root --> M` → `highlight: [Root, M]`); keep ids underscore-free. Edges between two highlighted nodes are accented too.
 
 ```yaml
 ---
