@@ -49,10 +49,19 @@ function build () {
   const valAxis = { type: 'value', axisLabel: { color: dim, ...font, formatter: '{value}' + props.unit }, splitLine: { lineStyle: { color: 'rgba(127,127,127,0.14)' } }, axisLine: { show: false }, axisTick: { show: false } }
   const catAxis = { type: 'category', data: props.categories, inverse: props.type === 'bar' && props.horizontal, axisLabel: { color: fg, ...font, fontSize: 13 }, axisLine: { show: false }, axisTick: { show: false } }
   const horiz = props.type === 'bar' && props.horizontal
+  // Reserve enough left gutter for the WIDEST category label (measured with the mono font),
+  // so long labels like "Column store" aren't clipped. ECharts' own containLabel under the
+  // SVG renderer under-measures here; an explicit measured width is deterministic. Vertical
+  // charts fall back to containLabel (their left axis is the value labels).
+  let gridLeft = 48
+  if (horiz && cv) {
+    cv.font = '13px "JetBrains Mono", ui-monospace, monospace'
+    gridLeft = Math.ceil(Math.max(40, ...props.categories.map(c => cv.measureText(String(c ?? '')).width))) + 22
+  }
   return {
     ...base,
     ...legend(names),
-    grid: { left: horiz ? 96 : 48, right: 30, top: 22, bottom: 30 },
+    grid: horiz ? { left: gridLeft, right: 44, top: 22, bottom: 30 } : { left: 12, right: 36, top: 22, bottom: 30, containLabel: true },
     xAxis: horiz ? valAxis : catAxis,
     yAxis: horiz ? catAxis : valAxis,
     series: props.series.map((s, i) => {
@@ -73,7 +82,13 @@ function paint () {
   if (!ready) { chart.setOption(build()); ready = true }
   chart.resize()
 }
-onMounted(() => { ro = new ResizeObserver(paint); ro.observe(el.value); paint(); window.addEventListener('resize', paint) })
+onMounted(() => {
+  ro = new ResizeObserver(paint); ro.observe(el.value); paint(); window.addEventListener('resize', paint)
+  // Re-measure axis labels once the (mono) font loads. ECharts' containLabel reserves space
+  // from the font metrics available at setOption time; if that's a fallback font, the real
+  // (wider) label clips. Rebuilding after fonts.ready fixes the gutter width deterministically.
+  if (typeof document !== 'undefined' && document.fonts?.ready) document.fonts.ready.then(() => { if (chart) { chart.setOption(build()); chart.resize() } })
+})
 onBeforeUnmount(() => { ro?.disconnect(); window.removeEventListener('resize', paint); chart?.dispose(); probe?.remove() })
 </script>
 
