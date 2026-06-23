@@ -2,6 +2,10 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.13.0
+- **Count-up numbers.** `stats`, `fact`, `metric`, and `<Stat>`/`<StatCard>` animate their figure up from 0 on entry (ease-out), like the theme's entrance motion. Only real numbers animate (commas/decimals ok); anything else renders verbatim. Skipped under reduced-motion and in print/export (static frames show the final value).
+- **Self-building diagrams.** `build: true` on the `diagram` layout cascades the diagram's pieces in on entry, ordered top→down — chronological for a sequence, ~flow for a TD flowchart. Opt-in (for the diagrams where the build-up teaches), auto-timed, static in print/export + reduced-motion, and composes with `highlight`.
+
 ## 0.12.5
 - **Contract: `code-explain` stepping is now framed as when-appropriate, not the default.** 0.12.4 over-promoted the click-sync; an uninstructed agent would force `{1|2|3}` stepping on every code slide. Now two modes picked by intent — STATIC by default (reference/config/snippet), STEPPED only when walking through code line by line — and the example is static so agents copy the calm default. Docs only.
 
