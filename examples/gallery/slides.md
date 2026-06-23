@@ -356,6 +356,8 @@ export function lint(markdown: string) {
 layout: diagram
 kicker: layout · diagram
 title: Diagram — themed Mermaid
+aside: under the hood
+highlight: [D]
 note: A ```mermaid``` block, re-tinted to the variant via tokens.
 ---
 

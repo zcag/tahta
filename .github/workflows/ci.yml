@@ -17,6 +17,7 @@ jobs:
       - run: npm ci
       # objective floor: no hardcoded values, every used token defined
       - run: npm test
-      # render every layout across all variants; fail on any blank/broken slide
+      # render every layout across all variants; fail on any blank/broken slide,
+      # plus DOM checks (--checks): content overflow + text contrast on the real render.
       - run: npx playwright install --with-deps chromium
-      - run: node packages/grade/cli.mjs examples/gallery/slides.md --variants editorial,brutalist,soft,minimal
+      - run: node packages/grade/cli.mjs examples/gallery/slides.md --variants editorial,brutalist,soft,minimal --checks
