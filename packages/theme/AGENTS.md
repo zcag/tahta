@@ -22,7 +22,7 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 16. ghost: (on default/section/stats/steps/fact) prints a faint giant background glyph.
 17. Entrance motion is automatic, themeable per variant, and disabled in print + reduced-motion.
 18. Keep slides scannable, not prose: at most ~6 short bullets, written as phrases not sentences. If the idea is a structure or a flow (architecture, a pipeline, a data structure, who-calls-whom), reach for the `diagram` layout (themed Mermaid) instead of describing it in bullets; numbers→`stats`/`metric`, comparisons→`vs`/`compare`. lint_deck warns on dense slides (too many or too-long bullets, the same layout 3× in a row, an empty diagram).
-19. Reveal step-by-step for teaching: wrap body items in `<v-clicks>…</v-clicks>` (each child appears on a click) or put `v-click` on one element — great for building a list, or showing a diagram then its explanation. The renderer exports one frame per click-step, so the build-up survives in tela's preview/export and in PDF. Use it for pacing a teaching moment, not on every slide. For code, reach for the `code-explain` layout's built-in sync instead — a click-stepped line highlight (`{1|2|3}`) lights up its matching note in lockstep, no manual v-click needed; it's the single most effective way to teach a query plan / config / algorithm.
+19. Reveal step-by-step for teaching: wrap body items in `<v-clicks>…</v-clicks>` (each child appears on a click) or put `v-click` on one element — great for building a list, or showing a diagram then its explanation. The renderer exports one frame per click-step, so the build-up survives in tela's preview/export and in PDF. Use it for pacing a teaching moment, not on every slide. For code you're genuinely walking through line by line, `code-explain` can sync a click-stepped line highlight (`{1|2|3}`) with its matching note — no manual v-click. But don't reach for it by reflex: a code slide that's just a reference should stay static.
 20. Add speaker notes as an HTML comment that is the LAST block of a slide's markdown body: `<!-- what you'll say out loud -->`. It never renders on the slide; tela surfaces it as the presenter note. Author notes for any talk you'll actually present — the deck is the slides plus what you say.
 21. Mark tangents with `aside: true` (or `aside: "label"`): an optional deep-dive / 'under the hood' detour gets a left accent rail + a corner tag so the audience knows it's off the main spine. Use it for the curiosity slides, not the core argument.
 22. Math: write `$inline$` and `$$block$$` LaTeX in a slide BODY (default/statement/two-cols/columns markdown) — Slidev renders it with KaTeX in the variant's type. Frontmatter title/field text is injected as HTML and does NOT run KaTeX, with one exception: the `define` layout renders math in its `definition`/`points`. So for a 'term = formula' slide use `define`; for heavier math, put it in a body.
@@ -101,7 +101,7 @@ Per-slide frontmatter available on every layout.
 | `panels` | 2–4 carded sub-topics in a grid. | kicker, title, panels* |
 | `reference` | Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts. | kicker, title, groups, items |
 | `vs` | A-vs-B comparison — two panels with a centered divider. | kicker, title, left*, right*, label |
-| `code-explain` | Code (in the slide body) + a numbered explanation beside it. ITS BEST MODE — step the code and the notes TOGETHER: give the fenced code a click-stepped line highlight (e.g. ```sql {1|2|3}``` — pipes = one step per click) and one `note` per step. On each click the highlighted line AND its matching note light up while the rest dim, so the line you're talking about and the point about it advance in lockstep — the strongest way to teach a query plan, a config, or an algorithm line by line. The clicks come from the code fence, so it steps in Present, export, and PDF. Static code (no `{…|…}`) just shows every note at once. | kicker, title, notes* |
+| `code-explain` | Code (in the slide body) + a numbered explanation beside it. Two modes — pick by intent, don't default to either: (1) STATIC — the code stands and every note shows at once; right for a reference, a config, or a short snippet you just point at. (2) STEPPED — only when you're genuinely WALKING the audience through code line by line (a query plan, a gnarly algorithm): give the fenced code a click-stepped line highlight (```sql {1|2|3}``` — pipes = one step per click) and one `note` per step; on each click the highlighted line + its matching note light up while the rest dim (clicks come from the code fence, so it steps in Present/export/PDF). Don't force stepping on a code slide that's just there to be read — reach for it only when the line-by-line walk is the actual point. | kicker, title, notes* |
 | `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note, highlight |
 
 *\* = required.*
@@ -629,27 +629,29 @@ right: { title: Auto memory, items: ["Claude writes it", "Across sessions"] }
 ```
 
 ### `code-explain`
-Code (in the slide body) + a numbered explanation beside it. ITS BEST MODE — step the code and the notes TOGETHER: give the fenced code a click-stepped line highlight (e.g. ```sql {1|2|3}``` — pipes = one step per click) and one `note` per step. On each click the highlighted line AND its matching note light up while the rest dim, so the line you're talking about and the point about it advance in lockstep — the strongest way to teach a query plan, a config, or an algorithm line by line. The clicks come from the code fence, so it steps in Present, export, and PDF. Static code (no `{…|…}`) just shows every note at once.
+Code (in the slide body) + a numbered explanation beside it. Two modes — pick by intent, don't default to either: (1) STATIC — the code stands and every note shows at once; right for a reference, a config, or a short snippet you just point at. (2) STEPPED — only when you're genuinely WALKING the audience through code line by line (a query plan, a gnarly algorithm): give the fenced code a click-stepped line highlight (```sql {1|2|3}``` — pipes = one step per click) and one `note` per step; on each click the highlighted line + its matching note light up while the rest dim (clicks come from the code fence, so it steps in Present/export/PDF). Don't force stepping on a code slide that's just there to be read — reach for it only when the line-by-line walk is the actual point.
 
   - `kicker` (string, optional)
   - `title` (string, optional)
-  - `notes` (array, **required**) — One note per code step, IN STEP ORDER — the note for the current click lights up, the rest dim (string array; HTML allowed). Match the note count to the `{a|b|c}` steps in the code fence so each line pairs with its note.
+  - `notes` (array, **required**) — Notes shown beside the code (string array; HTML allowed). STATIC slide → they all show together. STEPPED slide (the fence has `{a|b|c}`) → one note per step, in step order, each lighting up with its line.
 
 ```yaml
 ---
 layout: code-explain
-kicker: How is this fast?
-title: Read the plan, line by line
+kicker: The handler
+title: One function, three responsibilities
 notes:
-  - "<strong>Seq Scan</strong> — no index, so it reads every row."
-  - "The filter keeps 1 row and <strong>throws away 99,999</strong>."
-  - "<strong>12.7 ms</strong> measured — an index makes it ~0.02 ms."
+  - "<strong>Auth</strong> — reject before any work."
+  - "<strong>Validate</strong> — fail fast on bad input."
+  - "<strong>Persist</strong> — the actual write."
 ---
 
-```text {1|2|3}
-Seq Scan on orders          -- no index, read every row
-  Filter: customer_id = 42  -- keeps 1, removes 99,999
-Execution Time: 12.741 ms   -- measured
+```ts
+async function handle(req) {
+  const user = await auth(req)        // auth
+  const data = validate(req.body)     // validate
+  return db.orders.insert(user, data) // persist
+}
 ```
 ---
 ```
