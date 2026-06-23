@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.5
+- **Contract: `code-explain` stepping is now framed as when-appropriate, not the default.** 0.12.4 over-promoted the click-sync; an uninstructed agent would force `{1|2|3}` stepping on every code slide. Now two modes picked by intent — STATIC by default (reference/config/snippet), STEPPED only when walking through code line by line — and the example is static so agents copy the calm default. Docs only.
+
 ## 0.12.4
 - **Contract: the `code-explain` click-sync is now front and center.** The behaviour shipped in 0.12.2, but `AGENTS.md`/`layouts.json` described `code-explain` as a static "code + notes" layout, so authoring agents missed its best mode. The description now leads with it and the example IS the stepped pattern (a `{1|2|3}` line highlight + one note per step). Also documents `diagram` `highlight` in the README. Docs only; no API change.
 
