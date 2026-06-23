@@ -102,7 +102,7 @@ Per-slide frontmatter available on every layout.
 | `reference` | Cheatsheet — term → description pairs, optionally grouped. For commands, flags, config keys, shortcuts. | kicker, title, groups, items |
 | `vs` | A-vs-B comparison — two panels with a centered divider. | kicker, title, left*, right*, label |
 | `code-explain` | Code (in the slide body) + a numbered explanation beside it. Two modes — pick by intent, don't default to either: (1) STATIC — the code stands and every note shows at once; right for a reference, a config, or a short snippet you just point at. (2) STEPPED — only when you're genuinely WALKING the audience through code line by line (a query plan, a gnarly algorithm): give the fenced code a click-stepped line highlight (```sql {1|2|3}``` — pipes = one step per click) and one `note` per step; on each click the highlighted line + its matching note light up while the rest dim (clicks come from the code fence, so it steps in Present/export/PDF). Don't force stepping on a code slide that's just there to be read — reach for it only when the line-by-line walk is the actual point. | kicker, title, notes* |
-| `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note, highlight |
+| `diagram` | A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, state, class, gantt), a <Figure>, or composed diagram markup in the slide body. Reach for it whenever the idea is a structure or flow (architecture, a pipeline, a data structure, who-calls-whom) — a drawn diagram beats bullets describing one. The Mermaid SVG is themed from the variant's tokens, so it reskins with the deck. | kicker, title, note, highlight, build |
 
 *\* = required.*
 
@@ -663,12 +663,14 @@ A framed stage for a VISUAL — a Mermaid diagram (flowchart, sequence, ER, stat
   - `title` (string, optional)
   - `note` (string, optional) — Caption under the diagram; HTML allowed.
   - `highlight` (array, optional) — FLOWCHART only — a list of node ids to accent (the answer path / the subset that matters); everything else dims. Makes the point of the diagram pop instead of every node looking equal. Use the node ids from your mermaid (e.g. `flowchart TD\n Root --> M` → `highlight: [Root, M]`); keep ids underscore-free. Edges between two highlighted nodes are accented too.
+  - `build` (boolean, optional) — Opt-in: cascade the diagram's pieces in on entry (ordered top→down — chronological for a sequence, roughly the flow for a TD flowchart) so the audience watches it assemble. Use only when the build-up itself teaches (a sequence playing out, a pipeline forming) — not on every diagram; a reference diagram should just appear. Auto-timed, not click-paced; static in print/export and under reduced-motion. Composes with `highlight` (it builds, then the accent path stays lit).
 
 ```yaml
 ---
 layout: diagram
 kicker: The race
 title: Two transactions, one seat
+build: true
 note: Without isolation, both reads see <strong>1</strong> — and both writes win.
 ---
 

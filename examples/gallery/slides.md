@@ -358,6 +358,7 @@ kicker: layout · diagram
 title: Diagram — themed Mermaid
 aside: under the hood
 highlight: [D]
+build: true
 note: A ```mermaid``` block, re-tinted to the variant via tokens.
 ---
 

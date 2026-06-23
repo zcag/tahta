@@ -39,6 +39,29 @@ function ensureStyle (sr) {
 const nodeIdOf = (el) => { const m = /flowchart-(.+?)-\d+$/.exec(el.id || ''); return m && m[1] }
 const edgeEndsOf = (el) => { const m = /L_([^_]+)_([^_]+)_\d+$/.exec(el.id || ''); return m && [m[1], m[2]] }
 
+// Opt-in `build: true` — cascade the diagram's pieces in on entry, ordered by vertical
+// position (a sequence reads top→down chronologically; a TD flowchart roughly follows its
+// flow). The teaching "watch it assemble" beat, for the diagrams where the build-up is the
+// point — not every diagram. Skipped in print/export + reduced-motion (static = whole
+// diagram). Composes with `highlight`: after it settles we clear inline opacity and re-run
+// decorate() so the accent path takes over.
+const REDUCE = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
+const isPrint = () => typeof document !== 'undefined' && !!document.querySelector('.print,.slidev-print,[data-print],.export')
+const BUILD_SEL = '.node,.cluster,.flowchart-link,.edgePaths path,.edgeLabel,.messageText,.messageLine0,.messageLine1,.note,.noteText,.loopLine,.loopText,.labelText,.activation0,.activation1,.activation2'
+let built = false
+function buildIn (svg) {
+  if (built || !fm.build || REDUCE || isPrint()) return
+  const els = [...svg.querySelectorAll(BUILD_SEL)]
+  if (!els.length) return
+  built = true
+  const y = (el) => { try { const b = el.getBBox(); return b.y + b.height / 2 } catch { return 0 } }
+  els.sort((a, b) => y(a) - y(b))
+  const step = Math.min(110, 1300 / els.length)
+  els.forEach((el, i) => { el.style.opacity = '0'; el.style.transition = 'opacity .42s ease'; el.style.transitionDelay = `${Math.round(i * step)}ms` })
+  requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => { el.style.opacity = '1' })))
+  setTimeout(() => { els.forEach(el => { el.style.opacity = el.style.transition = el.style.transitionDelay = '' }); decorate() }, els.length * step + 520)
+}
+
 function decorate () {
   const svg = stage.value?.querySelector('.mermaid')?.shadowRoot?.querySelector('svg')
   if (!svg) return
@@ -54,7 +77,12 @@ function decorate () {
   })
 }
 
-const tick = () => { fit(); decorate() }
+const tick = () => {
+  fit()
+  const svg = stage.value?.querySelector('.mermaid')?.shadowRoot?.querySelector('svg')
+  if (svg) buildIn(svg)
+  decorate()
+}
 
 onMounted(async () => {
   await nextTick()
