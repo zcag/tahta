@@ -1,6 +1,7 @@
 ---
 theme: slidev-theme-tahta
 mdc: true
+routerMode: hash
 themeConfig:
   variant: brutalist
 layout: cover
