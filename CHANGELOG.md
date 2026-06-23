@@ -2,6 +2,10 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.2
+- **`diagram` `highlight`** — `highlight: [Root, M, Hit]` accents that flowchart path (nodes + the edges between them) and dims the rest, so the point of a diagram pops: the lookup path through a B-tree, the chosen shard, who-talks-to-whom.
+- **`code-explain` click sync** — when the code steps its line highlight (```` ```sql {1|2|4} ````), the note matching the current click lights up while the rest dim, so the spoken note and the highlighted line advance together. Static code is unchanged.
+
 ## 0.12.1
 - **`<Grid>` component** — a token-themed cell grid for the visuals Mermaid draws badly: memory/byte layouts, row-store vs column-store, matrices, a small schema. 2D `data`, an optional `head` row, and `highlight` (`row:N` / `col:N` / `cell:R,C`) to make the point.
 - **Mermaid syntax pre-check in `lint`** — every ```` ```mermaid ```` block is parsed (lazy, optional `mermaid` import), so a broken diagram is a lint error instead of a render-time error box. Pure-node env limits (DOMPurify needs a DOM on labelled diagrams) are filtered so valid diagrams never false-error.
