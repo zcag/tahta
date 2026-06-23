@@ -25,6 +25,8 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 19. Reveal step-by-step for teaching: wrap body items in `<v-clicks>…</v-clicks>` (each child appears on a click) or put `v-click` on one element — great for building a list, or showing a diagram then its explanation. The renderer exports one frame per click-step, so the build-up survives in tela's preview/export and in PDF. Use it for pacing a teaching moment, not on every slide.
 20. Add speaker notes as an HTML comment that is the LAST block of a slide's markdown body: `<!-- what you'll say out loud -->`. It never renders on the slide; tela surfaces it as the presenter note. Author notes for any talk you'll actually present — the deck is the slides plus what you say.
 21. Mark tangents with `aside: true` (or `aside: "label"`): an optional deep-dive / 'under the hood' detour gets a left accent rail + a corner tag so the audience knows it's off the main spine. Use it for the curiosity slides, not the core argument.
+22. Math: write `$inline$` and `$$block$$` LaTeX in a slide BODY (default/statement/two-cols/columns markdown) — Slidev renders it with KaTeX in the variant's type. Frontmatter title/field text is injected as HTML and does NOT run KaTeX, with one exception: the `define` layout renders math in its `definition`/`points`. So for a 'term = formula' slide use `define`; for heavier math, put it in a body.
+23. Sections give you wayfinding for free: when a deck has `layout: section` dividers, a thin progress rail at the top edge shows the audience which part they're in. Group a longer talk into 3–6 sections so the rail (and the deck) reads as a structured arc.
 
 ## Deck header (first slide)
 ```yaml

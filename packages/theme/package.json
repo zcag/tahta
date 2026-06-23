@@ -34,6 +34,7 @@
   "files": [
     "layouts",
     "components",
+    "lib",
     "setup",
     "styles",
     "global-bottom.vue",
@@ -46,10 +47,14 @@
     "modules"
   ],
   "peerDependencies": {
-    "echarts": "^5 || ^6"
+    "echarts": "^5 || ^6",
+    "katex": "^0.16"
   },
   "peerDependenciesMeta": {
     "echarts": {
+      "optional": true
+    },
+    "katex": {
       "optional": true
     }
   },
