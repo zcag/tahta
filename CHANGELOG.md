@@ -2,6 +2,10 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.12.1
+- **`<Grid>` component** — a token-themed cell grid for the visuals Mermaid draws badly: memory/byte layouts, row-store vs column-store, matrices, a small schema. 2D `data`, an optional `head` row, and `highlight` (`row:N` / `col:N` / `cell:R,C`) to make the point.
+- **Mermaid syntax pre-check in `lint`** — every ```` ```mermaid ```` block is parsed (lazy, optional `mermaid` import), so a broken diagram is a lint error instead of a render-time error box. Pure-node env limits (DOMPurify needs a DOM on labelled diagrams) are filtered so valid diagrams never false-error.
+
 ## 0.12.0
 A toolkit release — diagrams, math, wayfinding, and a density linter, so a technical/teaching deck is something you assemble end-to-end.
 - **`diagram` layout — variant-aware Mermaid.** A framed stage for a Mermaid diagram (flowchart, sequence, ER, state, class…), a `<Figure>`, or composed markup. Slidev renders Mermaid inside a ShadowRoot, so document CSS can't reach it — instead the SVG is themed via Mermaid `themeVariables` derived **at render time from the same tokens every layout reads** (`setup/mermaid.ts`): a diagram reskins with the variant like everything else, zero per-diagram config. The vector SVG auto-scales to fill the stage.
