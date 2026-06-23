@@ -26,6 +26,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
   <!-- SECTION -->
   <div v-else-if="mode === 'section'" class="slidev-layout l-topic">
     <SlideBg />
+    <SectionRail />
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.index ?? ''" />
     <Reveal class="l-body">
@@ -44,6 +45,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
   <!-- STATEMENT (also quote / fact, with custom body) -->
   <div v-else-if="mode === 'statement'" class="slidev-layout l-statement">
     <SlideBg />
+    <SectionRail />
     <div v-if="showGlow" class="glow" />
     <Ghost :text="fm.ghost ?? ''" />
     <Reveal class="l-center">
@@ -76,6 +78,7 @@ const showGlow = computed(() => props.mode === 'topic' ? fm.glow === true : fm.g
   <!-- TOPIC -->
   <div v-else class="slidev-layout l-topic" :class="{ 'l-aside': fm.aside }">
     <SlideBg />
+    <SectionRail />
     <div v-if="showGlow" class="glow" />
     <div v-if="fm.aside" class="aside-tag">{{ typeof fm.aside === 'string' ? fm.aside : 'deep dive' }}</div>
     <Ghost :text="fm.ghost ?? ''" />
