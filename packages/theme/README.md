@@ -80,7 +80,7 @@ stats:
 
 **Teaching / technical** — `agenda` · `define` · `columns` · `panels` · `reference` · `vs` · `code-explain` · `diagram` (themed Mermaid)
 
-Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your accent. `code` supports Magic Move. Long bodies auto-fit to the frame. `<em>word</em>` in a title = italic accent emphasis; `class: dropcap` = drop cap.
+Charts do `bar · line · area · donut` (ECharts), with a categorical palette derived from your accent. `code` supports Magic Move; **`code-explain` syncs a click-stepped code line (`{1|2|3}`) with its notes** — each click lights up one line and its matching note in lockstep. `diagram` accepts `highlight: [Node, …]` to glow a flowchart path and dim the rest. Long bodies auto-fit to the frame. `<em>word</em>` in a title = italic accent emphasis; `class: dropcap` = drop cap.
 
 ### Components (for `default`/`statement` bodies)
 `<Stat>` · `<StatCard>` · `<Plot>` · `<Grid>` (memory/cell layouts) · `<Figure>` · `<Meter>` · `<Person>` · `<Tags>` · `<Callout>` · `<Badge>` · `<Icon>` (Lucide, bundled) · `<Kbd>` · `<Terminal>` · `<FileTree>` · `<Reveal>` · `<Fit>` · `<Ghost>`
