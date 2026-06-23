@@ -445,6 +445,14 @@
 .diagram-stage .mermaid svg { max-width: 100%; max-height: 60vh; height: auto; }
 .diagram-note { margin: var(--sp-4) auto 0; max-width: 60ch; text-align: center; font-size: 0.95rem; }
 
+/* ===== Grid — cell layout for memory/byte/row-vs-column/matrix visuals ===== */
+.tahta-grid { display: grid; grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr)); gap: 4px;
+  font-family: var(--font-mono); font-size: 0.95rem; max-width: 56rem; }
+.grid-cell { padding: 0.55rem 0.7rem; text-align: center; color: var(--fg-dim);
+  background: var(--surface-bg); border: var(--rule-w) solid var(--line); border-radius: var(--radius-sm); }
+.grid-cell.is-head { color: var(--fg); font-weight: var(--w-strong); background: color-mix(in oklab, var(--fg) 7%, var(--surface-bg)); }
+.grid-cell.is-hi { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+
 /* ===== section progress rail (global-top.vue) — "you are here" across the deck ===== */
 .tahta-rail { position: absolute; top: 0; left: 0.5rem; right: 0.5rem; height: 4px; z-index: 50;
   display: flex; gap: 3px; pointer-events: none; }

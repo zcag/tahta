@@ -272,6 +272,11 @@
       "example": "<Person name=\"Ada Lovelace\" role=\"Founder & CEO\" photo=\"/ada.jpg\" />" },
     { "name": "Tags", "useFor": "Row of keyword chips (tech stack, topics, skills).", "props": [
       { "name": "items", "type": "array", "required": true } ],
-      "example": "<Tags :items=\"['TypeScript', 'Vue', 'Vite', 'OKLCH']\" />" }
+      "example": "<Tags :items=\"['TypeScript', 'Vue', 'Vite', 'OKLCH']\" />" },
+    { "name": "Grid", "useFor": "Cell grid for the visuals Mermaid draws badly — memory/byte layouts, row-store vs column-store, a matrix, a small schema. `data` is a 2D array of cells (HTML allowed); `head` makes the first row a header; `highlight` accents a row/col/cell to make a point.", "props": [
+      { "name": "data", "type": "array (2D)", "required": true },
+      { "name": "head", "type": "boolean", "default": "false" },
+      { "name": "highlight", "type": "string  row:N | col:N | cell:R,C  (0-based)" } ],
+      "example": "<Grid :data=\"[['id','name','age'],['1','Ada','36'],['2','Lin','29']]\" head highlight=\"col:2\" />" }
   ]
 }

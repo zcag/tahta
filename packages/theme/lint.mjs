@@ -81,6 +81,7 @@ export async function lint (input, opts = {}) {
   const LONG_BULLET = 140     // a single bullet longer than this reads as prose
   const plain = (s) => String(s).replace(/<[^>]+>/g, '')
   let runLayout = null, runLen = 0
+  const mermaidBlocks = [] // {i, code} — validated after the loop (lazy mermaid import)
 
   slides.forEach(({ fm, body, raw, i }) => {
     // Duplicate frontmatter key: @slidev/parser silently keeps the last value, but
@@ -101,6 +102,12 @@ export async function lint (input, opts = {}) {
     }
     const leak = leakedFrontmatter(body)
     if (leak) add(i, 'error', `slide body starts with frontmatter keys (${leak.slice(0, 3).join(', ')}…) — a slide's frontmatter probably isn't closed with \`---\`, so it renders as text`)
+    // collect ```mermaid fences for a syntax pre-check (validated after the loop)
+    if (typeof body === 'string' && body.includes('```mermaid')) {
+      const re = /```mermaid[^\n]*\n([\s\S]*?)```/g
+      let mm
+      while ((mm = re.exec(body))) { const code = mm[1].trim(); if (code) mermaidBlocks.push({ i, code }) }
+    }
     if (!fm || typeof fm !== 'object') return
     const id = fm.layout || 'default'
     const L = LAYOUTS[id]
@@ -159,6 +166,28 @@ export async function lint (input, opts = {}) {
     if (id === 'diagram' && typeof body === 'string' && !/```mermaid|<Figure|<Plot|<img|!\[/.test(body))
       add(i, 'warn', 'diagram: no ```mermaid block, <Figure>, or image in the slide body')
   })
+
+  // Mermaid syntax pre-check: a broken diagram otherwise only surfaces at render time
+  // (as an error box on the slide). Validate each ```mermaid block so it's a lint error
+  // instead. Lazy + optional — mermaid parses in pure node; if it isn't installed (a bare
+  // `npx tahta-lint` without slidev), skip silently.
+  if (mermaidBlocks.length) {
+    let mermaid
+    try { mermaid = (await import('mermaid')).default } catch { mermaid = null }
+    if (mermaid) {
+      for (const { i, code } of mermaidBlocks) {
+        try { await mermaid.parse(code) }
+        catch (e) {
+          const msg = String(e?.message || e).split('\n')[0]
+          // A real grammar error throws "Parse error …" before mermaid's DOM-dependent
+          // label step. Pure-node env limits (DOMPurify/document need a DOM) throw other
+          // messages — those mean "can't fully validate here", not a broken diagram, so skip.
+          if (/parse error|syntax|expecting|lexical|unrecognized|no diagram type/i.test(msg))
+            add(i, 'error', `diagram: Mermaid syntax error — ${msg}`, 'mermaid')
+        }
+      }
+    }
+  }
 
   // themeConfig.variant is required on a full deck — a deliberate visual choice, never a
   // silent default. Only enforced for full markdown decks that declare this theme (skipped

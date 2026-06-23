@@ -714,3 +714,5 @@ Compose these inside `default` / `statement` / `two-cols` bodies to enrich any s
   `<Person name="Ada Lovelace" role="Founder & CEO" photo="/ada.jpg" />`
 - **`<Tags>`** — Row of keyword chips (tech stack, topics, skills). props: `items`
   `<Tags :items="['TypeScript', 'Vue', 'Vite', 'OKLCH']" />`
+- **`<Grid>`** — Cell grid for the visuals Mermaid draws badly — memory/byte layouts, row-store vs column-store, a matrix, a small schema. `data` is a 2D array of cells (HTML allowed); `head` makes the first row a header; `highlight` accents a row/col/cell to make a point. props: `data`, `head` (default false), `highlight`
+  `<Grid :data="[['id','name','age'],['1','Ada','36'],['2','Lin','29']]" head highlight="col:2" />`

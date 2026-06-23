@@ -368,6 +368,14 @@ flowchart LR
 
 ---
 layout: default
+kicker: component · Grid
+title: Grid — cell / memory layouts
+---
+
+<Grid :data="[['id','name','age','city'],['1','Ada','36','London'],['2','Lin','29','Berlin']]" head highlight="col:2" />
+
+---
+layout: default
 kicker: components
 title: Kbd · Terminal · FileTree
 ---
