@@ -13,7 +13,7 @@ defineProps({
 <template>
   <div class="card stat">
     <Icon v-if="icon" :name="icon" class="stat-icon" />
-    <div :class="['stat-num', SIZES[size] || SIZES.md, accent && 'accent-num']">{{ value }}<span v-if="unit" class="stat-unit">{{ unit }}</span></div>
+    <div :class="['stat-num', SIZES[size] || SIZES.md, accent && 'accent-num']"><Num :value="value" /><span v-if="unit" class="stat-unit">{{ unit }}</span></div>
     <div v-if="label" class="stat-label">{{ label }}</div>
   </div>
 </template>

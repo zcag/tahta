@@ -16,7 +16,7 @@ const variants = JSON.parse(read('packages/theme/variants.json'))
 const errs = []
 
 // Components that are internal plumbing, not part of the authoring contract.
-const INTERNAL = new Set(['SlideFrame', 'SlideBg', 'Foot', 'BarChart', 'BrandLogo', 'SectionRail'])
+const INTERNAL = new Set(['SlideFrame', 'SlideBg', 'Foot', 'BarChart', 'BrandLogo', 'SectionRail', 'Num'])
 
 const vue = (dir) => readdirSync(`${theme}/${dir}`).filter(f => f.endsWith('.vue')).map(f => f.slice(0, -4))
 const layoutFiles = vue('layouts')

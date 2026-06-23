@@ -15,7 +15,7 @@ const toneStyle = (t) => t ? { color: `var(${TONES[t] || '--accent'})` } : null
       <Reveal v-for="(s, i) in stats" :key="i" :delay="i * 90">
         <div class="stat">
           <Icon v-if="s.icon" :name="s.icon" class="stat-icon" :style="toneStyle(s.tone)" />
-          <div :class="['stat-num', numSize, !s.tone && 'accent-num']" :style="toneStyle(s.tone)">{{ s.value }}<span v-if="s.unit" class="stat-unit" :style="toneStyle(s.tone)">{{ s.unit }}</span></div>
+          <div :class="['stat-num', numSize, !s.tone && 'accent-num']" :style="toneStyle(s.tone)"><Num :value="s.value" /><span v-if="s.unit" class="stat-unit" :style="toneStyle(s.tone)">{{ s.unit }}</span></div>
           <div v-if="s.label" class="stat-label">{{ s.label }}</div>
         </div>
       </Reveal>

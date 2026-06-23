@@ -16,7 +16,7 @@ const toneStyle = props.tone ? { color: `var(${TONES[props.tone] || '--accent'})
 <template>
   <div class="stat">
     <Icon v-if="icon" :name="icon" class="stat-icon" :style="toneStyle" />
-    <div :class="['stat-num', SIZES[size] || SIZES.xl, accent && !tone && 'accent-num']" :style="toneStyle">{{ value }}<span v-if="unit" class="stat-unit" :style="toneStyle">{{ unit }}</span></div>
+    <div :class="['stat-num', SIZES[size] || SIZES.xl, accent && !tone && 'accent-num']" :style="toneStyle"><Num :value="value" /><span v-if="unit" class="stat-unit" :style="toneStyle">{{ unit }}</span></div>
     <div v-if="label" class="stat-label">{{ label }}</div>
   </div>
 </template>
