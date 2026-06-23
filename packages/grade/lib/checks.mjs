@@ -60,7 +60,15 @@ function measure () {
   const vOverflow = fit ? el.querySelector('.fit[data-fit-overflow]') != null : (el.scrollHeight - el.clientHeight > 4)
   const overflow = vOverflow || (el.scrollWidth - el.clientWidth > 4)
   deco.forEach((d, i) => { d.style.display = prev[i] })
-  const px = (c) => (c.match(/[\d.]+/g) || [0, 0, 0]).map(Number)
+  // Resolve ANY CSS color (incl. oklch/lab/color()) to sRGB [r,g,b] via canvas.
+  // getComputedStyle returns `oklch(…)` verbatim for oklch-authored colors (e.g. tahta's
+  // --accent), and a regex "first three numbers" parse mistakes L/C/H for r/g/b — yielding
+  // a bogus low-contrast reading on any accent-colored text. Canvas normalizes to bytes.
+  const _cx = document.createElement('canvas').getContext('2d')
+  const px = (c) => {
+    try { _cx.fillStyle = '#000'; _cx.fillStyle = c; _cx.fillRect(0, 0, 1, 1); const d = _cx.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2]] }
+    catch { return (c.match(/[\d.]+/g) || [0, 0, 0]).map(Number) }
+  }
   const lum = ([r, g, b]) => { const a = [r, g, b].map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }); return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2] }
   const ratio = (f, b) => { const L1 = lum(f), L2 = lum(b), hi = Math.max(L1, L2), lo = Math.min(L1, L2); return (hi + 0.05) / (lo + 0.05) }
   let contrast = null
