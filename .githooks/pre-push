@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Block pushing a drifted lockfile (which would turn CI red on `npm ci`).
+# Armed automatically by the root `prepare` script (sets core.hooksPath=.githooks).
+exec node "$(git rev-parse --show-toplevel)/scripts/check-lock.mjs"

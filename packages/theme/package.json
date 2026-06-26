@@ -15,6 +15,9 @@
     "themeable"
   ],
   "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/preflight.mjs"
+  },
   "publishConfig": {
     "access": "public"
   },

@@ -9,9 +9,11 @@
     "examples/*"
   ],
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
     "dev": "npm run dev -w @tahta/example-edge",
     "grade": "npm run grade -w @tahta/example-edge",
     "assets": "node scripts/gen-assets.mjs",
+    "check:lock": "node scripts/check-lock.mjs",
     "test": "node scripts/check-tokens.mjs && node scripts/check-contrast.mjs && node scripts/check-sync.mjs && node scripts/check-decks.mjs && node scripts/check-lint.mjs",
     "docs": "node scripts/gen-agents.mjs",
     "site": "node scripts/build-site.mjs",
