@@ -4,6 +4,8 @@
 
 → **Live explorer:** [tahta.cagdas.io](https://tahta.cagdas.io) (every layout × every variant) · **Repo:** [github.com/zcag/tahta](https://github.com/zcag/tahta)
 
+> **In production:** tahta is the deck theme behind **[tela](https://telawiki.com)**, a markdown-native team wiki where agents author decks over MCP — see a [live deck](https://telawiki.com/p/325) or [how it's wired](https://github.com/zcag/tela/blob/main/docs/deck.md).
+
 → **Agents: read [`AGENTS.md`](./AGENTS.md)** — the full authoring contract (every layout's schema + copy-paste examples), generated from `layouts.json` + `variants.json`.
 
 → **Optional capability modules** ([`modules/`](./modules/modules.json)) — prompt fragments a consumer appends to `AGENTS.md` only when a capability is in play, keeping the core contract lean: [`branding`](./modules/branding.md) (logo / brand color) and [`imagery`](./modules/imagery.md) (generating & placing images). A consumer reads `modules.json`, and for each entry whose `when` holds, appends the file after `AGENTS.md`. For imagery, the agent generates via its **own** image endpoint per the recipe and may palette-lock results with the bundled `tahta-imagine` (`imagine.mjs`, needs the optional `sharp`) — tahta never calls a model itself.

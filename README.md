@@ -5,7 +5,7 @@ Tokens, components, and patterns — so a deck is something you <i>assemble</i>,
 
 <p align="center"><code>npm i slidev-theme-tahta</code></p>
 
-<p align="center"><a href="https://tahta.cagdas.io">tahta.cagdas.io</a> — live explorer (every layout × every variant) · used in production by <a href="https://tela.cagdas.io">tela</a> as its deck theme.</p>
+<p align="center"><a href="https://tahta.cagdas.io">tahta.cagdas.io</a> — live explorer (every layout × every variant) · used in production by <a href="https://telawiki.com">tela</a> as its deck theme.</p>
 
 <p align="center"><img src="docs/assets/variants.png" alt="One deck rendered in all thirteen tahta variants" width="860"></p>
 
@@ -49,6 +49,13 @@ themeConfig:
   variant: brutalist
   accent: '#c8f135'   # optional — override just the brand color
 ```
+
+## In production: tela
+
+tahta is the deck engine behind **[tela](https://telawiki.com)** — a markdown-native team wiki where people *and agents* author pages and slide decks. Any wiki page can become a deck; tahta renders it.
+
+- **See it live** — [Tela — Team Onboarding](https://telawiki.com/p/325): a guided tour authored as an ordinary wiki page, presented in tahta's `editorial` variant. Public, no login.
+- **See it wired** — tela is open source ([github.com/zcag/tela](https://github.com/zcag/tela)); the integration is one doc, [`docs/deck.md`](https://github.com/zcag/tela/blob/main/docs/deck.md). It reads tahta's published contract (`layouts.json` · `variants.json` · generated `AGENTS.md`) so agents **author, lint, and preview decks over MCP** — the agent contract, used for real.
 
 ## Quick start
 

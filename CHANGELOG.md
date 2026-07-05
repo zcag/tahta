@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.13.2
+- **Docs.** Note tela as a production consumer: a link to a live public deck (rendered in the `editorial` variant) and to tela's open-source deck integration (`docs/deck.md`), where tahta's published contract drives agent deck authoring over MCP. No code or contract changes.
+
 ## 0.13.1
 - **Fix: count-up + diagram `build` now actually play.** 0.13.0 triggered them on mount, but Slidev pre-mounts slides off-screen so the animation finished before the slide was shown (it read as static). Both now trigger on slide activation (and replay on re-entry); the diagram build polls for the async Mermaid SVG and cancels cleanly on leave.
 
