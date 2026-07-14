@@ -3,7 +3,11 @@ import { computed } from 'vue'
 import { useSlideContext } from '@slidev/client'
 const { $frontmatter } = useSlideContext()
 const side = computed(() => $frontmatter.side || 'right')
-const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
+const fit = computed(() => $frontmatter.fit === 'contain' ? 'contain' : 'cover')
+const bg = computed(() => ({
+  backgroundImage: `url(${$frontmatter.image})`,
+  backgroundSize: fit.value,
+}))
 </script>
 <template>
   <div :class="['slidev-layout', 'l-split', side === 'left' ? 'showcase flip' : 'showcase']">
