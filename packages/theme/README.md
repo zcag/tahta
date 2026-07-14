@@ -116,6 +116,7 @@ Variant / accent / lang are applied at runtime by `global-bottom.vue`; defaults 
 
 ## Gotchas baked into the contract
 - Images for `bleed`/`image`/`showcase` (and `bg: /x.jpg`) go in the deck's `public/`, referenced as `/name.jpg` — use the layout's `image:` field, don't `<img>` them.
+- `image` and `showcase` crop with `cover` by default. Set `fit: contain` for screenshots and diagrams, or use `diagram` with `<Figure>` when the visual should own the slide.
 - In YAML flow rows `{ ... }`, quote any value containing a comma/colon (`"$4,200"`).
 - `cover`/`section`/`statement`/`end` take the title from frontmatter — leave the body empty.
 

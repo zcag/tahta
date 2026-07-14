@@ -3,7 +3,11 @@ import { computed } from 'vue'
 import { useSlideContext } from '@slidev/client'
 const { $frontmatter } = useSlideContext()
 const side = computed(() => $frontmatter.side || 'right')
-const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
+const fit = computed(() => $frontmatter.fit === 'contain' ? 'contain' : 'cover')
+const bg = computed(() => ({
+  backgroundImage: `url(${$frontmatter.image})`,
+  backgroundSize: fit.value,
+}))
 </script>
 
 <template>
@@ -11,9 +15,13 @@ const bg = computed(() => ({ backgroundImage: `url(${$frontmatter.image})` }))
     <SlideBg />
     <div v-if="side === 'left'" class="split-media" :style="bg" />
     <div class="split-body">
-      <div v-if="$frontmatter.kicker" class="kicker">{{ $frontmatter.kicker }}</div>
-      <h2 v-if="$frontmatter.title" class="fs-h2 mb-4" v-html="$frontmatter.title" />
-      <div class="fs-body dim"><slot /></div>
+      <Fit>
+        <div>
+          <div v-if="$frontmatter.kicker" class="kicker">{{ $frontmatter.kicker }}</div>
+          <h2 v-if="$frontmatter.title" class="fs-h2 mb-4" v-html="$frontmatter.title" />
+          <div class="fs-body dim"><slot /></div>
+        </div>
+      </Fit>
     </div>
     <div v-if="side !== 'left'" class="split-media" :style="bg" />
     <Foot />

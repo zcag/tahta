@@ -27,6 +27,7 @@ Generate a Slidev deck with `slidev-theme-tahta`. **No CSS, `<style>`, grids, or
 21. Mark tangents with `aside: true` (or `aside: "label"`): an optional deep-dive / 'under the hood' detour gets a left accent rail + a corner tag so the audience knows it's off the main spine. Use it for the curiosity slides, not the core argument.
 22. Math: write `$inline$` and `$$block$$` LaTeX in a slide BODY (default/statement/two-cols/columns markdown) — Slidev renders it with KaTeX in the variant's type. Frontmatter title/field text is injected as HTML and does NOT run KaTeX, with one exception: the `define` layout renders math in its `definition`/`points`. So for a 'term = formula' slide use `define`; for heavier math, put it in a body.
 23. Sections give you wayfinding for free: when a deck has `layout: section` dividers, a thin progress rail at the top edge shows the audience which part they're in. Group a longer talk into 3–6 sections so the rail (and the deck) reads as a structured arc.
+24. Treat technical diagram images as content, not photography. Put a full-canvas diagram in `layout: diagram` with `<Figure src="..." />` so the entire image stays visible. If a screenshot or diagram must sit beside text in `image` or `showcase`, set `fit: contain`; those layouts otherwise use `cover` and intentionally crop.
 
 ## Deck header (first slide)
 ```yaml
@@ -87,8 +88,8 @@ Per-slide frontmatter available on every layout.
 | `logos` | A trust / logo wall. | kicker, title, columns, logos* |
 | `code` | Code, optionally Magic Move. Body is a fenced code block. | kicker, title |
 | `two-cols` | Generic split; left = body, right = after ::right::. Each column is a canvas — compose components in either. | kicker, title |
-| `image` | Text + a side image (markdown body is the text column). | kicker, title, image*, side |
-| `showcase` | Asymmetric image hero (fixed 43/57; deterministic). | kicker, title, subtitle, image*, side |
+| `image` | Text + a side image (markdown body is the text column). Photos default to cover; use fit: contain for screenshots or diagrams. | kicker, title, image*, fit, side |
+| `showcase` | Asymmetric image hero (fixed 43/57; deterministic). Photos default to cover; use fit: contain for screenshots or diagrams. | kicker, title, subtitle, image*, fit, side |
 | `bleed` | Full-bleed image hero with overlaid text. | image*, kicker, stat, title, subtitle, duotone |
 | `embed` | Video or iframe. | kicker, title, video, iframe |
 | `end` | Closing slide. | title, subtitle, contact |
@@ -382,11 +383,12 @@ title: Before vs after
 ```
 
 ### `image`
-Text + a side image (markdown body is the text column).
+Text + a side image (markdown body is the text column). Photos default to cover; use fit: contain for screenshots or diagrams.
 
   - `kicker` (string, optional)
   - `title` (string, optional)
   - `image` (string, **required**) — Path in the deck's public/ folder, e.g. /shot.png.
+  - `fit` (enum, optional) — How the image fits its pane. Defaults to cover; use contain when every edge and label must remain visible. — one of `cover | contain`
   - `side` (enum, optional) — one of `left | right`
 
 ```yaml
@@ -394,6 +396,7 @@ Text + a side image (markdown body is the text column).
 layout: image
 side: right
 image: /shot.png
+fit: contain
 title: The product
 ---
 
@@ -402,12 +405,13 @@ title: The product
 ```
 
 ### `showcase`
-Asymmetric image hero (fixed 43/57; deterministic).
+Asymmetric image hero (fixed 43/57; deterministic). Photos default to cover; use fit: contain for screenshots or diagrams.
 
   - `kicker` (string, optional)
   - `title` (string, optional)
   - `subtitle` (string, optional)
   - `image` (string, **required**)
+  - `fit` (enum, optional) — How the image fits its pane. Defaults to cover; use contain when every edge and label must remain visible. — one of `cover | contain`
   - `side` (enum, optional) — one of `left | right`
 
 ```yaml

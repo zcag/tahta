@@ -200,7 +200,7 @@
 /* ===== showcase (deliberate asymmetric hero — fixed ratio, won't reflow with content) ===== */
 .showcase { display: grid; grid-template-columns: 43% 57%; height: 100%; }
 .showcase.flip { grid-template-columns: 57% 43%; }
-.showcase-media { position: relative; background-size: cover; background-position: center; }
+.showcase-media { position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .showcase-media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 160px rgba(0,0,0,0.45); }
 .showcase-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
 
@@ -258,7 +258,7 @@
 /* ===== image split ===== */
 .split { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
 .split.left { grid-template-columns: 0.9fr 1.1fr; }
-.split-media { background-size: cover; background-position: center; position: relative;
+.split-media { background-size: cover; background-position: center; background-repeat: no-repeat; position: relative;
   /* feather the seam edge so the image dissolves into the body ground instead of a hard cut */
   --feather: 13%;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); }
@@ -410,8 +410,8 @@
 .filetree .ft-guide { color: color-mix(in oklab, var(--fg-dim) 55%, transparent); }
 
 /* ----- Figure (image / diagram + caption + credit) ----- */
-.tahta-figure { margin: 0; }
-.tahta-figure img { display: block; width: 100%; border-radius: var(--radius-sm); border: var(--surface-border); }
+.tahta-figure { margin: 0; max-width: 100%; max-height: 100%; }
+.tahta-figure img { display: block; width: 100%; max-width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: var(--radius-sm); border: var(--surface-border); }
 .tahta-figure figcaption { margin-top: var(--sp-3); font-size: 0.92rem; color: var(--fg-dim); display: flex; justify-content: space-between; gap: var(--sp-4); align-items: baseline; }
 .tahta-figure .tf-credit { font: 500 0.76rem/1.4 var(--font-mono); opacity: 0.8; white-space: nowrap; }
 
@@ -448,6 +448,9 @@
    derived from these same tokens. Here we only size the light-DOM host to the stage. */
 .diagram-stage .mermaid { display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 60vh; }
 .diagram-stage .mermaid svg { max-width: 100%; max-height: 60vh; height: auto; }
+.diagram-stage .tahta-figure { width: 100%; height: 100%; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.diagram-stage .tahta-figure img { width: auto; }
+.diagram-stage .tahta-figure:has(figcaption) img { max-height: calc(100% - 2.5rem); }
 .diagram-note { margin: var(--sp-4) auto 0; max-width: 60ch; text-align: center; font-size: 0.95rem; }
 
 /* ===== Grid — cell layout for memory/byte/row-vs-column/matrix visuals ===== */
