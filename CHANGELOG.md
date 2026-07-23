@@ -2,6 +2,9 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.13.3
+- **Vue template pre-check in `lint`.** A `\"` inside a double-quoted `:prop="…"` binding ends the HTML attribute early (attributes have no backslash escapes) and fails the **whole** `slidev build`, not just that slide — and lint reported the deck clean. Every slide body is now parsed with `@vue/compiler-dom` (lazy, optional — it ships with slidev), with fenced/inline code blanked out first so code samples, autolinks, and math never false-error. Broken expression → error; a raw `"` in a plain attribute → warning. The quoting rule is documented in the components section of `AGENTS.md`.
+
 ## 0.13.2
 - **Docs.** Note tela as a production consumer: a link to a live public deck (rendered in the `editorial` variant) and to tela's open-source deck integration (`docs/deck.md`), where tahta's published contract drives agent deck authoring over MCP. No code or contract changes.
 
