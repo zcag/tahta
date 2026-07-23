@@ -63,6 +63,21 @@ async function toSlides (input) {
   return slides
 }
 
+// A slide body is compiled as a Vue template, so a component tag in it must be
+// valid Vue — and an HTML attribute has NO backslash escapes: `:lines="[{c: 'a \"b\"'}]"`
+// ends the attribute at the first `\"`, and the whole BUILD fails (not just that
+// slide). Blank out fenced/inline code first — a code sample's `<tag>` and quotes
+// are text, not markup — keeping newlines so line numbers survive.
+const blankCode = (s) => s
+  .replace(/^(\s*)(```|~~~)[^\n]*\n[\s\S]*?^\s*\2[^\n]*$/gm, (m) => m.replace(/[^\n]/g, ' '))
+  .replace(/`[^`\n]*`/g, (m) => ' '.repeat(m.length))
+
+// Only the errors that mean "this really won't build/render". Everything else the
+// Vue parser reports on markdown (which it never sees raw — Slidev renders it to
+// HTML first) is noise, so it's ignored rather than guessed at.
+const VUE_FATAL = /Error parsing JavaScript expression/
+const VUE_BROKEN_ATTR = /Attribute name cannot contain U\+0022/
+
 // Lazy YAML loader for the strict duplicate-key check (yaml is an optional dep).
 let _yaml
 async function loadYaml () {
@@ -82,6 +97,7 @@ export async function lint (input, opts = {}) {
   const plain = (s) => String(s).replace(/<[^>]+>/g, '')
   let runLayout = null, runLen = 0
   const mermaidBlocks = [] // {i, code} — validated after the loop (lazy mermaid import)
+  const vueBodies = []     // {i, src} — validated after the loop (lazy @vue/compiler-dom import)
 
   slides.forEach(({ fm, body, raw, i }) => {
     // Duplicate frontmatter key: @slidev/parser silently keeps the last value, but
@@ -107,6 +123,11 @@ export async function lint (input, opts = {}) {
       const re = /```mermaid[^\n]*\n([\s\S]*?)```/g
       let mm
       while ((mm = re.exec(body))) { const code = mm[1].trim(); if (code) mermaidBlocks.push({ i, code }) }
+    }
+    // collect bodies carrying a component/HTML tag for the Vue template pre-check
+    if (typeof body === 'string' && /<[A-Za-z]/.test(body)) {
+      const src = blankCode(body)
+      if (/<[A-Za-z]/.test(src)) vueBodies.push({ i, src })
     }
     if (!fm || typeof fm !== 'object') return
     const id = fm.layout || 'default'
@@ -185,6 +206,29 @@ export async function lint (input, opts = {}) {
           if (/parse error|syntax|expecting|lexical|unrecognized|no diagram type/i.test(msg))
             add(i, 'error', `diagram: Mermaid syntax error — ${msg}`, 'mermaid')
         }
+      }
+    }
+  }
+
+  // Vue template pre-check: a component tag whose attribute holds a JS expression
+  // (<Terminal :lines="[…]">) is compiled by Vue, and a raw `"` inside that
+  // double-quoted attribute kills the whole `slidev build` — the deck then 502s at
+  // Present time with no hint of which slide did it. Catch it here instead. Lazy +
+  // optional, like the mermaid check: @vue/compiler-dom ships with slidev, so a bare
+  // `npx tahta-lint` without it just skips.
+  if (vueBodies.length) {
+    let vue
+    try { vue = await import('@vue/compiler-dom') } catch { vue = null }
+    if (vue) {
+      for (const { i, src } of vueBodies) {
+        const errs = []
+        // prefixIdentifiers makes it actually parse the JS in a binding — without it
+        // the expression is taken as an opaque string and the break goes unnoticed.
+        try { vue.parse(src, { prefixIdentifiers: true, onError: (e) => errs.push(e) }) } catch (e) { errs.push(e) }
+        const msgs = errs.map(e => String(e?.message || e))
+        const fatal = msgs.find(m => VUE_FATAL.test(m))
+        if (fatal) add(i, 'error', `broken Vue expression in a tag attribute — ${fatal.replace(/\s*\(\d+:\d+\)\s*$/, '')}; HTML attributes have no backslash escapes, so a \`\\"\` ends the attribute early. Use \`&quot;\` (or single quotes) inside a double-quoted attribute. This fails the whole deck build, not just this slide`, 'body')
+        else if (msgs.some(m => VUE_BROKEN_ATTR.test(m))) add(i, 'warn', 'a tag attribute contains a raw `"` — it ends the attribute early and the rest is parsed as junk attribute names; use `&quot;` or single quotes inside', 'body')
       }
     }
   }

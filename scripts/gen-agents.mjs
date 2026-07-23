@@ -63,6 +63,13 @@ ${m.layouts.map(l => `### \`${l.id}\`\n${l.useFor}\n\n${l.fields.map(fieldLine).
 ## Components
 Compose these inside \`default\` / \`statement\` / \`two-cols\` bodies to enrich any slide — not only when a layout lacks a field. A composed slide is how a deck earns its bespoke, high-richness moments; reach for them rather than filling another template.
 
+**Quoting a \`:prop="…"\` binding:** the value is an HTML attribute, and HTML has no backslash escapes — a \`\\"\` inside it ends the attribute early and fails the whole deck build, not just that slide. Keep the JS strings single-quoted, and write a literal double quote as \`&quot;\`:
+
+\`\`\`
+<Terminal :lines="[{cmd: &quot;awk -F'[][]' '{print $2}'&quot;}]" />   <!-- ✓ -->
+<Terminal :lines="[{cmd: 'awk -F\\"[][]\\"'}]" />                       <!-- ✗ breaks the build -->
+\`\`\`
+
 ${m.components.map(c => `- **\`<${c.name}>\`** — ${c.useFor} props: ${c.props.length ? c.props.map(p => `\`${p.name}\`${p.default ? ` (default ${p.default})` : ''}`).join(', ') : '—'}${c.example ? `\n  \`${c.example}\`` : ''}`).join('\n')}
 `
   return out

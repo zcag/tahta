@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Unit checks for the contract LOGIC — so a regression fails `npm test`, not just a render.
-// Covers: the pedagogy/density lint warnings, the Mermaid syntax pre-check, and lib/tex.mjs.
+// Covers: the pedagogy/density lint warnings, the Mermaid + Vue template pre-checks,
+// and lib/tex.mjs.
 import { lint } from '../packages/theme/lint.mjs'
 
 let fails = 0
@@ -32,6 +33,29 @@ const HEAD = '---\ntheme: slidev-theme-tahta\nthemeConfig: { variant: editorial 
   ok(bad.issues.some(i => i.level === 'error' && /Mermaid syntax/.test(i.message)), 'broken mermaid: lint error')
 }
 
+// ── Vue template pre-check ────────────────────────────────────────────────────
+// A raw `"` inside a double-quoted attribute holding a JS expression fails the
+// whole `slidev build`, so lint must catch it — and must NOT trip on code samples,
+// autolinks, or math, which look like markup but aren't.
+{
+  const body = (b) => `${HEAD}layout: default\ntitle: T\n---\n\n${b}`
+  const flagged = (r) => r.issues.filter(i => /Vue expression|raw `"`/.test(i.message))
+
+  const bad = await lint(body('<Terminal :lines="[{cmd: \'a \\"b\\" c\'}]" />\n'))
+  ok(bad.issues.some(i => i.level === 'error' && /broken Vue expression/.test(i.message)), 'escaped quote in a binding: lint error')
+  ok((await lint(body('<Callout tone="a "b" c">x</Callout>\n'))).issues.some(i => i.level === 'warn' && /raw `"`/.test(i.message)), 'raw quote in a plain attribute: lint warning')
+
+  const clean = {
+    'a valid multi-line component': '<Terminal title="t" :lines="[\n  {cmd: \'ls -la\'},\n  {out: \'files\'}\n]" />\n',
+    'a &quot;-escaped binding': '<Terminal :lines="[{cmd: &quot;awk -F\'x\' \'{print $2}\'&quot;}]" />\n',
+    'quotes + tags inside a code fence': '```bash\nawk -F"[][]" "{print \\$2}" f.log\n```\n\n```html\n<div class="a" onclick="f(\'x\\")">y</div>\n```\n',
+    'quotes inside inline code': 'use `<Foo bar="a \\"b\\"" />` inline\n',
+    'an autolink': 'see <https://example.com/a?b="c">\n',
+    'math and bare < in prose': '$$ \\frac{{a}}{b} < c $$\n\n5 < 6 and a<b\n',
+  }
+  for (const [what, b] of Object.entries(clean)) ok(!flagged(await lint(body(b))).length, `no false positive on ${what}`)
+}
+
 // ── lib/tex.mjs (skip gracefully if katex isn't installed) ────────────────────
 {
   let tex
@@ -47,4 +71,4 @@ const HEAD = '---\ntheme: slidev-theme-tahta\nthemeConfig: { variant: editorial 
 }
 
 if (fails) { console.error(`✗ contract checks — ${fails} failure(s)`); process.exit(1) }
-console.log('✓ contract checks: pedagogy lint, Mermaid pre-check, tex')
+console.log('✓ contract checks: pedagogy lint, Mermaid pre-check, Vue template pre-check, tex')

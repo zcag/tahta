@@ -691,6 +691,13 @@ sequenceDiagram
 ## Components
 Compose these inside `default` / `statement` / `two-cols` bodies to enrich any slide — not only when a layout lacks a field. A composed slide is how a deck earns its bespoke, high-richness moments; reach for them rather than filling another template.
 
+**Quoting a `:prop="…"` binding:** the value is an HTML attribute, and HTML has no backslash escapes — a `\"` inside it ends the attribute early and fails the whole deck build, not just that slide. Keep the JS strings single-quoted, and write a literal double quote as `&quot;`:
+
+```
+<Terminal :lines="[{cmd: &quot;awk -F'[][]' '{print $2}'&quot;}]" />   <!-- ✓ -->
+<Terminal :lines="[{cmd: 'awk -F\"[][]\"'}]" />                       <!-- ✗ breaks the build -->
+```
+
 - **`<Stat>`** — Big number + label (in default/statement bodies). props: `value`, `unit`, `label`, `size` (default xl), `icon`, `tone`, `accent` (default true)
   `<Stat value="80" unit="%" label="lower p95" tone="good" icon="lucide:trending-down" />`
 - **`<StatCard>`** — Stat in a card. props: `(same as Stat)` (default size=md, accent=false)
