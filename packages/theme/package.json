@@ -24,15 +24,15 @@
   "homepage": "https://github.com/zcag/tahta",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zcag/tahta",
+    "url": "git+https://github.com/zcag/tahta.git",
     "directory": "packages/theme"
   },
   "engines": {
     "slidev": ">=0.48.0"
   },
   "bin": {
-    "tahta-lint": "./lint.mjs",
-    "tahta-imagine": "./imagine.mjs"
+    "tahta-lint": "lint.mjs",
+    "tahta-imagine": "imagine.mjs"
   },
   "files": [
     "layouts",
