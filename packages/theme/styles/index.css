@@ -202,6 +202,7 @@
 .showcase.flip { grid-template-columns: 57% 43%; }
 .showcase-media { position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; }
 .showcase-media::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 160px rgba(0,0,0,0.45); }
+.showcase-media.contain::after { display: none; } /* fit: contain is content, not a hero photo: no vignette over the letterbox */
 .showcase-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
 
 /* ===== callout (tone via --tone) ===== */
@@ -245,6 +246,9 @@
 .slidev-layout tbody tr:last-child td { border-bottom: none; }
 
 /* ===== code ===== */
+/* Slidev keys its inline-code ground off html.dark, and colorSchema is "dark" for every variant,
+   so light variants got #1b1b1b behind --fg. Re-point its vars at ours (issue #2). */
+.slidev-layout { --slidev-code-background: var(--code-bg); --slidev-code-foreground: var(--fg); }
 .slidev-layout pre { background: var(--code-bg) !important; border: var(--rule-w) solid var(--line);
   border-radius: var(--radius-sm); padding: 1.1rem 1.3rem !important; font-size: 0.9rem; }
 
@@ -263,6 +267,7 @@
   --feather: 13%;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); mask-image: linear-gradient(to right, transparent 0, #000 var(--feather)); }
 .split.left .split-media { -webkit-mask-image: linear-gradient(to left, transparent 0, #000 var(--feather)); mask-image: linear-gradient(to left, transparent 0, #000 var(--feather)); }
+.split-media.contain { -webkit-mask-image: none; mask-image: none; } /* every edge must stay visible */
 .split-body { display: flex; flex-direction: column; justify-content: center; padding: var(--pad-y) var(--pad-x); }
 
 /* ===== bleed ===== */

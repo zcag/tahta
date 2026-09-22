@@ -13,7 +13,7 @@ const bg = computed(() => ({
 <template>
   <div :class="['slidev-layout', 'l-split', side === 'left' ? 'split left' : 'split']">
     <SlideBg />
-    <div v-if="side === 'left'" class="split-media" :style="bg" />
+    <div v-if="side === 'left'" :class="['split-media', fit]" :style="bg" />
     <div class="split-body">
       <Fit>
         <div>
@@ -23,7 +23,7 @@ const bg = computed(() => ({
         </div>
       </Fit>
     </div>
-    <div v-if="side !== 'left'" class="split-media" :style="bg" />
+    <div v-if="side !== 'left'" :class="['split-media', fit]" :style="bg" />
     <Foot />
   </div>
 </template>

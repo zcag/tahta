@@ -12,7 +12,7 @@ const bg = computed(() => ({
 <template>
   <div :class="['slidev-layout', 'l-split', side === 'left' ? 'showcase flip' : 'showcase']">
     <SlideBg />
-    <div v-if="side === 'left'" class="showcase-media" :style="bg" />
+    <div v-if="side === 'left'" :class="['showcase-media', fit]" :style="bg" />
     <div class="showcase-body">
       <Fit>
         <Reveal>
@@ -23,7 +23,7 @@ const bg = computed(() => ({
         </Reveal>
       </Fit>
     </div>
-    <div v-if="side !== 'left'" class="showcase-media" :style="bg" />
+    <div v-if="side !== 'left'" :class="['showcase-media', fit]" :style="bg" />
     <Foot />
   </div>
 </template>
