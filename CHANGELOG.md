@@ -2,6 +2,10 @@
 
 All notable changes to `slidev-theme-tahta`. Follows [semver](https://semver.org); the public contract is the `themeConfig` keys, the layouts/components in `layouts.json`, the variants in `variants.json`, and the semantic tokens in `tokens.json`.
 
+## 0.13.4
+- **Fix: inline code readable on light variants** ([#2](https://github.com/zcag/tahta/issues/2)). Slidev keys its inline-code ground off `html.dark`, and the theme pins `colorSchema: dark` for every variant, so `soft`/`minimal`/`paper` etc. rendered `` `code` `` as `#1b1b1b` behind dark `--fg`. The Slidev code vars now follow the variant (`--code-bg` / `--fg`), which also puts Slidev code-block chrome (tabs, titles) on the variant ground.
+- **`fit: contain` on `image` / `showcase`** ([#1](https://github.com/zcag/tahta/pull/1), thanks @remiconnesson). Photos still default to `cover`; `contain` keeps every edge of a screenshot or diagram visible, and no longer gets the `image` feather mask or the `showcase` vignette. `image` copy is wrapped in `<Fit>` so long text shrinks instead of running off the slide, and `<Figure>` stays inside the `diagram` stage (caption included).
+
 ## 0.13.3
 - **Vue template pre-check in `lint`.** A `\"` inside a double-quoted `:prop="…"` binding ends the HTML attribute early (attributes have no backslash escapes) and fails the **whole** `slidev build`, not just that slide — and lint reported the deck clean. Every slide body is now parsed with `@vue/compiler-dom` (lazy, optional — it ships with slidev), with fenced/inline code blanked out first so code samples, autolinks, and math never false-error. Broken expression → error; a raw `"` in a plain attribute → warning. The quoting rule is documented in the components section of `AGENTS.md`.
 
